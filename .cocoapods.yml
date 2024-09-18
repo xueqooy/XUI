@@ -1,0 +1,10 @@
+try:
+  meta: # try 的元数据
+    title: 'llp_ui_iOS Demos' # demo 的标题
+    summary: 'llp_ui_iOS 提供的示例代码与演示程序' # demo 的摘要信息
+    category: 'uncategorized' # 分类名，同一分类会被聚合成一个 section
+    dependency: # 依赖信息，当前无需使用
+    viewcontrollers: # 提供 demo 的 viewcontroller 列表
+      - 'FirstViewController'
+      - 'SecondViewController'
+  project: 'Demos/llp_ui_iOSDemo/llp_ui_iOSDemo.xcworkspace'
