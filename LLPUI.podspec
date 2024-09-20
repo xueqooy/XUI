@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.swift_versions = ['5.0']
 
-  s.source_files = "#{s.name}/src/CombineCocoa/**/*.{h,m}", "#{s.name}/src/**/*.{swift}"
+  s.source_files = "#{s.name}/src/**/*.{h,m,swift}"
   s.public_header_files = "#{s.name}/src/CombineCocoa/*.h"
 
   s.resource_bundles = {
