@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		00EB1CF63AF8AD4C261A6D42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5186A8C940C898E4F164A26E /* LaunchScreen.storyboard */; };
 		1D432B44A42A4B9D0F08029C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4948C3EED58E1152C187D75D /* main.m */; };
-		5472EACDD654E73FF9C82EB7 /* libPods-llp_ui_iOS-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA02397C7CD393F2C0B687F /* libPods-llp_ui_iOS-Demo.a */; };
+		4537C3046C4A804870B9FF3B /* Pods_llp_ui_iOS_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 726ADC58BD160575185ED993 /* Pods_llp_ui_iOS_Demo.framework */; };
 		91F6F4DB23D72E9E8AB53727 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F82C563766D6498424D214 /* AppDelegate.m */; };
 		B94FFF30F806A34FE53290F7 /* llp_ui_iOSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E231F502F4C102260E0CD6 /* llp_ui_iOSDemoViewController.m */; };
 		EBDEC87C056C60D049C6151D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C2C0FB90821AD8AF0315F9 /* Assets.xcassets */; };
@@ -21,12 +21,12 @@
 		45E231F502F4C102260E0CD6 /* llp_ui_iOSDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = llp_ui_iOSDemoViewController.m; sourceTree = "<group>"; };
 		4948C3EED58E1152C187D75D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C4AC47575040B36508ABF21 /* llp_ui_iOSDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llp_ui_iOSDemoViewController.h; sourceTree = "<group>"; };
+		726ADC58BD160575185ED993 /* Pods_llp_ui_iOS_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_llp_ui_iOS_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F82C563766D6498424D214 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7F11A3DBE97DBA6915FD86C5 /* llp_ui_iOS-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "llp_ui_iOS-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C2C0FB90821AD8AF0315F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B74E2C89464C11555522C57C /* Pods-llp_ui_iOS-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llp_ui_iOS-Demo.debug.xcconfig"; path = "Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		C55C0D0DD387F0AFC0364468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		DAA02397C7CD393F2C0B687F /* libPods-llp_ui_iOS-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-llp_ui_iOS-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8AE3AF2387A2D28E5B922E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5472EACDD654E73FF9C82EB7 /* libPods-llp_ui_iOS-Demo.a in Frameworks */,
+				4537C3046C4A804870B9FF3B /* Pods_llp_ui_iOS_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +87,7 @@
 		A8A82629E8C72F205D5EAAF2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DAA02397C7CD393F2C0B687F /* libPods-llp_ui_iOS-Demo.a */,
+				726ADC58BD160575185ED993 /* Pods_llp_ui_iOS_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,7 +111,7 @@
 				6364026FFC54E55B96C9C8D2 /* Sources */,
 				35E5301655C98ECFC4F1098A /* Resources */,
 				98C6CCFA3ADEF1C7813CBF81 /* Frameworks */,
-				A7B6F4F8447DD015A99ABDFD /* [CP] Copy Pods Resources */,
+				58ABE2BADBD6AEA65F76FCBF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -161,21 +161,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A7B6F4F8447DD015A99ABDFD /* [CP] Copy Pods Resources */ = {
+		58ABE2BADBD6AEA65F76FCBF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EFAB1A6D3FD18F1C17DCAA94 /* [CP] Check Pods Manifest.lock */ = {
@@ -233,6 +233,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "llp_ui_iOS-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -293,6 +294,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ld_classic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -356,6 +358,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ld_classic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -370,6 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "llp_ui_iOS-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

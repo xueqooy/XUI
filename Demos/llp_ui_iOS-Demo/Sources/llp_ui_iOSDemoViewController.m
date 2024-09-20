@@ -6,8 +6,6 @@
 //
 
 #import "llp_ui_iOSDemoViewController.h"
-#import <llp_ui_iOS/llp_ui_iOS.h>
-#import <Masonry/Masonry.h>
 
 @interface llp_ui_iOSDemoViewController ()
 
@@ -20,18 +18,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"Example";
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:@"跳转页面" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(goPage) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-    
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-    }];
 }
 
 - (void)goPage {
-    [self.navigationController pushViewController:[[llp_ui_iOSViewController alloc] init] animated:YES];
+//    [self.navigationController pushViewController:[[llp_ui_iOSViewController alloc] init] animated:YES];
 }
 
 @end

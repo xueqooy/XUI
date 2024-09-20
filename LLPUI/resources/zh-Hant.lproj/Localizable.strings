@@ -1,0 +1,36 @@
+/*
+  Localizable.strings
+  Pods
+
+  Created by xueqooy on 2023/8/5.
+  
+*/
+
+"Next" = "下一步";
+"Skip" = "跳過";
+"Step %1$d of %2$d" = "第%1$d步（共%2$d步）";
+"Done" = "完成";
+"Filter" = "過濾";
+"Sort by" = "排序";
+"PasswordStrength.Weak" = "弱";
+"PasswordStrength.Moderate" = "中等";
+"PasswordStrength.Strong" = "強";
+"Post" = "發佈";
+"%d attachments" = "%d個附件";
+"Attachment" = "附件";
+"Maximum number of attachments allowed has been reached" = "已達到允許的最大附件數";
+"Like" = "贊";
+"%d Likes" = "%d 贊";
+"Comment" = "評論";
+"%d Comments" = "%d 評論";
+"Reply" = "回復";
+"%d Replies" = "%d 回復";
+"Share" = "分享";
+"%1$d/%2$d charecters limit" = "%1$d/%2$d 字數限制";
+"Loading..." = "正在加載...";
+"View all (%d+)" = "查看全部（%d+）";
+"Clear" = "清除";
+"Apply" = "應用";
+"Search" = "搜尋";
+"Cancel" = "取消";
+"No results were found" = "未找到結果";

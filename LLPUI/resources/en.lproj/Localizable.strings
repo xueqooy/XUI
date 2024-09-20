@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  Pods
+
+  Created by xueqooy on 2023/8/5.
+  
+*/
+
+"Next" = "Next";
+"Skip" = "Skip";
+"Step %1$d of %2$d" = "Step %1$d of %2$d";
+"Done" = "Done";
+"Filter" = "Filter";
+"Sort by" = "Sort by";
+"PasswordStrength.Weak" = "Weak";
+"PasswordStrength.Moderate" = "Moderate";
+"PasswordStrength.Strong" = "Strong";
+"Post" = "Post";
+"%d attachments" = "%d attachments";
+"Attachment" = "Attachment";
+"Maximum number of attachments allowed has been reached" = "Maximum number of attachments allowed has been reached";
+"Like" = "Like";
+"%d Likes" = "%d Likes";
+"Comment" = "Comment";
+"%d Comments" = "%d Comments";
+"Reply" = "Reply";
+"%d Replies" = "%d Replies";
+"Share" = "Share";
+"%1$d/%2$d charecters limit" = "%1$d/%2$d charecters limit";
+"Loading..." = "Loading...";
+"View all (%d+)" = "View all (%d+)";
+"Clear" = "Clear";
+"Apply" = "Apply";
+"Search" = "Search";
+"Cancel" = "Cancel";
+"No results were found" = "No results were found";

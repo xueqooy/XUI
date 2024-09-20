@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		236E17DAFAB42ED9F6D32E6E /* llp_ui_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD4387B35DF8780D9A635B0 /* llp_ui_iOSTests.m */; };
 		23F77EFAA03C414A4012EED1 /* llp_ui_iOSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AA54B81726244AE06AAE22EE /* llp_ui_iOSViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28FA1C1860CE5FAE12F8B1BF /* llp_ui_iOSModel.h in Headers */ = {isa = PBXBuildFile; fileRef = B61CBBC33645F4C851E6C7DD /* llp_ui_iOSModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30AA938D921A29635411F2B6 /* llp_ui_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = A2E33E27E2751F525FBED0D4 /* llp_ui_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62A74281C2D2BD88626111D9 /* llp_ui_iOSHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D9DFF8030E277483DFA1DC29 /* llp_ui_iOSHelper.h */; };
 		73F215CD3DA934F764E596C2 /* llp_ui_iOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8831FC4C1309650F0DBCA356 /* llp_ui_iOSViewController.m */; };
 		8F469844517EDB264E3F9471 /* llp_ui_iOSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FB30853492B9819EAB8300 /* llp_ui_iOSHelper.m */; };
@@ -32,14 +31,13 @@
 /* Begin PBXFileReference section */
 		05AC3F8E0413E07479017FBA /* llp_ui_iOSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = llp_ui_iOSModel.m; sourceTree = "<group>"; };
 		4DD4387B35DF8780D9A635B0 /* llp_ui_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = llp_ui_iOSTests.m; sourceTree = "<group>"; };
-		7831695C132FB4F3A61C9E1A /* llp_ui_iOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = llp_ui_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7831695C132FB4F3A61C9E1A /* llp_ui_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = llp_ui_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8831FC4C1309650F0DBCA356 /* llp_ui_iOSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = llp_ui_iOSViewController.m; sourceTree = "<group>"; };
 		99624B26A5170F90D746D5A3 /* Pods-llp_ui_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llp_ui_iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-llp_ui_iOSTests/Pods-llp_ui_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A2E33E27E2751F525FBED0D4 /* llp_ui_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llp_ui_iOS.h; sourceTree = "<group>"; };
 		AA54B81726244AE06AAE22EE /* llp_ui_iOSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llp_ui_iOSViewController.h; sourceTree = "<group>"; };
 		B61CBBC33645F4C851E6C7DD /* llp_ui_iOSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llp_ui_iOSModel.h; sourceTree = "<group>"; };
 		CC226A303A0E3AE32679869D /* Pods-llp_ui_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llp_ui_iOSTests.release.xcconfig"; path = "Target Support Files/Pods-llp_ui_iOSTests/Pods-llp_ui_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		D5EA0A7D53ABDFF9FE81955A /* llp_ui_iOS.framework */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = llp_ui_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5EA0A7D53ABDFF9FE81955A /* llp_ui_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = llp_ui_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6FB30853492B9819EAB8300 /* llp_ui_iOSHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = llp_ui_iOSHelper.m; sourceTree = "<group>"; };
 		D9DFF8030E277483DFA1DC29 /* llp_ui_iOSHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llp_ui_iOSHelper.h; sourceTree = "<group>"; };
 		F9B314EB24374549F1E3442F /* libPods-llp_ui_iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-llp_ui_iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +62,6 @@
 				99624B26A5170F90D746D5A3 /* Pods-llp_ui_iOSTests.debug.xcconfig */,
 				CC226A303A0E3AE32679869D /* Pods-llp_ui_iOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -127,7 +124,6 @@
 		B87DA2F03CC131E7AFDDA93D /* llp_ui_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				A2E33E27E2751F525FBED0D4 /* llp_ui_iOS.h */,
 				8CCDF3E63366A408E56D0E97 /* include */,
 				62B0419E68146E636EC54AB4 /* src */,
 			);
@@ -141,7 +137,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30AA938D921A29635411F2B6 /* llp_ui_iOS.h in Headers */,
 				62A74281C2D2BD88626111D9 /* llp_ui_iOSHelper.h in Headers */,
 				28FA1C1860CE5FAE12F8B1BF /* llp_ui_iOSModel.h in Headers */,
 				23F77EFAA03C414A4012EED1 /* llp_ui_iOSViewController.h in Headers */,
@@ -192,8 +187,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 66A8D0710C614FCCCCCD1783 /* Build configuration list for PBXProject "llp_ui_iOS" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -345,6 +338,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,6 +357,7 @@
 			baseConfigurationReference = 99624B26A5170F90D746D5A3 /* Pods-llp_ui_iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,6 +382,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,6 +458,7 @@
 			baseConfigurationReference = CC226A303A0E3AE32679869D /* Pods-llp_ui_iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

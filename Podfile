@@ -1,13 +1,13 @@
 source 'ssh://git@cocoapods.sdp.nd:/cocoapods-precompiled/specs.git'
 source 'ssh://git@cocoapods.sdp.nd:/cocoapods/specs.git'
 
-platform :ios, '12.0'
+platform :ios, '13.0'
 
 project 'llp_ui_iOS'
 
 # SDK/组件使用的依赖（最后应该在podspec中体现）
 def dependency
-  pod 'SDWebImage' # 换成各自的 Pod 依赖
+  
 end
 
 # 仅在开发时使用的依赖（不应该加入到podspec），如单元测试框架等
