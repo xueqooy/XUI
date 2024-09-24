@@ -24,11 +24,11 @@ public class PasswordStrengthIndicatorView: UIView {
         var color: UIColor {
             switch self {
             case .weak:
-                return Colors.errorText
+                return Colors.red
             case .moderate:
-                return Colors.yellow
+                return Colors.orange
             case .strong:
-                return Colors.validText
+                return Colors.green
             }
         }
         
@@ -107,7 +107,7 @@ public class PasswordStrengthIndicatorView: UIView {
             if level.rawValue >= levelRawVaue {
                 view.backgroundColor = Level(rawValue: levelRawVaue)?.color
             } else {
-                view.backgroundColor = Colors.line
+                view.backgroundColor = Colors.line2
             }
         }
     }

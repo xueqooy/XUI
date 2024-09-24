@@ -78,7 +78,7 @@ public class MediaView: UIView {
         }
     }
     
-    public var backgroundConfiguration = BackgroundConfiguration(fillColor: .white, strokeColor: Colors.line, strokeWidth: 1, cornerStyle: .fixed(.LLPUI.smallCornerRadius)) {
+    public var backgroundConfiguration = BackgroundConfiguration(fillColor: .white, strokeColor: Colors.line2, strokeWidth: 1, cornerStyle: .fixed(.LLPUI.smallCornerRadius)) {
         didSet {
             guard oldValue != backgroundConfiguration else { return }
             
@@ -108,12 +108,12 @@ public class MediaView: UIView {
     
     private let networkPictureLoadingView = ActivityIndicatorView()
     
-    private let imageView = AnimatedImageView(contentMode: .scaleAspectFill, clipsToBounds: true, tintColor: Colors.vibrantTeal)
+    private let imageView = AnimatedImageView(contentMode: .scaleAspectFill, clipsToBounds: true, tintColor: Colors.teal)
         .settingSizeConstraint(CGSize.square(36))
     
-    private let primaryLabel = UILabel(textColor: Colors.title, font: Fonts.subtitle2)
+    private let primaryLabel = UILabel(textColor: Colors.title, font: Fonts.body2Bold)
     
-    private let secondaryLabel = UILabel(textColor: Colors.bodyText2, font: Fonts.body3)
+    private let secondaryLabel = UILabel(textColor: Colors.bodyText1, font: Fonts.body3)
     
     private let tapGestureRecognizer = HighlightableTapGestureRecognizer()
     

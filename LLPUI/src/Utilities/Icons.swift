@@ -25,11 +25,9 @@ public struct Icons {
     
     public static let toastError = LLPUIFramework.image(named: "toast.error")
 
-    public static let toastInfo = LLPUIFramework.image(named: "toast.info")
+    public static let toastNote = LLPUIFramework.image(named: "toast.note")
     
     public static let toastWarning = LLPUIFramework.image(named: "toast.warning")
-
-    public static let toastReminder = LLPUIFramework.image(named: "toast.reminder")
     
     public static let visibilityOff = LLPUIFramework.image(named: "visibility.off")
 
@@ -41,13 +39,9 @@ public struct Icons {
     
     public static let checkmarkThick = LLPUIFramework.image(named: "checkmark.thick")
     
-    public static let radioOn = generateFilledCircleImage(diameter: 20, color: Colors.vibrantTeal, strokeColor: .clear ,strokeWidth: 4)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+    public static let radioOn = generateFilledCircleImage(diameter: 20, color: Colors.teal, strokeColor: .clear ,strokeWidth: 4)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
     
     public static let search = LLPUIFramework.image(named: "search")
-    
-    public static let validationSuccess = LLPUIFramework.image(named: "validation.success")
-    
-    public static let validationError = LLPUIFramework.image(named: "validation.error")
     
     public static let alertCircle = LLPUIFramework.image(named: "alert.circle")
 
@@ -145,9 +139,9 @@ public struct Icons {
 
     public static let hudActivity = LLPUIFramework.image(named: "hud.activity")
 
-    public static let roundSquare = generateRectangleImage(size: .square(16), cornerRadius: 4, color: Colors.vibrantTeal)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+    public static let roundSquare = generateRectangleImage(size: .square(16), cornerRadius: 4, color: Colors.teal)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
     
-    public static let verticalBar = generateRectangleImage(size: CGSize(width: 4, height: 16), cornerRadius: 2, color: Colors.vibrantTeal)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+    public static let verticalBar = generateRectangleImage(size: CGSize(width: 4, height: 16), cornerRadius: 2, color: Colors.teal)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
         
     public static let progressThumb = generateImage(CGSize.square(16)) { size, context in
         context.setShadow(offset: .zero, blur: 3.0, color: Colors.shadow.cgColor)

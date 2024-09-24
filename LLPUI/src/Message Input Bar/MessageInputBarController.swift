@@ -141,7 +141,7 @@ public class MessageInputBarController {
     
     private func checkAttachmentQuantityLimit() -> Bool {
         guard self.attachmentManager.attachments.count < configuration.maximumNumberOfAttachments else {
-            self.presentingViewController?.showToast(style: .reminder, Strings.attachmentQuantityLimitReminder)
+            self.presentingViewController?.showToast(style: .note, Strings.attachmentQuantityLimitReminder)
             return false
         }
         

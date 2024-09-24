@@ -10,13 +10,14 @@ import UIKit
 public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTransformer {
 
     struct Constants {
-        static let normalFont = Fonts.button1
-        static let smallFont = Fonts.button2
+        static let largeFont = Fonts.button1
+        static let mediumFont = Fonts.button2
+        static let smallFont = Fonts.button3
         static let largeImagePadding: CGFloat = 16
         static let mediumImagePadding: CGFloat = 10
         static let smallImagePadding: CGFloat = 4
-        static let normalContentInsets: Insets = .directional(top: 10, leading: 80, bottom: 10, trailing: 80)
-        static let smallContentInsets: Insets = .directional(top: 8, leading: 40, bottom: 8, trailing: 40)
+        static let normalContentInsets: Insets = .directional(top: 12, leading: 80, bottom: 12, trailing: 80)
+        static let smallContentInsets: Insets = .directional(top: 4, leading: 32, bottom: 4, trailing: 32)
     }
     
     public enum Style: CaseIterable {
@@ -44,10 +45,10 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         bg.cornerStyle = .capsule
         
         var conf = ButtonConfiguration()
-        conf.titleFont = Constants.normalFont
+        conf.titleFont = Constants.largeFont
         conf.imagePadding = Constants.largeImagePadding
         conf.contentInsets = Constants.normalContentInsets
-        conf.indicatorSize = CGSize.square(Constants.normalFont.lineHeight)
+        conf.indicatorSize = CGSize.square(Constants.largeFont.lineHeight)
         conf.background =  bg
         
         return conf
@@ -55,7 +56,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     static let primarySmallConfiguration: ButtonConfiguration = {
         var bg = BackgroundConfiguration.clear()
-        bg.cornerStyle = .capsule
+        bg.cornerStyle = .fixed(8)
         
         var conf = ButtonConfiguration()
         conf.titleFont = Constants.smallFont
@@ -73,10 +74,10 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         bg.cornerStyle = .capsule
         
         var conf = ButtonConfiguration()
-        conf.titleFont = Constants.normalFont
+        conf.titleFont = Constants.largeFont
         conf.imagePadding = Constants.largeImagePadding
         conf.contentInsets = Constants.normalContentInsets
-        conf.indicatorSize = CGSize.square(Constants.normalFont.lineHeight)
+        conf.indicatorSize = CGSize.square(Constants.largeFont.lineHeight)
         conf.background =  bg
         
         return conf
@@ -85,7 +86,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     static let secondarySmallConfiguration: ButtonConfiguration = {
         var bg = BackgroundConfiguration.clear()
         bg.strokeWidth = 1
-        bg.cornerStyle = .capsule
+        bg.cornerStyle = .fixed(8)
         
         var conf = ButtonConfiguration()
         conf.titleFont = Constants.smallFont
@@ -101,9 +102,9 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         var bg = BackgroundConfiguration.clear()
 
         var conf = ButtonConfiguration()
-        conf.titleFont = Constants.normalFont
+        conf.titleFont = Constants.mediumFont
         conf.imagePadding = Constants.smallImagePadding
-        conf.indicatorSize = CGSize.square(Constants.normalFont.lineHeight)
+        conf.indicatorSize = CGSize.square(Constants.mediumFont.lineHeight)
         conf.background =  bg
         
         return conf
@@ -123,7 +124,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     private var isDarkMainColor: Bool = false
     
-    public init(style: Style, mainColor: UIColor = Colors.vibrantTeal, alternativeBackgroundColor: UIColor = .clear, contentInsetsMode: ContentInsetsMode = .default) {
+    public init(style: Style, mainColor: UIColor = Colors.teal, alternativeBackgroundColor: UIColor = .clear, contentInsetsMode: ContentInsetsMode = .default) {
         self.style = style
         self.mainColor = mainColor
         self.alternativeBackgroundColor = alternativeBackgroundColor

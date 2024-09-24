@@ -90,7 +90,7 @@ public class PageControl: UIControl {
         }
     }
 
-    public var color: UIColor =  Colors.vibrantTeal {
+    public var color: UIColor =  Colors.teal {
         didSet {
             if oldValue == color {
                 return

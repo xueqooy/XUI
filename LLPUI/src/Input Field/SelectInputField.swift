@@ -122,7 +122,7 @@ public class SelectInputField: InputField {
     public override func stateDidChange() {
         super.stateDidChange()
         
-        imageView.tintColor = fieldState == .disabled ? Colors.disableText : Colors.vibrantTeal
+        imageView.tintColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
     }
     
     private func initialize() {

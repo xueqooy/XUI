@@ -38,10 +38,10 @@ import LLPUtils
 public class ToastView: UIView, Configurable {
     
     private struct Constants {
-        static let horizontalSpacing: CGFloat = .LLPUI.spacing4
-        static let verticalSpacing: CGFloat = .LLPUI.spacing1
+        static let horizontalSpacing: CGFloat = .LLPUI.spacing2
+        static let verticalSpacing: CGFloat = .LLPUI.spacing2
 
-        static let contentInset = UIEdgeInsets(top: .LLPUI.spacing2, left: .LLPUI.spacing4, bottom: .LLPUI.spacing2, right: .LLPUI.spacing4)
+        static let contentInset = UIEdgeInsets(top: .LLPUI.spacing4, left: .LLPUI.spacing4, bottom: .LLPUI.spacing4, right: .LLPUI.spacing4)
         static let contentInsetWhenDisplayingActionButton = UIEdgeInsets(top: .LLPUI.spacing2, left: .LLPUI.spacing4, bottom: .LLPUI.spacing4, right: .LLPUI.spacing4)
         static let presentationOffset: CGFloat = 20
         
@@ -53,50 +53,61 @@ public class ToastView: UIView, Configurable {
     public enum Style {
         case success
         case error
-        case info
+        case note
         case warning
-        case reminder
         
         var backgroundColor: UIColor {
             switch self {
             case .success:
-                return Colors.title
+                Colors.lightGreen
             case .error:
-                return Colors.lightRed
-            case .info:
-                return Colors.blue
+                Colors.lightRed
+            case .note:
+                Colors.extraLightTeal
             case .warning:
-                return Colors.yellowOrange
-            case .reminder:
-                return Colors.lightTeal
+                Colors.lightOrange
             }
         }
         
         var foregroundColor: UIColor {
             switch self {
-            case .reminder:
-                return Colors.title
-            default:
-                return .white
+            case .success:
+                Colors.green
+            case .error:
+                Colors.red
+            case .note:
+                Colors.teal
+            case .warning:
+                Colors.orange
             }
-        }
-        
-        var cornerRadius: CGFloat {
-            .LLPUI.smallCornerRadius
         }
         
         var image: UIImage {
             switch self {
             case .success:
-                return Icons.toastSuccess
+                Icons.toastSuccess
             case .error:
-                return Icons.toastError
-            case .info:
-                return Icons.toastInfo
+                Icons.toastError
+            case .note:
+                Icons.toastNote
             case .warning:
-                return Icons.toastWarning
-            case .reminder:
-                return Icons.toastReminder
+                Icons.toastWarning
+            }
+        }
+        
+        var prefixText: String {
+            switch self {
+            case .success:
+                Strings.success
+                
+            case .error:
+                Strings.error
+                
+            case .note:
+                Strings.note
+                
+            case .warning:
+                Strings.warning
             }
         }
         
@@ -106,12 +117,10 @@ public class ToastView: UIView, Configurable {
                 return .success
             case .error:
                 return .error
-            case .info:
+            case .note:
                 return nil
             case .warning:
                 return .warning
-            case .reminder:
-                return nil
             }
         }
     }
@@ -183,7 +192,7 @@ public class ToastView: UIView, Configurable {
     
     private let VContainer = VStackView(spacing: .LLPUI.spacing2, layoutMargins: Constants.contentInset)
     
-    private let HContainer = HStackView(distribution: .fill, alignment: .center, spacing: Constants.horizontalSpacing)
+    private let HContainer = HStackView(distribution: .fill, alignment: .top, spacing: Constants.horizontalSpacing)
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -194,11 +203,13 @@ public class ToastView: UIView, Configurable {
     }()
     
     private let messageLabel: UILabel = {
-        let messageLabel = UILabel()
+        let messageLabel = InsetLabel()
+        messageLabel.inset = .nondirectional(top: 1, left: 0, bottom: 0, right: 0)
         if #available(iOS 14, *) {
             messageLabel.lineBreakStrategy = []
         }
-        messageLabel.font = Fonts.body2
+        messageLabel.font = Fonts.body4
+        messageLabel.textColor = Colors.title
         messageLabel.numberOfLines = 0
         messageLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         messageLabel.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -501,14 +512,17 @@ public class ToastView: UIView, Configurable {
         
         let foregroundColor = style.foregroundColor
         imageView.tintColor = foregroundColor
-        messageLabel.textColor = foregroundColor
     
+        var fullMessageText: RichText = "\(style.prefixText + ": ", .foreground(style.foregroundColor), .font(Fonts.body4Bold))"
+        
         if let richMessage = richMessage {
-            messageLabel.richText = richMessage
-            messageLabel.isUserInteractionEnabled = true
+            fullMessageText = fullMessageText + richMessage
+            
         } else {
-            messageLabel.text = message
+            fullMessageText = fullMessageText + message
         }
+        
+        messageLabel.richText = fullMessageText
         
         if shouldShowActionButton {
             actionContainerView.isHidden = false
@@ -520,7 +534,7 @@ public class ToastView: UIView, Configurable {
         
         VContainer.layoutMargins = effectiveContentInset
         
-        backgroundView.configuration = .overlay(color: style.backgroundColor, cornerStyle: .fixed(.LLPUI.smallCornerRadius))
+        backgroundView.configuration = .init(fillColor: style.backgroundColor, cornerStyle: .fixed(.LLPUI.smallCornerRadius)) 
         
         invalidateIntrinsicContentSize()
     }

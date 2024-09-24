@@ -42,7 +42,7 @@ class ViewAllEntitiesCell: UICollectionViewCell, ListCellSizeProviding, ListBind
         
         height = viewModel.height
         
-        textLabel.richText = RTText( Strings.viewAll(viewModel.additionalCount), .foreground(Colors.vibrantTeal), .font(Fonts.button3), .underline(.single))
+        textLabel.richText = RTText( Strings.viewAll(viewModel.additionalCount), .foreground(Colors.teal), .font(Fonts.button3), .underline(.single))
     }
     
     var cellSize: CGSize {

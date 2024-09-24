@@ -62,7 +62,7 @@ class BarChartDataEntryView: UIView, UIGestureRecognizerDelegate {
     
     private let layoutContext: BarChartLayoutContext
     
-    private let barLabel = UILabel(textColor: Colors.title, font: Fonts.subtitle2, textAlignment: .center, numberOfLines: 0)
+    private let barLabel = UILabel(textColor: Colors.title, font: Fonts.body2Bold, textAlignment: .center, numberOfLines: 0)
         .settingContentCompressionResistancePriority(.fittingSizeLevel)
 
     private let valueLabel = UILabel(textColor: Colors.title, font: Fonts.caption, textAlignment: .center, numberOfLines: 0)

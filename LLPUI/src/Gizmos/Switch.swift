@@ -25,6 +25,8 @@ open class Switch: UISwitch {
     }
     
     private func initialize() {
-        onTintColor = Colors.vibrantTeal
+        onTintColor = Colors.green
+        
+        subviews.first?.subviews.first?.backgroundColor = Colors.disabledText
     }
 }

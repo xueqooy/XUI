@@ -29,25 +29,25 @@ class CodeItemView: UIView {
             case .normal(let result):
                 configuration.strokeColor = switch result {
                 case .none:
-                    Colors.line
+                    Colors.line2
                     
                 case .error:
-                    Colors.errorText
+                    Colors.red
                     
                 case .success:
-                    Colors.validText
+                    Colors.green
                 }
                 
             case .filled(let result):
                 configuration.strokeColor = switch result {
                 case .none:
-                    Colors.vibrantTeal
+                    Colors.teal
                     
                 case .error:
-                    Colors.errorText
+                    Colors.red
                     
                 case .success:
-                    Colors.validText
+                    Colors.green
                 }
                 
                 configuration.fillColor = switch result {
@@ -58,32 +58,32 @@ class CodeItemView: UIView {
                     Colors.lightRed.withAlphaComponent(0.05)
                     
                 case .success:
-                    Colors.validText.withAlphaComponent(0.05)
+                    Colors.green.withAlphaComponent(0.05)
                 }
                 
             case .focused(let result):
                 configuration.strokeColor = switch result {
                 case .none:
-                    Colors.vibrantTeal
+                    Colors.teal
                     
                 case .error:
-                    Colors.errorText
+                    Colors.red
                     
                 case .success:
-                    Colors.validText
+                    Colors.green
                 }
             case .disabled(let result):
                 configuration.strokeColor = switch result {
                 case .none:
-                    Colors.line
+                    Colors.line2
                     
                 case .error:
-                    Colors.errorText
+                    Colors.red
                     
                 case .success:
-                    Colors.validText
+                    Colors.green
                 }
-                configuration.fillColor = Colors.background
+                configuration.fillColor = Colors.background1
             }
             return configuration
         }
@@ -123,7 +123,7 @@ class CodeItemView: UIView {
     
     private lazy var backgroundView = BackgroundView(configuration: state.backgroundConfiguration)
     
-    private let characterLabel = UILabel(textColor: Colors.title, font: Fonts.h2, textAlignment: .center)
+    private let characterLabel = UILabel(textColor: Colors.title, font: Fonts.h6, textAlignment: .center)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

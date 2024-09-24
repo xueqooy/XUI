@@ -121,8 +121,8 @@ public class RangeSlider: UIControl {
     
     private let layerLayoutGuide = UILayoutGuide()
     
-    private let lowerTextLabel = UILabel(textColor: Colors.vibrantTeal, font: Fonts.body2)
-    private let upperTextLabel = UILabel(textColor: Colors.vibrantTeal, font: Fonts.body2)
+    private let lowerTextLabel = UILabel(textColor: Colors.teal, font: Fonts.body2)
+    private let upperTextLabel = UILabel(textColor: Colors.teal, font: Fonts.body2)
     
     private var isAdjustingValues: Bool = false
         

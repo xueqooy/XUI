@@ -73,7 +73,7 @@ class ListSectionConnectionDecorationView: UICollectionReusableView {
     
         context.setLineWidth(lineWidth)
         context.setLineJoin(.round)
-        context.setStrokeColor(Colors.line.cgColor)
+        context.setStrokeColor(Colors.line2.cgColor)
         
         context.strokePath()
     }

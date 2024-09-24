@@ -19,7 +19,7 @@ class RangeSliderTrackLayer: RangeSliderLayer {
         
     private let selectedRangeLayer = {
         let layer = RangeSliderLayer()
-        layer.backgroundColor = Colors.vibrantTeal.cgColor
+        layer.backgroundColor = Colors.teal.cgColor
         return layer
     }()
     
@@ -57,7 +57,7 @@ class RangeSliderTrackLayer: RangeSliderLayer {
         ctx.addPath(trackPath)
         
         // Fill the track
-        ctx.setFillColor(Colors.line.cgColor)
+        ctx.setFillColor(Colors.line2.cgColor)
         ctx.addPath(trackPath)
         ctx.fillPath()
     }

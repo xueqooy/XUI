@@ -57,7 +57,7 @@ public class ActionSheet {
         formView.populate {
             if let title = title {
                 FormRow(
-                    UILabel(text: title, textColor: Colors.title, font: Fonts.title1),
+                    UILabel(text: title, textColor: Colors.title, font: Fonts.body1Bold),
                     alignment: .center
                 )
                 .settingCustomSpacingAfter(.LLPUI.spacing6)
@@ -92,8 +92,8 @@ public class ActionSheet {
                         UILabel(
                             text: text,
                             richText: richText,
-                            textColor: Colors.bodyText2,
-                            font: Fonts.subtitle1
+                            textColor: Colors.bodyText1,
+                            font: Fonts.body1Bold
                         )
                     )
                     

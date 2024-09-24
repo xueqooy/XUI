@@ -53,7 +53,7 @@ class BarChartLegendGroupView: UIView {
         
         layer.cornerRadius = 4
         layer.borderWidth = 1
-        layer.borderColor = Colors.line.cgColor
+        layer.borderColor = Colors.line2.cgColor
     }
     
     required init?(coder: NSCoder) {

@@ -1,6 +1,6 @@
 //
 //  OptionControl.swift
-//  AOMUtils
+//  LLPUtils
 //
 //  Created by xueqooy on 2023/3/8.
 //
@@ -124,13 +124,13 @@ public class OptionControl: UIControl {
     
     private let horizontalStackView = HStackView()
     
-    private lazy var imageView = UIImageView(tintColor: Colors.vibrantTeal)
+    private lazy var imageView = UIImageView(tintColor: Colors.teal)
         .settingContentCompressionResistanceAndHuggingPriority(.required, for: .horizontal)
     
     private(set) lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.textColor = Colors.title
-        label.font = Fonts.body1
+        label.textColor = Colors.bodyText1
+        label.font = Fonts.caption
         label.numberOfLines = 0
 //        // After testing, on iOS13, the label may be compressed horizontally, but not on iOS16. Add this line of code to fix the issue on iOS13 (it is uncertain which version will no longer need to do this)
 //        label.settingContentCompressionResistanceAndHuggingPriority(.required, for: .horizontal)
@@ -188,7 +188,7 @@ public class OptionControl: UIControl {
     }
     
     private func initialize() {
-        tintColor = Colors.vibrantTeal
+        tintColor = style == .switch ? Colors.green : Colors.teal
         
         addSubview(horizontalStackView)
         horizontalStackView.snp.makeConstraints { make in

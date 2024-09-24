@@ -34,3 +34,7 @@
 "Search" = "Search";
 "Cancel" = "Cancel";
 "No results were found" = "No results were found";
+"Success" = "Success";
+"Note" = "Note";
+"Warning" = "Warning";
+"Error" = "Error";

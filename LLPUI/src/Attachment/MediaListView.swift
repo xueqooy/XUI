@@ -57,7 +57,7 @@ public class MediaListView: UIView {
     
     public var tapAction: ((MediaListView, Int) -> Void)?
         
-    private let titleLabel = UILabel(textColor: Colors.title, font: Fonts.title1)
+    private let titleLabel = UILabel(textColor: Colors.title, font: Fonts.body1Bold)
     private lazy var titleRow: FormRow = {
         let row = FormRow(titleLabel, alignment: .center)
         row.customSpacingAfter = .LLPUI.spacing7

@@ -42,14 +42,14 @@ class CancellableEntityBadgeCell<View: BindingView>: EntityBadgeCell<View>, Enti
     
     var cancelHandler: (() -> Void)?
     
-    private lazy var cancelButton = Button(image: Icons.cancel, imageSize: .square(14), foregroundColor: Colors.vibrantTeal) { [weak self] _ in
+    private lazy var cancelButton = Button(image: Icons.cancel, imageSize: .square(14), foregroundColor: Colors.teal) { [weak self] _ in
         self?.cancelHandler?()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundView = BackgroundView(configuration: .init(fillColor: Colors.lightTeal, cornerStyle: .capsule))
+        backgroundView = BackgroundView(configuration: .init(fillColor: Colors.extraLightTeal, cornerStyle: .capsule))
 
         contentView.addSubview(cancelButton)
         cancelButton.snp.makeConstraints { make in

@@ -15,39 +15,48 @@ class FieldValidationController {
                 return
             }
                         
-            var shouldShowResultView: Bool = false
+            var shouldShowResultLabel: Bool = false
             var shouldShowIndicatorView: Bool = false
+            var resultText: String?
+            var resultColor: UIColor?
             
             switch state {
             case .success(let text):
-                shouldShowResultView = text != nil
+                resultText = text
+                resultColor = Colors.green
+
+                shouldShowResultLabel = text != nil
                 shouldShowIndicatorView = false
                 
             case .error(let text):
-                shouldShowResultView = text != nil
+                resultText = text
+                resultColor = Colors.red
+                
+                shouldShowResultLabel = text != nil
                 shouldShowIndicatorView = false
         
             case .validating:
                 shouldShowIndicatorView = field.canShowDefaultValidationIndicator
-                shouldShowResultView = false
+                shouldShowResultLabel = false
         
             case .none:
                 shouldShowIndicatorView = false
-                shouldShowResultView = false
+                shouldShowResultLabel = false
             }
             
             // Add or remove result view
-            if shouldShowResultView {
+            if shouldShowResultLabel {
                 if !didAddResultView {
-                    field.verticalStackView.addArrangedSubview(validationResultView)
+                    field.verticalStackView.addArrangedSubview(validationResultLabel)
                     
                     didAddResultView = true
                 }
                 
-                validationResultView.state = state
+                validationResultLabel.textColor = resultColor
+                validationResultLabel.text = resultText
                 
             } else if didAddResultView {
-                validationResultView.removeFromSuperview()
+                validationResultLabel.removeFromSuperview()
                 
                 didAddResultView = false
             }
@@ -82,7 +91,7 @@ class FieldValidationController {
         return indicator
     }()
         
-    private lazy var validationResultView = FieldValidationResultView()
+    private lazy var validationResultLabel = UILabel(font: Fonts.body4, numberOfLines: 0)
         
     private var didAddIndicatorView: Bool = false
     private var didAddResultView: Bool = false

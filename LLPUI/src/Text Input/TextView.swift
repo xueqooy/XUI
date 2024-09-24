@@ -79,7 +79,7 @@ open class TextView: UITextView {
         scrollsToTop = false
         
         textStyleConfiguration = .textInput
-        tintColor = Colors.vibrantTeal
+        tintColor = Colors.teal
         backgroundColor = .clear
         
         // Removed the text margins

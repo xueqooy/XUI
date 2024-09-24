@@ -15,7 +15,7 @@ public class HSeparatorView: SeparatorView {
         }
     }
     
-    public init(color: UIColor? = Colors.line, thickness: CGFloat = 1, leadingPadding: CGFloat = 0, trailingPadding: CGFloat = 0) {
+    public init(color: UIColor? = Colors.line2, thickness: CGFloat = 1, leadingPadding: CGFloat = 0, trailingPadding: CGFloat = 0) {
         super.init(color: color, thickness: thickness, orientation: .horizontal, leadingPadding: leadingPadding, trailingPadding: trailingPadding)
     }
     

@@ -1,6 +1,9 @@
 source 'ssh://git@cocoapods.sdp.nd:/cocoapods-precompiled/specs.git'
 source 'ssh://git@cocoapods.sdp.nd:/cocoapods/specs.git'
 
+# 官方源
+source 'https://cdn.cocoapods.org/'
+
 platform :ios, '13.0'
 
 target 'llp_ui_iOS-Demo' do
@@ -11,5 +14,8 @@ target 'llp_ui_iOS-Demo' do
     pod 'LLPUI', :path => podspec_path.to_s
     
     pod 'LLPUtils', :git => 'git@git.sdp.nd:component-ios/llp_utils_iOS.git', :branch => 'develop'
+    
+    pod 'LookinServer', :configurations => ['Debug']
+
     
 end

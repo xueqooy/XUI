@@ -130,7 +130,7 @@ open class LinkedLabel: InsetLabel {
             .underlineStyle : NSUnderlineStyle.single.rawValue,
             .font : linkFont
         ]
-        attributes[.foregroundColor] = Colors.vibrantTeal.withAlphaComponent(isHighlighted ? Constants.highlightedAlpha : 1.0)
+        attributes[.foregroundColor] = Colors.teal.withAlphaComponent(isHighlighted ? Constants.highlightedAlpha : 1.0)
 
         attributedText.addAttributes(attributes, range: range)
         self.attributedText = attributedText

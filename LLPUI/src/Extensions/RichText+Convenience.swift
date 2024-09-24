@@ -13,7 +13,7 @@ public extension RichText {
     static func titleAndDetail(_ title: String, _ detailText: String) -> RichText {
         RTText(title, .foreground(Colors.title), .font(Fonts.body1)) +
         RTLineBreak() +
-        RTText(detailText, .foreground(Colors.bodyText2), .font(Fonts.body2))
+        RTText(detailText, .foreground(Colors.bodyText1), .font(Fonts.body2))
     }
     
     /** 
@@ -32,7 +32,7 @@ public extension RichText {
         tokenToActionMap.forEach { (token, action) in
             // Match text between token
             result
-                .addStyles(.foreground(Colors.vibrantTeal), .underline(.single), .action(action), checkings: [.regex("\(token)(.*?)\(token)")])
+                .addStyles(.foreground(Colors.teal), .underline(.single), .action(action), checkings: [.regex("\(token)(.*?)\(token)")])
             
             // Remove token
             result

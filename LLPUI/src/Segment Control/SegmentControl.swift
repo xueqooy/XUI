@@ -294,7 +294,7 @@ extension SegmentControl.Style {
         case .toggle:
             var configuration = BackgroundConfiguration()
             configuration.fillColor = .white
-            configuration.strokeColor = Colors.line
+            configuration.strokeColor = Colors.line2
             configuration.strokeWidth = 1
             configuration.cornerStyle = .fixed(8)
             return configuration
@@ -348,7 +348,7 @@ extension SegmentControl.Style {
     func textColor(forSelected isSelected: Bool) -> UIColor {
         switch self {
         case .firstLevel:
-            return isSelected ? Colors.vibrantTeal : Colors.title
+            return isSelected ? Colors.teal : Colors.title
         case .secondLevel:
             return isSelected ? .white : Colors.title
         case .toggle:
@@ -379,7 +379,7 @@ extension SegmentControl.Style {
     }
     
     var sliderColor: UIColor {
-        Colors.vibrantTeal
+        Colors.teal
     }
     
     var sliderCornerStyle: CornerStyle {

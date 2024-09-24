@@ -21,7 +21,7 @@ open class ResizingHandleView: UIView {
         let markLayer = CALayer()
         markLayer.bounds.size = Constants.markSize
         markLayer.cornerRadius = Constants.markCornerRadius
-        markLayer.backgroundColor = Colors.line.cgColor
+        markLayer.backgroundColor = Colors.line2.cgColor
         return markLayer
     }()
 

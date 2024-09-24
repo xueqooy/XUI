@@ -19,7 +19,7 @@ class DropdownMenuCell: UICollectionViewCell {
     
     private var cancellables = Set<AnyCancellable>()
     
-    private let highlightedView = BackgroundView(configuration: .init(fillColor: Colors.background))
+    private let highlightedView = BackgroundView(configuration: .init(fillColor: Colors.background1))
         .settingHidden(true)
     
     override var isHighlighted: Bool {
@@ -73,7 +73,7 @@ class DropdownMenuCell: UICollectionViewCell {
 
                 switch $0 {
                 case .on:
-                    self.titleLabel.textColor = Colors.vibrantTeal
+                    self.titleLabel.textColor = Colors.teal
                     
                 case .off:
                     self.titleLabel.textColor = Colors.title

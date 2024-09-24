@@ -25,6 +25,6 @@ public class RefreshControl: UIRefreshControl {
     }
     
     private func initialize() {
-        tintColor = Colors.vibrantTeal
+        tintColor = Colors.teal
     }
 }

@@ -144,9 +144,9 @@ public class MessageInputBar: UIView {
 
     private lazy var sendButton: Button = {
         var configuration = ButtonConfiguration()
-        configuration.foregroundColor = Colors.vibrantTeal
+        configuration.foregroundColor = Colors.teal
         configuration.title = sendButtonTitle
-        configuration.titleFont = Fonts.title1
+        configuration.titleFont = Fonts.body1Bold
         
         let button = Button(configuration: configuration) { [weak self] in
             guard let self = self, let sendAction = sendAction, let output = pendingOutput else { return }

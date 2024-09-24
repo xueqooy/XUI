@@ -83,7 +83,7 @@ public class SteppedProgressView: UIView {
     private func createStepLabel(_ number: Int) -> UILabel {
         let label = UILabel()
         label.textColor = .white
-        label.font = Fonts.title1
+        label.font = Fonts.body1Bold
         label.textAlignment = .center
         label.text = "\(number)"
         label.layer.cornerRadius = Constants.stepLabelSize.height * 0.5
@@ -135,7 +135,7 @@ public class SteppedProgressView: UIView {
         let highlightedViewCount = currentStep * 2 + 1
         
         for (index, view) in views.enumerated() {
-            view.backgroundColor = index < highlightedViewCount ? Colors.vibrantTeal : .init(colorValue: .with8Bit(r: 210, g: 215, b: 224, a: 1))
+            view.backgroundColor = index < highlightedViewCount ? Colors.teal : .init(colorValue: .with8Bit(r: 210, g: 215, b: 224, a: 1))
 
         }
     }

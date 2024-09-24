@@ -75,19 +75,19 @@ public class TimePickerField: Field {
                 hourField.validationState = .success()
                 minuteField.validationState = .success()
                 
-                periodControl.backgroundView.configuration.strokeColor = Colors.validText
+                periodControl.backgroundView.configuration.strokeColor = Colors.green
                 
             case .error(_):
                 hourField.validationState = .error()
                 minuteField.validationState = .error()
                 
-                periodControl.backgroundView.configuration.strokeColor = Colors.errorText
+                periodControl.backgroundView.configuration.strokeColor = Colors.red
                 
             default:
                 hourField.validationState = .none
                 minuteField.validationState = .none
                 
-                periodControl.backgroundView.configuration.strokeColor = Colors.line
+                periodControl.backgroundView.configuration.strokeColor = Colors.line2
             }
         }
     }
@@ -124,7 +124,7 @@ public class TimePickerField: Field {
     }
     
     public override func makeContentView() -> UIView {
-        let colonLabel = UILabel(text: ":", textColor: Colors.title, font: Fonts.subtitle1)
+        let colonLabel = UILabel(text: ":", textColor: Colors.title, font: Fonts.body1Bold)
             .settingContentCompressionResistanceAndHuggingPriority(.required)
         
         return HStackView {

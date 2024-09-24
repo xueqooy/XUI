@@ -29,7 +29,7 @@ class RangeSliderThumbLayer: RangeSliderLayer {
         let cornerRadius = bounds.height / 2
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         
-        ctx.setFillColor(Colors.vibrantTeal.cgColor)
+        ctx.setFillColor(Colors.teal.cgColor)
         ctx.addPath(path)
         ctx.fillPath()
     }

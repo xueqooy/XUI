@@ -36,7 +36,7 @@ public class DatePicker: ContentPresenter {
         formView.contentInset = .nondirectional(top: (title ?? "").isEmpty ? .LLPUI.spacing5 : 0, left: 0, bottom: presentationStyle == .popup ? .LLPUI.spacing5 : 0, right: 0)
         formView.populate {
             if let title, !title.isEmpty {
-                FormRow(UILabel(text: title, textStyleConfiguration: .init(textColor: Colors.title, font: Fonts.title1, textAlignment: .center)))
+                FormRow(UILabel(text: title, textStyleConfiguration: .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center)))
                     .settingCustomSpacingAfter(.LLPUI.spacing10)
             }
             

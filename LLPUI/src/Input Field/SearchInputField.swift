@@ -88,7 +88,7 @@ public class SearchInputField: InputField {
     public override func stateDidChange() {
         super.stateDidChange()
         
-        button.configuration.foregroundColor = fieldState == .disabled ? Colors.disableText : Colors.vibrantTeal
+        button.configuration.foregroundColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
     }
     
     private func deactivate() {

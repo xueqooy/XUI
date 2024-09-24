@@ -50,7 +50,7 @@ public class TripleImageView: UIView {
         createImageView()
     ]
 
-    private let moreLabel = UILabel(textColor: .white, font: Fonts.h3, textAlignment: .center).then {
+    private let moreLabel = UILabel(textColor: .white, font: Fonts.h6, textAlignment: .center).then {
         $0.backgroundColor = .init(white: 0, alpha: .LLPUI.dimmingAlpha)
     }
 

@@ -164,7 +164,7 @@ public class AttachmentManager: StateObservableObject {
             }
         default:
             let indicatorImageView = UIImageView(image: Icons.arrowRight)
-            indicatorImageView.tintColor = Colors.vibrantTeal
+            indicatorImageView.tintColor = Colors.teal
             
             attachmentView.media = .unknown(name: Strings.attachments(attachments.count))
             attachmentView.isLoading = isAnyMediaPending

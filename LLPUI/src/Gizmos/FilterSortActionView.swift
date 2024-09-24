@@ -38,7 +38,7 @@ public class FilterSortActionView: UIView {
     }
     
     private let buttonConfigurationTransformer = CustomButtonConfigurationTransformer { configuration, _ in
-        configuration.foregroundColor = Colors.vibrantTeal
+        configuration.foregroundColor = Colors.teal
         configuration.titleFont = Fonts.button2
     }
     

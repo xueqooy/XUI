@@ -27,7 +27,7 @@ public class EmptyView: UIView, Configurable {
     
     private lazy var imageContainerView = AlignedContainerView(imageView, alignment: .centerHorizontally)
     
-    private lazy var textLabel = UILabel(textColor: Colors.title, font: Fonts.title1, textAlignment: .center, numberOfLines: 0)
+    private lazy var textLabel = UILabel(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center, numberOfLines: 0)
         .settingContentCompressionResistanceAndHuggingPriority(.required, for: .vertical)
 
     private lazy var detailTextLabel = UILabel(textColor: Colors.bodyText1, font: Fonts.body2, textAlignment: .center, numberOfLines: 0)

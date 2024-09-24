@@ -18,7 +18,7 @@ public class TitleAndButtonView: UIView {
     private lazy var button = Button(designStyle: .borderless)
         .settingContentCompressionResistanceAndHuggingPriority(.required)
             
-    public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.title1, textAlignment: .center), buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {
+    public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center), buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {
         super.init(frame: .zero)
         
         let shouldShowTitle = !(title ?? "").isEmpty

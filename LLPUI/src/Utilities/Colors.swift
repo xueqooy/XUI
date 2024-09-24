@@ -7,47 +7,60 @@
 
 import UIKit
 
-public struct Colors {
+@objcMembers
+public class Colors: NSObject {
+    
+    // Definitions in https://www.figma.com/design/I8BC6rZsFONKRXToutZx2u/%F0%9F%96%A5%EF%B8%8F-Learner-Journey?node-id=3088-2595&node-type=canvas&t=1cAqm2eN2HNZLhoN-0
+    
+    /// #000000
+    public static let title = LLPUIFramework.color(named: "title")
+    
+    /// #5C7183
+    public static let bodyText1 = LLPUIFramework.color(named: "bodyText1")
+    
+    /// #C1CAD1
+    public static let disabledText = LLPUIFramework.color(named: "disabledText")
+    
+    /// #00435A
+    public static let darkTeal = LLPUIFramework.color(named: "darkTeal")
+    
+    /// #31728C
+    public static let teal = LLPUIFramework.color(named: "teal")
+    
+    /// #81C2DE
+    public static let mediumTeal = LLPUIFramework.color(named: "mediumTeal")
+    
+    /// #EBF3FA
+    public static let extraLightTeal = LLPUIFramework.color(named: "extraLightTeal")
 
-    /// 13 124 169 0d7ca0
-    public static let vibrantTeal = LLPUIFramework.color(named: "vibrantTeal", namespace: "Primary")
-    /// 255 150 53 ff9635
-    public static let yellowOrange = LLPUIFramework.color(named: "yellowOrange", namespace: "Primary")
-    /// 247 248 251 f7f8fb
-    public static let background = LLPUIFramework.color(named: "background", namespace: "Primary")
+    /// #1F9359
+    public static let green = LLPUIFramework.color(named: "green")
+    
+    /// #E85D17
+    public static let orange = LLPUIFramework.color(named: "orange")
+    
+    /// #D92635
+    public static let red = LLPUIFramework.color(named: "red")
+    
+    /// #E9FBF2
+    public static let lightGreen = LLPUIFramework.color(named: "lightGreen")
+    
+    /// #FBF0EA
+    public static let lightOrange = LLPUIFramework.color(named: "lightOrange")
+    
+    /// #FBEAEB
+    public static let lightRed = LLPUIFramework.color(named: "lightRed")
 
-    /// 1 160 213 01a0d5
-    public static let teal = LLPUIFramework.color(named: "teal", namespace: "Secondary")
-    /// 236 249 254 ecf9fe
-    public static let lightTeal = LLPUIFramework.color(named: "lightTeal", namespace: "Secondary")
-    /// 255 92 102 ff5c66
-    public static let lightRed = LLPUIFramework.color(named: "lightRed", namespace: "Secondary")
-    /// 95 139 255 5f8bff
-    public static let blue = LLPUIFramework.color(named: "blue", namespace: "Secondary")
-    /// 86 197 255 56c5ff
-    public static let lightBlue = LLPUIFramework.color(named: "lightBlue", namespace: "Secondary")
-    /// 44 186 138 2cba8a
-    public static let green = LLPUIFramework.color(named: "green", namespace: "Secondary")
-    /// 255 212 31 ffd31f
-    public static let yellow = LLPUIFramework.color(named: "yellow", namespace: "Secondary")
-
-    /// 43 54 116 2b3674
-    public static let title = LLPUIFramework.color(named: "title", namespace: "Text")
-    /// 85 89 109 55596d
-    public static let bodyText1 = LLPUIFramework.color(named: "bodyText1", namespace: "Text")
-    /// 172 172 172 acacac
-    public static let bodyText2 = LLPUIFramework.color(named: "bodyText2", namespace: "Text")
-    /// 255 255 255 ffffff
-    public static let bodyText3 = LLPUIFramework.color(named: "bodyText3", namespace: "Text")
-    /// 197 197 205 c5c5cd
-    public static let disableText = LLPUIFramework.color(named: "disableText", namespace: "Text")
-    /// 255 92 102 ff5c66
-    public static let errorText = LLPUIFramework.color(named: "errorText", namespace: "Text")
-    /// 62 224 185 3ee0b9
-    public static let validText = LLPUIFramework.color(named: "validText", namespace: "Text")
-
-    /// 164 152 200 0.15 a498c8
-    public static let shadow = LLPUIFramework.color(named: "shadow", namespace: "Custom")
-    /// 218 218 218  dadada
-    public static let line = LLPUIFramework.color(named: "line", namespace: "Custom")
+    /// #E8EAEC
+    public static let line1 = LLPUIFramework.color(named: "line1")
+    
+    /// #D6DADE
+    public static let line2 = LLPUIFramework.color(named: "line2")
+    
+    /// #D92635 35%
+    public static let shadow = LLPUIFramework.color(named: "shadow")
+    
+    /// #F4F5F6
+    public static let background1 = LLPUIFramework.color(named: "background1")
+    
 }

@@ -32,7 +32,7 @@ public class EntityListPersonaCell: UICollectionViewCell, Bindable {
     
     private let nameLabel = UILabel(textStyleConfiguration: .entityListName)
     
-    private let checkmarkImageView = UIImageView(image: Icons.checkmark, tintColor: Colors.vibrantTeal)
+    private let checkmarkImageView = UIImageView(image: Icons.checkmark, tintColor: Colors.teal)
         .settingHidden(true)
         .settingContentCompressionResistanceAndHuggingPriority(.required)
     

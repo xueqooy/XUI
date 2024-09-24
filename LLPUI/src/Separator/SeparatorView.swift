@@ -69,7 +69,7 @@ public class SeparatorView: UIView {
     private var lineView = UIView()
 
 
-    public init(color: UIColor? = Colors.line, thickness: CGFloat = 1, orientation: Orientation = .horizontal, leadingPadding: CGFloat = 0, trailingPadding: CGFloat = 0) {
+    public init(color: UIColor? = Colors.line2, thickness: CGFloat = 1, orientation: Orientation = .horizontal, leadingPadding: CGFloat = 0, trailingPadding: CGFloat = 0) {
         self.thickness = thickness
         self.orientation = orientation
         self.leadingPadding = leadingPadding

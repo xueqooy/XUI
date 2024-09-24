@@ -14,7 +14,7 @@ public extension Button {
 
     convenience init(
         designStyle: DesignedStyle,
-        mainColor: UIColor = Colors.vibrantTeal,
+        mainColor: UIColor = Colors.teal,
         alternativeBackgroundColor: UIColor = .clear,
         contentInsetsMode: ContentInsetsMode = .default,
         configuration: ButtonConfiguration = ButtonConfiguration(),
@@ -30,7 +30,7 @@ public extension Button {
     
     convenience init(
         designStyle: DesignedStyle,
-        mainColor: UIColor = Colors.vibrantTeal,
+        mainColor: UIColor = Colors.teal,
         alternativeBackgroundColor: UIColor = .clear,
         contentInsetsMode: ContentInsetsMode = .default,
         title: String? = nil,

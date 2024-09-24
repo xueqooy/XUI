@@ -23,6 +23,10 @@ public struct Strings {
     public static let search = "Search".localized
     public static let cancel = "Cancel".localized
     public static let searchWithNoResults = "No results were found".localized
+    public static let success = "Success".localized
+    public static let note = "Note".localized
+    public static let warning = "Warning".localized
+    public static let error = "Error".localized
 
     public struct PasswordStrength {
         public static let weak = "PasswordStrength.Weak".localized

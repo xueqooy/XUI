@@ -38,7 +38,7 @@ class DropdownMenuContentView: UIView {
         
     private weak var dropdownMenu: DropdownMenu?
     
-    private lazy var titleLabel = UILabel(text: dropdownMenu?.title, textColor: Colors.title.withAlphaComponent(0.9), font: dropdownMenu?.preference.style.menuTitleFont ?? Fonts.subtitle2, textAlignment: .center)
+    private lazy var titleLabel = UILabel(text: dropdownMenu?.title, textColor: Colors.title.withAlphaComponent(0.9), font: dropdownMenu?.preference.style.menuTitleFont ?? Fonts.body2Bold, textAlignment: .center)
     
     init(dropDownMenu: DropdownMenu) {
         self.dropdownMenu = dropDownMenu

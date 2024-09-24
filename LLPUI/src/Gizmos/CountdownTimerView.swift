@@ -64,7 +64,7 @@ public class CountdownTimerView: UIView {
         .settingContentCompressionResistanceAndHuggingPriority(.required)
     
     private let timeLabel: UILabel = {
-        let label = InsetLabel(textColor: Colors.yellowOrange, font: UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .bold), textAlignment: .center)
+        let label = InsetLabel(textColor: Colors.orange, font: UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .bold), textAlignment: .center)
         label.inset = .nondirectional(top: 0, left: 4, bottom: 0, right: 4)
         label.settingContentCompressionResistancePriority(.required + 1)
         return label
@@ -72,7 +72,7 @@ public class CountdownTimerView: UIView {
     
     private let progressView: UIProgressView = {
         let progressView = UIProgressView()
-        progressView.progressTintColor = Colors.yellowOrange
+        progressView.progressTintColor = Colors.orange
         return progressView
     }()
     
@@ -88,8 +88,6 @@ public class CountdownTimerView: UIView {
     
     public init(title: String? = nil, totalSeconds: Int) {
         super.init(frame: .zero)
-        
-        let showsTitle = !(title ?? "").isEmpty
         
         let stackView = HStackView(alignment: .center) {
             hourglassImageView

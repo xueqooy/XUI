@@ -106,7 +106,7 @@ class OptionControlIndicatorView: UIView {
                 backgroundConfiguration.fillColor = tintColor
             } else {
                 backgroundConfiguration.strokeWidth = Constants.deselectedStrokeWidth
-                backgroundConfiguration.strokeColor = Colors.line
+                backgroundConfiguration.strokeColor = Colors.line2
             }
             
         case .radio:
@@ -117,7 +117,7 @@ class OptionControlIndicatorView: UIView {
                 backgroundConfiguration.strokeColor = tintColor
             } else {
                 backgroundConfiguration.strokeWidth = Constants.deselectedStrokeWidth
-                backgroundConfiguration.strokeColor = Colors.line
+                backgroundConfiguration.strokeColor = Colors.line2
             }
     
         default: break

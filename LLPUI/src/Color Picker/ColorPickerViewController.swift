@@ -44,7 +44,7 @@ class ColorPickerViewController: UIViewController {
     
     private let selectionHandler: (ColorPickerViewController) -> Void
     
-    private lazy var titleLabel = UILabel(text: pickerTitle, textColor: Colors.title, font: Fonts.title1)
+    private lazy var titleLabel = UILabel(text: pickerTitle, textColor: Colors.title, font: Fonts.body1Bold)
     
     private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()

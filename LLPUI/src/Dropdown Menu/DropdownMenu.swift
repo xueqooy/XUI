@@ -226,18 +226,18 @@ extension DropdownMenu.Preference.Style {
     var actionTitleFont: UIFont {
         switch self {
         case .plain:
-            Fonts.title2
+            Fonts.body2Bold
         case .large:
-            Fonts.title1
+            Fonts.body1Bold
         }
     }
     
     var menuTitleFont: UIFont {
         switch self {
         case .plain:
-            Fonts.title3
+            Fonts.body3Bold
         case .large:
-            Fonts.title2
+            Fonts.body2Bold
         }
     }
     

@@ -106,7 +106,7 @@ public class ConfirmationDialog {
                     UILabel(
                         text: title,
                         textColor: Colors.title,
-                        font: Fonts.title1,
+                        font: Fonts.body1Bold,
                         textAlignment: .center,
                         numberOfLines: 0
                     ),

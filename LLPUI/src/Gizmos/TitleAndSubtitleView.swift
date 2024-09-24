@@ -28,7 +28,7 @@ public class TitleAndSubtitleView: UIView {
     
     private let subtitleLabel = UILabel()
     
-    public init(title: String, subtitle: String, spacing: CGFloat = 8.0, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.h2, textAlignment: .center), subtitleStyleConfiguration: TextStyleConfiguration =  .init(textColor: Colors.bodyText1, font: Fonts.body2, textAlignment: .center)) {
+    public init(title: String, subtitle: String, spacing: CGFloat = 8.0, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.h6, textAlignment: .center), subtitleStyleConfiguration: TextStyleConfiguration =  .init(textColor: Colors.bodyText1, font: Fonts.body2, textAlignment: .center)) {
         self.title = title
         self.subtitle = subtitle
         

@@ -66,7 +66,7 @@ public class MobileNumberInputField: InputField {
     
     private lazy var codeBackgroundView: BackgroundView = {
         let isLTR = UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .leftToRight
-        let configuration = BackgroundConfiguration(strokeColor: Colors.vibrantTeal, cornerStyle: .fixed(.LLPUI.smallCornerRadius), stylishCorners: isLTR ? [.topLeft, .bottomLeft] : [.topRight, .bottomRight])
+        let configuration = BackgroundConfiguration(strokeColor: Colors.teal, cornerStyle: .fixed(.LLPUI.smallCornerRadius), stylishCorners: isLTR ? [.topLeft, .bottomLeft] : [.topRight, .bottomRight])
                
         return BackgroundView(configuration: configuration)
     }()
@@ -130,7 +130,7 @@ public class MobileNumberInputField: InputField {
         super.stateDidChange()
         
         seperator.color = defaultBackgroundConfiguration(forFieldState: fieldState, validationState: validationState).strokeColor
-        codeButton.configuration.foregroundColor = fieldState == .disabled ? Colors.disableText : Colors.vibrantTeal
+        codeButton.configuration.foregroundColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
 
     }
 }

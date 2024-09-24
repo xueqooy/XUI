@@ -23,11 +23,11 @@ class ActionBarButtonConfigurationTransformer: PlainButtonConfigurationTransform
         configuration.imageSize = CGSize(width: 16, height: 16)
         configuration.imagePadding = .LLPUI.spacing2
         configuration.imagePlacement = .leading
-        configuration.foregroundColor = Colors.vibrantTeal
+        configuration.foregroundColor = Colors.teal
         configuration.contentInsets = .nondirectional(uniformValue: .LLPUI.spacing2)
         
         if debug {
-            configuration.background?.fillColor = Colors.background
+            configuration.background?.fillColor = Colors.background1
         }
         
         super.update(&configuration, for: button)

@@ -27,7 +27,7 @@ open class CardButtonConfigurationTransformer: PlainButtonConfigurationTransform
         }
     }
     
-    public init(strokeColor: UIColor = Colors.vibrantTeal, contentInset: Insets = .nondirectional(top: .LLPUI.spacing5, left: .LLPUI.spacing6, bottom: .LLPUI.spacing5, right: .LLPUI.spacing6)) {
+    public init(strokeColor: UIColor = Colors.teal, contentInset: Insets = .nondirectional(top: .LLPUI.spacing5, left: .LLPUI.spacing6, bottom: .LLPUI.spacing5, right: .LLPUI.spacing6)) {
         self.strokeColor = strokeColor
         self.contentInset = contentInset
     }

@@ -24,7 +24,7 @@ open class TextField: UITextField {
         super.init(frame: .zero)
         
         textStyleConfiguration = .textInput
-        tintColor = Colors.vibrantTeal
+        tintColor = Colors.teal
     }
     
     required public init?(coder: NSCoder) {

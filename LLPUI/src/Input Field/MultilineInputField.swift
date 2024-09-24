@@ -30,7 +30,7 @@ public class MultilineInputField: InputField {
     }
     
     override public var defaultContentHeight: CGFloat {
-        80
+        90
     }
     
     /// Preferred text box height, actual height is affected by the height of the text and `allowedAdditionalHeight`

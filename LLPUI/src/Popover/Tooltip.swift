@@ -13,7 +13,7 @@ open class Tooltip: Configurable {
     private struct Constants {
         static let messageFont: UIFont = Fonts.body2
         static let textColor: UIColor = Colors.title
-        static let backgroundColor: UIColor = Colors.yellow
+        static let backgroundColor: UIColor = Colors.orange
     }
     
     public struct Configuration {

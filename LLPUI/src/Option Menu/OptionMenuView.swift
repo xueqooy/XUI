@@ -87,7 +87,7 @@ public class OptionMenuView: UIView {
                 // Group Title
                 if let groupTitle = group.title {
                     FormRow(
-                        UILabel(text: groupTitle, textColor: Colors.bodyText2, font: Fonts.subtitle1)
+                        UILabel(text: groupTitle, textColor: Colors.bodyText1, font: Fonts.body1Bold)
                     )
                     .settingCustomSpacingAfter(.LLPUI.spacing4)
                 }

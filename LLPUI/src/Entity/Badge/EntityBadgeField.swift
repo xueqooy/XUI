@@ -123,7 +123,7 @@ public class EntityBadgeField: Field {
     public override func stateDidChange() {
         super.stateDidChange()
         
-        dropdownImageView.tintColor = fieldState == .disabled ? Colors.disableText : Colors.vibrantTeal
+        dropdownImageView.tintColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
     }
     
     private func initialize() {

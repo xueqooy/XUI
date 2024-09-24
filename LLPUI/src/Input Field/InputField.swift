@@ -212,7 +212,7 @@ open class InputField: Field {
     // MARK: - Provided to subclass override
     
     open override var defaultContentHeight: CGFloat {
-        40
+        48
     }
     
     open func makeTextInput() -> TextInput {

@@ -11,24 +11,21 @@ import LLPUtils
 /**
  Common colors
  */
-public struct Fonts {
+@objcMembers
+public class Fonts: NSObject {
     
+    @objc(LLPFontWeight)
     public enum Weight: Int {
         case regular
-        case medium
-        case semibold
         case bold
         
         fileprivate var fontName: String {
             switch self {
             case .regular:
-                return "Poppins-Regular"
-            case .medium:
-                return "Poppins-Medium"
-            case .semibold:
-                return "Poppins-SemiBold"
+                return "NotoSans-Regular"
+    
             case .bold:
-                return "Poppins-Bold"
+                return "NotoSans-Bold"
             }
         }
         
@@ -36,10 +33,7 @@ public struct Fonts {
             switch self {
             case .regular:
                 return .regular
-            case .medium:
-                return .medium
-            case .semibold:
-                return .semibold
+      
             case .bold:
                 return .bold
             }
@@ -57,45 +51,38 @@ public struct Fonts {
         
         return font ?? UIFont.systemFont(ofSize: size, weight: weight.nativeWeight)        
     }
+    
+    // Definitions in https://www.figma.com/design/I8BC6rZsFONKRXToutZx2u/%F0%9F%96%A5%EF%B8%8F-Learner-Journey?node-id=3088-2595&node-type=canvas&t=1cAqm2eN2HNZLhoN-0
          
-    /// 28 semibold
-    public static let h1 = font(ofSize: 28, weight: .semibold)
-    /// 24 semibold
-    public static let h2 = font(ofSize: 24, weight: .semibold)
-    /// 20 semibold
-    public static let h3 = font(ofSize: 20, weight: .semibold)
     /// 18 semibold
-    public static let h4 = font(ofSize: 18, weight: .semibold)
+    public static let h6 = font(ofSize: 20, weight: .bold)
+        
+    /// 18 regular
+    public static let body1 = font(ofSize: 18, weight: .regular)
+    /// 16 regular
+    public static let body2 = font(ofSize: 16, weight: .regular)
+    /// 14 regular
+    public static let body3 = font(ofSize: 14, weight: .regular)
+    /// 12 regular
+    public static let body4 = font(ofSize: 12, weight: .regular)
     
-    /// 16 semibold
-    public static let title1 = font(ofSize: 16, weight: .semibold)
+    /// 18 regular
+    public static let body1Bold = font(ofSize: 18, weight: .bold)
+    /// 16 regular
+    public static let body2Bold = font(ofSize: 16, weight: .bold)
+    /// 14 regular
+    public static let body3Bold = font(ofSize: 14, weight: .bold)
+    /// 12 regular
+    public static let body4Bold = font(ofSize: 12, weight: .bold)
+
     /// 14 semibold
-    public static let title2 = font(ofSize: 14, weight: .semibold)
-    /// 12 semibold
-    public static let title3 = font(ofSize: 12, weight: .semibold)
-    
-    /// 14 medium
-    public static let subtitle1 = font(ofSize: 14, weight: .medium)
-    /// 12 medium
-    public static let subtitle2 = font(ofSize: 12, weight: .medium)
-    /// 10 medium
-    public static let subtitle3 = font(ofSize: 10, weight: .medium)
-    
-    /// 14 medium
-    public static let body1 = font(ofSize: 14, weight: .medium)
-    /// 12 medium
-    public static let body2 = font(ofSize: 12, weight: .medium)
-    /// 10 medium
-    public static let body3 = font(ofSize: 10, weight: .medium)
-    
+    public static let button1 = font(ofSize: 16, weight: .bold)
     /// 14 semibold
-    public static let button1 = font(ofSize: 14, weight: .semibold)
+    public static let button2 = font(ofSize: 14, weight: .bold)
     /// 12 semibold
-    public static let button2 = font(ofSize: 12, weight: .semibold)
-    /// 10 semibold
-    public static let button3 = font(ofSize: 10, weight: .semibold)
+    public static let button3 = font(ofSize: 12, weight: .bold)
     
     /// 10 semibold
-    public static let caption = font(ofSize: 10, weight: .semibold)
+    public static let caption = font(ofSize: 10, weight: .bold)
     
 }

@@ -22,7 +22,7 @@ import Combine
 open class Field: UIControl {
     
     public struct Constants {
-        public static let verticalComponentSpacing: CGFloat = .LLPUI.spacing2
+        public static let verticalComponentSpacing: CGFloat = 14
         public static let boxComponentSpacing: CGFloat = .LLPUI.spacing3
     }
     
@@ -286,14 +286,14 @@ open class Field: UIControl {
         
         switch fieldState {
         case .normal:
-            configuration.strokeColor = Colors.line
+            configuration.strokeColor = Colors.line2
             
         case .active:
-            configuration.strokeColor = Colors.vibrantTeal
+            configuration.strokeColor = Colors.teal
             
         case .disabled:
-            configuration.strokeColor = Colors.line
-            configuration.fillColor = Colors.background
+            configuration.strokeColor = Colors.line2
+            configuration.fillColor = Colors.line1
         }
                 
         switch validationState {
@@ -301,12 +301,12 @@ open class Field: UIControl {
             if fieldState != .disabled {
                 configuration.fillColor =  Colors.green.withAlphaComponent(fieldState == .active ? 0 : 0.05)
             }
-            configuration.strokeColor = Colors.validText
+            configuration.strokeColor = Colors.green
         case .error(_):
             if fieldState != .disabled {
-                configuration.fillColor = Colors.errorText.withAlphaComponent(fieldState == .active ? 0 : 0.05)
+                configuration.fillColor = Colors.red.withAlphaComponent(fieldState == .active ? 0 : 0.05)
             }
-            configuration.strokeColor = Colors.errorText
+            configuration.strokeColor = Colors.red
         default:
             break
         }

@@ -111,7 +111,7 @@ public class PasswordInputField: InputField  {
     public override func stateDidChange() {
         super.stateDidChange()
         
-        visibilityButton.configuration.foregroundColor = fieldState == .disabled ? Colors.disableText : Colors.vibrantTeal
+        visibilityButton.configuration.foregroundColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
         
         updateStrengthIndicator()
     }

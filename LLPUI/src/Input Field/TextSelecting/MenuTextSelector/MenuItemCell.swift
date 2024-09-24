@@ -38,7 +38,7 @@ class MenuItemCell: UICollectionViewCell {
         }
     }
     
-    private let selectedView = BackgroundView(configuration: .init(fillColor: Colors.background, cornerStyle: .fixed(.LLPUI.smallCornerRadius)))
+    private let selectedView = BackgroundView(configuration: .init(fillColor: Colors.background1, cornerStyle: .fixed(.LLPUI.smallCornerRadius)))
         
     private let checkmark: OptionControl = {
         let checkmark = OptionControl(style: .checkmark, titlePlacement: .leading)
