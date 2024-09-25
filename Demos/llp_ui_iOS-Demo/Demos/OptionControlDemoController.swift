@@ -31,7 +31,7 @@ class OptionControlDemoController: DemoController {
         let checkbox4 = createOptionControl(style: .checkbox, titlePlacement: .trailing, title: "Disabled Checkbox", enabled: false)
         addRow(checkbox4, alignment: .leading)
         
-        let checkbox5 = createOptionControl(style: .checkbox, titlePlacement: .trailing, richTitle: "Checkbox with \("Rich Text", .foreground(Colors.teal), .action(handleRichTextAction))", enabled: true)
+        let checkbox5 = createOptionControl(style: .checkbox, titlePlacement: .trailing, richTitle: "Checkbox with \("Rich Text", .foreground(Colors.mediumTeal), .action(handleRichTextAction))", enabled: true)
         addRow(checkbox5, alignment: .leading)
         
         let checkbox6 = createOptionControl(style: .checkbox, titlePlacement: .trailing, title: "Checkbox with long long long long long long long long long long long long long long text")
@@ -96,7 +96,7 @@ class OptionControlDemoController: DemoController {
         addRow(radio7, alignment: .leading)
     }
     
-    private func createOptionControl(style: OptionControl.Style, titlePlacement: OptionControl.TitlePlacement, alignment: OptionControl.Alignment = .top, title: String? = nil, richTitle: RichText? = nil, image: UIImage? = nil, enabled: Bool = true, radioGroup: SingleSelectionGroup? = nil) -> OptionControl {
+    private func createOptionControl(style: OptionControl.Style, titlePlacement: OptionControl.TitlePlacement, alignment: OptionControl.Alignment = .center, title: String? = nil, richTitle: RichText? = nil, image: UIImage? = nil, enabled: Bool = true, radioGroup: SingleSelectionGroup? = nil) -> OptionControl {
         let optionControl = OptionControl(style: style, titlePlacement: titlePlacement, alignment: alignment)
         if let title = title {
             optionControl.title = title

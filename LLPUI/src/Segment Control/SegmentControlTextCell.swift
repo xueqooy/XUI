@@ -52,7 +52,7 @@ class SegmentControlTextCell: UICollectionViewCell {
     
     func setup(item: SegmentControl.Item, style: SegmentControl.Style, isSelected: Bool) {
         textLabel.text = item.text
-        textLabel.font = style.textFont
+        textLabel.font = style.textFont(forSelected: isSelected)
         textLabel.textColor = style.textColor(forSelected: isSelected)
         
         if item.displaysBadge {
@@ -77,7 +77,7 @@ class SegmentControlTextCell: UICollectionViewCell {
 extension SegmentControlTextCell {
     
     static func size(forItem item: SegmentControl.Item, style: SegmentControl.Style, itemFixedWidth: CGFloat?) -> CGSize {
-        var textSize = item.text.preferredSize(for: style.textFont)
+        var textSize = item.text.preferredSize(for: style.textFont(forSelected: true))
         
         if item.displaysBadge && !item.displaysDotBadge {
             // Display text badge, append badge width

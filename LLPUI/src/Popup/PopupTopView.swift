@@ -10,13 +10,6 @@ import SnapKit
 
 class PopupTopView: UIView {
     
-    private struct Constants {
-        static let componentHeight = 24.0
-        static let componentSpacing: CGFloat = .LLPUI.spacing2
-        static let margins = UIEdgeInsets(top: .LLPUI.spacing5, left: .LLPUI.spacing5, bottom: 0, right: .LLPUI.spacing5)
-        static let marginsWhenTitleShown = UIEdgeInsets(top: .LLPUI.spacing5, left: .LLPUI.spacing5, bottom: .LLPUI.spacing5, right: .LLPUI.spacing5)
-    }
-    
     private let componentLayoutGuide = ConstraintLayoutGuide()
     
     private lazy var separator = SeparatorView()
@@ -38,16 +31,18 @@ class PopupTopView: UIView {
         setContentHuggingPriority(.required, for: .vertical)
         setContentCompressionResistancePriority(.required, for: .vertical)
 
-        let titleAndCancelButtonView = TitleAndButtonView(title: title, titleLines: 2, buttonConfiguration: showsCancelButton ? .init(image: Icons.cancel) : nil, buttonAction: showsCancelButton ? { _ in cancelAction!() } : nil)
+        let titleAndCancelButtonView = TitleAndButtonView(
+            title: title,
+            titleLines: 2,
+            titleStyleConfiguration: .init(textColor: .white, font: Fonts.body2Bold, textAlignment: .center),
+            buttonConfiguration: showsCancelButton ? .init(image: Icons.cancel, imageSize: .square(16), foregroundColor: .white) : nil,
+            buttonAction: showsCancelButton ? { _ in cancelAction!() } : nil
+        )
         
         addSubview(titleAndCancelButtonView)
         titleAndCancelButtonView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(CGFloat.LLPUI.spacing5)
-            if showsTitle {
-                make.centerY.equalToSuperview()
-            } else {
-                make.bottom.equalToSuperview()
-            }
+            make.centerY.equalToSuperview()
         }
     
         if showsTitle {
@@ -56,6 +51,8 @@ class PopupTopView: UIView {
                 make.leading.trailing.bottom.equalToSuperview()
             }
         }
+        
+        backgroundColor = Colors.teal
     }
     
     required init?(coder: NSCoder) {
@@ -63,6 +60,6 @@ class PopupTopView: UIView {
     }
     
     override var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: showsTitle ? 64 : 44)
+        CGSize(width: UIView.noIntrinsicMetric, height: showsTitle ? 64 : 50)
     }
 }

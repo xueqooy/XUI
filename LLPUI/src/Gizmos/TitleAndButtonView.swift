@@ -15,7 +15,7 @@ public class TitleAndButtonView: UIView {
         .settingContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         .settingContentCompressionResistancePriority(.required, for: .vertical)
     
-    private lazy var button = Button(designStyle: .borderless)
+    private lazy var button = Button()
         .settingContentCompressionResistanceAndHuggingPriority(.required)
             
     public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center), buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {

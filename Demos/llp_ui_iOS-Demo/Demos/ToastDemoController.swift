@@ -14,17 +14,23 @@ class ToastDemoController: DemoController {
     private var actionTitle: String? = nil {
         didSet {
             if let actionTitle {
-                fixedNote.configuration.action = .init(title: actionTitle, handler: {
+                fixedNote.configuration.primaryAction = .init(title: actionTitle, handler: {
                     print("Action Triggered")
                 })
+                
+                fixedNote.configuration.secondaryAction = .init(title: "Reject", color: Colors.red, handler: {
+                    print("Reject Triggered")
+                })
+                
             } else {
-                fixedNote.configuration.action = nil
+                fixedNote.configuration.primaryAction = nil
+                fixedNote.configuration.secondaryAction = nil
             }
 
         }
     }
     
-    private let fixedNote = ToastView(configuration: .init(style: .note, message: "Lorem ipsum dolor"))
+    private let fixedNote = ToastView(configuration: .init(style: .note, message: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +81,7 @@ class ToastDemoController: DemoController {
     }
     
     private func presentToast(style: ToastView.Style, inView view: UIView? = nil, inViewController viewController: UIViewController? = nil, from anchorView: UIView? = nil, animated: Bool = true, completion: ((ToastView) -> Void)? = nil) {
-        let ToastView = ToastView(configuration: .init(style: style, message: " Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", action: actionTitle != nil ? .init(title: actionTitle!, handler: {  print("Action Triggered") }) : nil))
+        let ToastView = ToastView(configuration: .init(style: style, message: " Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", primaryAction: actionTitle != nil ? .init(title: actionTitle!, handler: {  print("Action Triggered") }) : nil))
         
         let compl: (ToastView) -> Void = { notifView in
             completion?(notifView)

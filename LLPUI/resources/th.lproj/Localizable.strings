@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Pods
+
+  Created by xueqooy on 2024/9/24.
+  
+*/
+
+"Next" = "ต่อไป";
+"Skip" = "ข้าม";
+"Step %1$d of %2$d" = "ขั้นตอน %1$d จาก %2$d";
+"Done" = "เสร็จแล้ว";
+"Filter" = "กรอง";
+"Sort by" = "จัดเรียงตาม";
+"PasswordStrength.Weak" = "อ่อนแอ";
+"PasswordStrength.Moderate" = "ปานกลาง";
+"PasswordStrength.Strong" = "แข็งแกร่ง";
+"Post" = "โพสต์";
+"%d attachments" = "%d ไฟล์แนบ";
+"Attachment" = "สิ่งที่แนบมา";
+"Maximum number of attachments allowed has been reached" = "จำนวนไฟล์แนบสูงสุดที่ได้รับอนุญาตถึงแล้ว";
+"Like" = "ชอบ";
+"%d Likes" = "%d ไลค์";
+"Comment" = "ความคิดเห็น";
+"%d Comments" = "%d ความคิดเห็น";
+"Reply" = "ตอบ";
+"%d Replies" = "%d ตอบกลับ";
+"Share" = "แบ่งปัน";
+"%1$d/%2$d charecters limit" = "ขีดจำกัดอักขระ %1$d/%2$d";
+"Loading..." = "กำลังโหลด...";
+"View all (%d+)" = "ดูทั้งหมด (%d+)";
+"Clear" = "ชัดเจน";
+"Apply" = "นำมาใช้";
+"Search" = "ค้นหา";
+"Cancel" = "ยกเลิก";
+"No results were found" = "ไม่พบผลลัพธ์";
+"Success" = "ความสำเร็จ";
+"Note" = "บันทึก";
+"Warning" = "คำเตือน";
+"Error" = "ข้อผิดพลาด";

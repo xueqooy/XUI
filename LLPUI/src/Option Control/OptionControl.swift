@@ -31,15 +31,7 @@ public class OptionControl: UIControl {
     }
     
     public enum Alignment {
-        case automatic, top, center
-        
-        static func preferredAliginment(for style: Style) -> Alignment {
-            if style == .switch {
-                return .center
-            } else {
-                return .top
-            }
-        }
+        case center, top
     }
     
     public let style: Style
@@ -151,7 +143,7 @@ public class OptionControl: UIControl {
     private var hasDisplayedTitle = false
     private var hasDisplayedIndicatorOrSwitch = false
     
-    public init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .automatic) {
+    public init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .center) {
         self.style = style
         self.titlePlacement = titlePlacement
         self.alignment = alignment
@@ -161,14 +153,14 @@ public class OptionControl: UIControl {
         initialize()
     }
     
-    public convenience init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .automatic, title: String? = nil, image: UIImage? = nil) {
+    public convenience init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .center, title: String? = nil, image: UIImage? = nil) {
         self.init(style: style, titlePlacement: titlePlacement, alignment: alignment)
         
         self.title = title
         self.image = image
     }
     
-    public convenience init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .automatic, richTitle: RichText? = nil, image: UIImage? = nil) {
+    public convenience init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .center, richTitle: RichText? = nil, image: UIImage? = nil) {
         self.init(style: style, titlePlacement: titlePlacement, alignment: alignment)
         
         self.richTitle = richTitle
@@ -196,18 +188,12 @@ public class OptionControl: UIControl {
         }
         
         maybeUpdateLayout()
-
-        let actualAlignment: Alignment
-        if alignment == .automatic {
-            actualAlignment = Alignment.preferredAliginment(for: style)
-        } else {
-            actualAlignment = alignment
-        }
         
-        if actualAlignment == .top {
-            horizontalStackView.alignment = .top
-        } else {
+        switch alignment {
+        case .center:
             horizontalStackView.alignment = .center
+        case .top:
+            horizontalStackView.alignment = .top
         }
         
         if style != .switch {

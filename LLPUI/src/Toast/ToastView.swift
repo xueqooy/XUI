@@ -39,11 +39,12 @@ public class ToastView: UIView, Configurable {
     
     private struct Constants {
         static let horizontalSpacing: CGFloat = .LLPUI.spacing2
-        static let verticalSpacing: CGFloat = .LLPUI.spacing2
+        static let verticalSpacing: CGFloat = .LLPUI.spacing3
 
         static let contentInset = UIEdgeInsets(top: .LLPUI.spacing4, left: .LLPUI.spacing4, bottom: .LLPUI.spacing4, right: .LLPUI.spacing4)
-        static let contentInsetWhenDisplayingActionButton = UIEdgeInsets(top: .LLPUI.spacing2, left: .LLPUI.spacing4, bottom: .LLPUI.spacing4, right: .LLPUI.spacing4)
         static let presentationOffset: CGFloat = 20
+        
+        static let actionContainerHeight: CGFloat = 40
         
         static let animationDurationForShow: TimeInterval = 0.4
         static let animationDurationForHide: TimeInterval = 0.2
@@ -130,12 +131,14 @@ public class ToastView: UIView, Configurable {
         public struct Action: Equatable {
 
             public let title: String
+            public let color: UIColor
             public let handler: () -> Void
             
             private let identifier: UUID = .init()
             
-            public init(title: String, handler: @escaping () -> Void) {
+            public init(title: String, color: UIColor = Colors.teal, handler: @escaping () -> Void) {
                 self.title = title
+                self.color = color
                 self.handler = handler
             }
             
@@ -147,7 +150,8 @@ public class ToastView: UIView, Configurable {
         public var style: Style
         public var message: String
         public var richMessage: RichText?
-        public var action: Action?
+        public var primaryAction: Action?
+        public var secondaryAction: Action?
         
         public var isEmptyMessage: Bool {
             if let richMessage = richMessage {
@@ -157,11 +161,11 @@ public class ToastView: UIView, Configurable {
             }
         }
         
-        public init(style: Style = .success, message: String = "", richMessage: RichText? = nil, action: Action? = nil) {
+        public init(style: Style = .success, message: String = "", richMessage: RichText? = nil, primaryAction: Action? = nil, secondaryAction: Action? = nil) {
             self.style = style
             self.message = message
             self.richMessage = richMessage
-            self.action = action
+            self.primaryAction = primaryAction
         }
     }
     
@@ -185,7 +189,7 @@ public class ToastView: UIView, Configurable {
         
     private var isHiding: Bool = false
     private var completionsForHide: [() -> Void] = []
-    
+        
     private var autoHideTimer: LLPUtils.Timer?
     
     private let backgroundView = BackgroundView()
@@ -217,32 +221,28 @@ public class ToastView: UIView, Configurable {
         return messageLabel
     }()
     
-    private lazy var actionButton = Button(designStyle: .secondarySmall, alternativeBackgroundColor: .white)
+    private lazy var hideButton = Button(configuration: .init(image: Icons.cancel)) { [weak self] _ in
+        self?.hide()
+    }.settingContentCompressionResistanceAndHuggingPriority(.required)
     
-    private lazy var actionContainerView = AlignedContainerView(actionButton, alignment: .centerHorizontally)
+    private lazy var primaryActionButton = Button(designStyle: .primary, contentInsetsMode: .override(.nondirectional(top: 0, left: 40, bottom: 0, right: 40)))
+    
+    private lazy var secondaryActionButton = Button(designStyle: .secondary, contentInsetsMode: .override(.nondirectional(top: 0, left: 40, bottom: 0, right: 40)))
+
+    private lazy var actionContainerView = HStackView(spacing: .LLPUI.spacing4) { UIView() }
+        .settingHeightConstraint(Constants.actionContainerHeight)
    
     private var constraintWhenHidden: NSLayoutConstraint!
     private var constraintWhenShown: NSLayoutConstraint!
             
     private var hapticFeedback: HapticFeedback?
     
-    private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        recognizer.delegate = self
-        return recognizer
-    }()
-    private lazy var swipeGestureRecognizer: UISwipeGestureRecognizer = {
-        let recognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-        recognizer.direction = .down
-        return recognizer
-    }()
-            
-    private var effectiveContentInset: UIEdgeInsets {
-        shouldShowActionButton ? Constants.contentInsetWhenDisplayingActionButton : Constants.contentInset
+    private var shouldShowPrimaryActionButton: Bool {
+        configuration.primaryAction != nil && !configuration.primaryAction!.title.isEmpty
     }
     
-    private var shouldShowActionButton: Bool {
-        configuration.action != nil && !configuration.action!.title.isEmpty
+    private var shouldShowSecondaryActionButton: Bool {
+        configuration.secondaryAction != nil && !configuration.secondaryAction!.title.isEmpty
     }
     
     public init(configuration: Configuration = .init()) {
@@ -294,12 +294,6 @@ public class ToastView: UIView, Configurable {
         }
 
         update()
-
-        actionButton.touchUpInsideAction = { [weak self] _ in
-            guard let self, let action = self.configuration.action else { return }
-            
-            action.handler()
-        }
     }
     
     public func triggerFeedback() {
@@ -327,8 +321,7 @@ public class ToastView: UIView, Configurable {
             return
         }
         
-        setupHapticFeedback()
-        setupGestureRecognizers()
+        setupDissmissibleStyle()
 
         translatesAutoresizingMaskIntoConstraints = false
         if let anchorView = anchorView, anchorView.superview == view {
@@ -387,7 +380,7 @@ public class ToastView: UIView, Configurable {
             completion?(self)
             return
         }
-
+        
         var anchorView: UIView?
         if let controller = controller as? UINavigationController, !controller.isToolbarHidden {
             anchorView = controller.toolbar
@@ -423,13 +416,11 @@ public class ToastView: UIView, Configurable {
             return
         }
         
-        hapticFeedback = nil
-        removeGestureRecognizers()
-
         if let completion = completion {
             completionsForHide.append(completion)
         }
         let completionForHide = {
+            self.removeDissmissibleStyle()
             self.removeFromSuperview()
 
             self.completionsForHide.forEach { $0() }
@@ -485,15 +476,18 @@ public class ToastView: UIView, Configurable {
         
         let imageSize = imageView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         availableLabelWidth -= (imageSize.width + Constants.horizontalSpacing)
+        
+        if isShown {
+            availableLabelWidth -= Constants.horizontalSpacing
+            availableLabelWidth -= hideButton.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
+        }
 
         var suggesgedHeight: CGFloat = contentInsets.vertical
         let messagelabelSize = messageLabel.systemLayoutSizeFitting(CGSize(width: availableLabelWidth, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
         suggesgedHeight += messagelabelSize.height
 
-        if shouldShowActionButton {
-            let availableButtonWidth = suggestedWidth - contentInsets.horizontal
-            let buttonSize = actionButton.systemLayoutSizeFitting(CGSize(width: availableButtonWidth, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
-            suggesgedHeight += (buttonSize.height + Constants.verticalSpacing)
+        if shouldShowPrimaryActionButton || shouldShowSecondaryActionButton  {
+            suggesgedHeight += (Constants.actionContainerHeight + Constants.verticalSpacing)
         }
         
         return CGSize(width: suggestedWidth, height: suggesgedHeight)
@@ -507,12 +501,16 @@ public class ToastView: UIView, Configurable {
         let style = configuration.style
         let message = configuration.message
         let richMessage = configuration.richMessage
-        
-        imageView.image = style.image
-        
         let foregroundColor = style.foregroundColor
+        let shouldShowPrimaryActionButton = shouldShowPrimaryActionButton
+        let shouldShowSecondaryActionButton = shouldShowSecondaryActionButton
+        
+        // Image
+        imageView.image = style.image
         imageView.tintColor = foregroundColor
     
+        
+        // Message
         var fullMessageText: RichText = "\(style.prefixText + ": ", .foreground(style.foregroundColor), .font(Fonts.body4Bold))"
         
         if let richMessage = richMessage {
@@ -524,54 +522,72 @@ public class ToastView: UIView, Configurable {
         
         messageLabel.richText = fullMessageText
         
-        if shouldShowActionButton {
-            actionContainerView.isHidden = false
-            actionButton.configuration.title = configuration.action?.title
         
+        // Action
+        if shouldShowSecondaryActionButton {
+            actionContainerView.insertArrangedSubview(secondaryActionButton, at: 0)
+
+            secondaryActionButton.configuration.title = configuration.secondaryAction?.title
+            (secondaryActionButton.configurationTransformer as! DesignedButtonConfigurationTransformer).mainColor = configuration.secondaryAction!.color
+            secondaryActionButton.touchUpInsideAction = { [weak self] _ in
+                guard let self, let action = self.configuration.secondaryAction else { return }
+                
+                action.handler()
+            }
+            secondaryActionButton.updateConfiguration()
+            
         } else {
-            actionContainerView.isHidden = true
+            secondaryActionButton.removeFromSuperview()
         }
         
-        VContainer.layoutMargins = effectiveContentInset
         
-        backgroundView.configuration = .init(fillColor: style.backgroundColor, cornerStyle: .fixed(.LLPUI.smallCornerRadius)) 
+        if shouldShowPrimaryActionButton {
+            actionContainerView.insertArrangedSubview(primaryActionButton, at: 0)
+
+            primaryActionButton.configuration.title = configuration.primaryAction?.title
+            (primaryActionButton.configurationTransformer as! DesignedButtonConfigurationTransformer).mainColor = configuration.primaryAction!.color
+            primaryActionButton.touchUpInsideAction = { [weak self] _ in
+                guard let self, let action = self.configuration.primaryAction else { return }
+                
+                action.handler()
+            }
+            primaryActionButton.updateConfiguration()
+            
+        } else {
+            primaryActionButton.removeFromSuperview()
+        }
+    
+        actionContainerView.isHidden = !(shouldShowPrimaryActionButton || shouldShowSecondaryActionButton)
+        
+            
+        // Background
+        backgroundView.configuration = .init(fillColor: style.backgroundColor, cornerStyle: .fixed(.LLPUI.smallCornerRadius))
         
         invalidateIntrinsicContentSize()
     }
-
-    private func setupHapticFeedback() {
+    
+    private func setupDissmissibleStyle() {
         if let hapticFeedbackType = configuration.style.hapticFeedbackType {
             self.hapticFeedback = HapticFeedback(type: hapticFeedbackType)
             self.hapticFeedback?.prepare()
         }
         
-    }
+        backgroundView.update {
+            $0.strokeColor = configuration.style.foregroundColor
+            $0.strokeWidth = 1
+        }
     
-    private func setupGestureRecognizers() {
-        addGestureRecognizer(tapGestureRecognizer)
-        addGestureRecognizer(swipeGestureRecognizer)
+        hideButton.configuration.foregroundColor = configuration.style.foregroundColor
+        HContainer.addArrangedSubview(hideButton)
+    }
+
+    private func removeDissmissibleStyle() {
+        backgroundView.update {
+            $0.strokeColor = nil
+            $0.strokeWidth = 0
+        }
         
-    }
-    
-    private func removeGestureRecognizers() {
-        removeGestureRecognizer(tapGestureRecognizer)
-        removeGestureRecognizer(swipeGestureRecognizer)
-    }
-
-    @objc private func handleTap() {
-        hide(animated: true)
-    }
-
-    @objc private func handleSwipe() {
-        hide(animated: true)
-    }
-}
-
-
-extension ToastView: UIGestureRecognizerDelegate {
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        touch.view != actionButton
+        hideButton.removeFromSuperview()
     }
 }
 

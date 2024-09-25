@@ -285,12 +285,13 @@ extension SegmentControl.Item: ExpressibleByStringLiteral {
 }
 
 extension SegmentControl.Style {
+    
     var backgroundConfiguration: BackgroundConfiguration? {
         switch self {
         case .firstLevel:
             return nil
         case .secondLevel:
-            return .overlay(cornerStyle: .capsule)
+            return .overlay(color: Colors.darkTeal, cornerStyle: .capsule)
         case .toggle:
             var configuration = BackgroundConfiguration()
             configuration.fillColor = .white
@@ -306,7 +307,7 @@ extension SegmentControl.Style {
         case .firstLevel:
             return .init(top: 0, left: .LLPUI.spacing5, bottom: 0, right: .LLPUI.spacing5)
         case .secondLevel:
-            return .init(top: 0, left: .LLPUI.spacing2, bottom: 0, right: .LLPUI.spacing2)
+            return .init(top: 6, left: 8, bottom: 6, right: 8)
         case .toggle:
             return .init(top: 0, left: 1, bottom: 0, right: 1)
         }
@@ -317,7 +318,7 @@ extension SegmentControl.Style {
         case .firstLevel:
             return 48
         case .secondLevel:
-            return 48
+            return 56
         case .toggle:
             return 40
         }
@@ -334,12 +335,12 @@ extension SegmentControl.Style {
         }
     }
     
-    var textFont: UIFont {
+    func textFont(forSelected isSelected: Bool) -> UIFont {
         switch self {
         case .firstLevel:
-            return Fonts.button1
+            return isSelected ? Fonts.body3Bold : Fonts.body3
         case .secondLevel:
-            return Fonts.button2
+            return Fonts.body4Bold
         case .toggle:
             return Fonts.body1
         }
@@ -348,9 +349,9 @@ extension SegmentControl.Style {
     func textColor(forSelected isSelected: Bool) -> UIColor {
         switch self {
         case .firstLevel:
-            return isSelected ? Colors.teal : Colors.title
+            return Colors.bodyText1
         case .secondLevel:
-            return isSelected ? .white : Colors.title
+            return isSelected ? Colors.darkTeal : .white
         case .toggle:
             return isSelected ? .white : Colors.title
         }
@@ -359,9 +360,9 @@ extension SegmentControl.Style {
     var textInsets: UIEdgeInsets {
         switch self {
         case .firstLevel:
-            return .init(top: 8, left: 6, bottom: 8, right: 6)
+            return .init(uniformValue: 12)
         case .secondLevel:
-            return .init(top: 8, left: 20, bottom: 8, right: 20)
+            return .init(top: 12, left: 26, bottom: 12, right: 26)
         case .toggle:
             return .init(top: 9.5, left: 25, bottom: 9.5, right: 25)
         }
@@ -372,14 +373,20 @@ extension SegmentControl.Style {
         case .firstLevel:
             return 2
         case .secondLevel:
-            return 32
+            return 44
         case .toggle:
             return 38
         }
     }
     
     var sliderColor: UIColor {
-        Colors.teal
+        switch self {
+        case .secondLevel:
+            return .white
+        default:
+            return Colors.mediumTeal
+        }
+
     }
     
     var sliderCornerStyle: CornerStyle {

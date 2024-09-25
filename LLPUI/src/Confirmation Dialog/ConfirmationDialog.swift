@@ -18,14 +18,14 @@ public class ConfirmationDialog {
             lhs.rawValue < rhs.rawValue
         }
         
-        case primary = 1, secondary, cancel
+        case primary = 1, destructive, cancel
     }
         
     public enum Element {
     
         case input(label: String? = nil, placeholder: String? = nil, isMultiline: Bool = false, maximumTextLength: Int = .max, textSubscriber: any Subscriber<String, Never>)
                 
-        case button(title: String, role: ButtonRole = .primary, enabler: AnyPublisher<Bool, Never>? = nil, handler: (() -> Void)? = nil)
+        case button(title: String, role: ButtonRole = .primary, enabler: (any Publisher<Bool, Never>)? = nil, handler: (() -> Void)? = nil)
         
         case customView(UIView, height: CGFloat? = nil, alignment: CustomViewAlignment = .fill, insets: UIEdgeInsets? = nil)
         
@@ -39,9 +39,18 @@ public class ConfirmationDialog {
                 0
             }
         }
+        
+        var isButton: Bool {
+            switch self {
+            case .button:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
-    public static let defaultPopupConfiguration = PopupController.Configuration(showsCancelButton: false)
+    public static let defaultPopupConfiguration = PopupController.Configuration(showsCancelButton: true)
     
     private static let cancellablesAssociation = Association<Set<AnyCancellable>>(wrap: .retain)
     
@@ -53,6 +62,9 @@ public class ConfirmationDialog {
     private let detailRichText: RichText?
     private let elements: [Element]
     
+    private let buttonElements: [Element]
+    private var shouldAddButtonsHorizontally: Bool = false
+    
     public init(popupConfiguration: PopupController.Configuration = ConfirmationDialog.defaultPopupConfiguration, image: UIImage? = nil, imageSize: CGSize? = nil, title: String? = nil, detailText: String? = nil, detailRichText: RichText? = nil, elements: [Element] = []) {
         self.popupConfiguration = popupConfiguration
         self.image = image
@@ -62,6 +74,10 @@ public class ConfirmationDialog {
         self.detailRichText = detailRichText
         // Sort actions by comparing button role
         self.elements = elements.sorted(by: { $0.order < $1.order } )
+        
+        buttonElements = elements.filter { $0.isButton }
+ 
+        shouldAddButtonsHorizontally = buttonElements.count == 2
     }
     
     public func show(in viewController: UIViewController) {
@@ -105,8 +121,8 @@ public class ConfirmationDialog {
                 FormRow(
                     UILabel(
                         text: title,
-                        textColor: Colors.title,
-                        font: Fonts.body1Bold,
+                        textColor: Colors.bodyText1,
+                        font: Fonts.h6,
                         textAlignment: .center,
                         numberOfLines: 0
                     ),
@@ -120,7 +136,7 @@ public class ConfirmationDialog {
                     UILabel(
                         richText: detailRichText,
                         textColor: Colors.bodyText1,
-                        font: Fonts.body2,
+                        font: Fonts.body1,
                         textAlignment: .center,
                         numberOfLines: 0
                     ).then { $0.isUserInteractionEnabled = true }, // rich text may contain action, so enable user interaction
@@ -167,29 +183,13 @@ public class ConfirmationDialog {
                     )
                     .settingCustomSpacingAfter(.LLPUI.spacing5)
                     
-                case .button(let title, let role, let enabler, let handler):
+                case .button where !shouldAddButtonsHorizontally:
                     FormRow(
-                        WrapperView({
-                            let button = Button(
-                                designStyle: role == .primary ? .primary : .secondary,
-                                contentInsetsMode: .ignoreHorizontal,
-                                title: title,
-                                touchUpInsideAction: { [weak presentedController] _ in
-                                    if let presentedController = presentedController {
-                                        presentedController.dismiss(animated: true, completion: handler)
-                                    } else {
-                                        handler?()
-                                    }
-                                })
-                            
-                            enabler?
-                                .assign(to: \.isEnabled, on: button)
-                                .store(in: &cancellables)
-                            
-                            return button
-                        }(), layoutMargins: .init(top: 0, left: .LLPUI.spacing5, bottom: 0, right: .LLPUI.spacing5)
+                        WrapperView(
+                            createButton(for: element, presentedController: presentedController, cancellables: &cancellables),
+                            layoutMargins: .init(top: 0, left: .LLPUI.spacing5, bottom: 0, right: .LLPUI.spacing5)
                         ),
-                        height: 40,
+                        height: 48,
                         alignment: .fill
                     )
                     .settingCustomSpacingAfter(.LLPUI.spacing3)
@@ -197,8 +197,15 @@ public class ConfirmationDialog {
                 case .customView(let view, let height, let alignment, let insets):
                     FormRow(view, height: height, alignment: alignment, insets: insets)
                         .settingCustomSpacingAfter(.LLPUI.spacing5)
+                    
+                default:
+                    ()
                 }
             }
+        }
+        
+        if shouldAddButtonsHorizontally {
+            addButtonsVertically(for: formView, presentedController: presentedController, cancellables: &cancellables)
         }
         
         if !cancellables.isEmpty {
@@ -206,6 +213,41 @@ public class ConfirmationDialog {
         }
         
         return formView
+    }
+    
+    private func addButtonsVertically(for formView: FormView, presentedController: UIViewController, cancellables: inout Set<AnyCancellable>) {
+        formView.populate(keepPreviousItems: true) {
+            FormRow(spacing: .LLPUI.spacing4, height: 48, distribution: .fillEqually) {
+                for buttonElement in buttonElements {
+                    createButton(for: buttonElement, presentedController: presentedController, cancellables: &cancellables)
+                }
+            }
+        }
+    }
+    
+    private func createButton(for element: Element, presentedController: UIViewController, cancellables: inout Set<AnyCancellable>) -> Button {
+        guard case let .button(title, role, enabler, handler) = element else {
+            fatalError()
+        }
+
+        let button = Button(
+            designStyle: role == .primary || role == .destructive ? .primary : .secondary,
+            mainColor: role == .destructive ? Colors.red : Colors.teal,
+            contentInsetsMode: .ignoreHorizontal,
+            title: title,
+            touchUpInsideAction: { [weak presentedController] _ in
+                if let presentedController = presentedController {
+                    presentedController.dismiss(animated: true, completion: handler)
+                } else {
+                    handler?()
+                }
+            })
+        
+        enabler?
+            .assign(to: \.isEnabled, on: button)
+            .store(in: &cancellables)
+        
+        return button
     }
 }
 
