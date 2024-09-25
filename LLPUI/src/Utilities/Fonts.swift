@@ -54,7 +54,7 @@ public class Fonts: NSObject {
     
     // Definitions in https://www.figma.com/design/I8BC6rZsFONKRXToutZx2u/%F0%9F%96%A5%EF%B8%8F-Learner-Journey?node-id=3088-2595&node-type=canvas&t=1cAqm2eN2HNZLhoN-0
          
-    /// 18 semibold
+    /// 18 bold
     public static let h6 = font(ofSize: 20, weight: .bold)
         
     /// 18 regular
@@ -66,23 +66,23 @@ public class Fonts: NSObject {
     /// 12 regular
     public static let body4 = font(ofSize: 12, weight: .regular)
     
-    /// 18 regular
+    /// 18 bold
     public static let body1Bold = font(ofSize: 18, weight: .bold)
-    /// 16 regular
+    /// 16 bold
     public static let body2Bold = font(ofSize: 16, weight: .bold)
-    /// 14 regular
+    /// 14 bold
     public static let body3Bold = font(ofSize: 14, weight: .bold)
-    /// 12 regular
+    /// 12 bold
     public static let body4Bold = font(ofSize: 12, weight: .bold)
 
-    /// 14 semibold
+    /// 14 bold
     public static let button1 = font(ofSize: 16, weight: .bold)
-    /// 14 semibold
+    /// 14 bold
     public static let button2 = font(ofSize: 14, weight: .bold)
-    /// 12 semibold
+    /// 12 bold
     public static let button3 = font(ofSize: 12, weight: .bold)
     
-    /// 10 semibold
+    /// 10 bold
     public static let caption = font(ofSize: 10, weight: .bold)
     
 }

@@ -52,6 +52,7 @@ public class OptionControl: UIControl {
     public var title: String? {
         set {
             titleLabel.text = newValue
+            titleLabel.isUserInteractionEnabled = false
             
             maybeUpdateLayout()
         }
@@ -63,6 +64,7 @@ public class OptionControl: UIControl {
     public var richTitle: RichText? {
         set {
             titleLabel.richText = newValue
+            titleLabel.isUserInteractionEnabled = true
             
             maybeUpdateLayout()
         }

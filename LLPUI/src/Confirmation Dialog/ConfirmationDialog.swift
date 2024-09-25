@@ -9,6 +9,31 @@ import UIKit
 import LLPUtils
 import Combine
 
+public protocol ConfirmationDialogToken {
+    func updateLayout(animted: Bool)
+    
+    func hide()
+}
+
+private struct PopupControllerWrapper: ConfirmationDialogToken {
+    
+    private weak var popupController: PopupController?
+    
+    init(_ popupController: PopupController?) {
+        self.popupController = popupController
+    }
+    
+    func updateLayout(animted: Bool) {
+        popupController?.contentView?.invalidateIntrinsicContentSize()
+        popupController?.updateLayout(animated: animted)
+    }
+    
+    func hide() {
+        popupController?.presentingViewController?.dismiss(animated: true)
+    }
+}
+
+
 public class ConfirmationDialog {
     
     public typealias CustomViewAlignment = FormRow.Alignment
@@ -25,7 +50,7 @@ public class ConfirmationDialog {
     
         case input(label: String? = nil, placeholder: String? = nil, isMultiline: Bool = false, maximumTextLength: Int = .max, textSubscriber: any Subscriber<String, Never>)
                 
-        case button(title: String, role: ButtonRole = .primary, enabler: (any Publisher<Bool, Never>)? = nil, handler: (() -> Void)? = nil)
+        case button(title: String, role: ButtonRole = .primary, enabler: (any Publisher<Bool, Never>)? = nil, keepsDialogPresented: Bool = false, handler: ((ConfirmationDialogToken) -> Void)? = nil)
         
         case customView(UIView, height: CGFloat? = nil, alignment: CustomViewAlignment = .fill, insets: UIEdgeInsets? = nil)
         
@@ -33,7 +58,7 @@ public class ConfirmationDialog {
             switch self {
             case .input(_, _, _, _, _):
                 0
-            case .button(_, let role, _, _):
+            case .button(_, let role, _, _, _):
                 role.rawValue
             case .customView(_, _, _, _):
                 0
@@ -80,14 +105,17 @@ public class ConfirmationDialog {
         shouldAddButtonsHorizontally = buttonElements.count == 2
     }
     
-    public func show(in viewController: UIViewController) {
+    @discardableResult
+    public func show(in viewController: UIViewController) -> ConfirmationDialogToken {
         let popupController = PopupController(configuration: popupConfiguration)
         popupController.contentView = createContentView(for: popupController)
                 
         viewController.present(popupController, animated: true)
+        
+        return PopupControllerWrapper(popupController)
     }
     
-    private func createContentView(for presentedController: UIViewController) -> UIView {
+    private func createContentView(for popupController: PopupController) -> UIView {
         var cancellables = Set<AnyCancellable>()
         
         let formView = FormView()
@@ -122,7 +150,7 @@ public class ConfirmationDialog {
                     UILabel(
                         text: title,
                         textColor: Colors.bodyText1,
-                        font: Fonts.h6,
+                        font: Fonts.body2Bold,
                         textAlignment: .center,
                         numberOfLines: 0
                     ),
@@ -136,7 +164,7 @@ public class ConfirmationDialog {
                     UILabel(
                         richText: detailRichText,
                         textColor: Colors.bodyText1,
-                        font: Fonts.body1,
+                        font: Fonts.body2,
                         textAlignment: .center,
                         numberOfLines: 0
                     ).then { $0.isUserInteractionEnabled = true }, // rich text may contain action, so enable user interaction
@@ -186,7 +214,7 @@ public class ConfirmationDialog {
                 case .button where !shouldAddButtonsHorizontally:
                     FormRow(
                         WrapperView(
-                            createButton(for: element, presentedController: presentedController, cancellables: &cancellables),
+                            createButton(for: element, popupController: popupController, cancellables: &cancellables),
                             layoutMargins: .init(top: 0, left: .LLPUI.spacing5, bottom: 0, right: .LLPUI.spacing5)
                         ),
                         height: 48,
@@ -205,7 +233,7 @@ public class ConfirmationDialog {
         }
         
         if shouldAddButtonsHorizontally {
-            addButtonsVertically(for: formView, presentedController: presentedController, cancellables: &cancellables)
+            addButtonsVertically(for: formView, popupController: popupController, cancellables: &cancellables)
         }
         
         if !cancellables.isEmpty {
@@ -215,18 +243,18 @@ public class ConfirmationDialog {
         return formView
     }
     
-    private func addButtonsVertically(for formView: FormView, presentedController: UIViewController, cancellables: inout Set<AnyCancellable>) {
+    private func addButtonsVertically(for formView: FormView, popupController: PopupController, cancellables: inout Set<AnyCancellable>) {
         formView.populate(keepPreviousItems: true) {
             FormRow(spacing: .LLPUI.spacing4, height: 48, distribution: .fillEqually) {
                 for buttonElement in buttonElements {
-                    createButton(for: buttonElement, presentedController: presentedController, cancellables: &cancellables)
+                    createButton(for: buttonElement, popupController: popupController, cancellables: &cancellables)
                 }
             }
         }
     }
     
-    private func createButton(for element: Element, presentedController: UIViewController, cancellables: inout Set<AnyCancellable>) -> Button {
-        guard case let .button(title, role, enabler, handler) = element else {
+    private func createButton(for element: Element, popupController: PopupController, cancellables: inout Set<AnyCancellable>) -> Button {
+        guard case let .button(title, role, enabler, keepsDialogPresented, handler) = element else {
             fatalError()
         }
 
@@ -235,11 +263,16 @@ public class ConfirmationDialog {
             mainColor: role == .destructive ? Colors.red : Colors.teal,
             contentInsetsMode: .ignoreHorizontal,
             title: title,
-            touchUpInsideAction: { [weak presentedController] _ in
-                if let presentedController = presentedController {
-                    presentedController.dismiss(animated: true, completion: handler)
+            touchUpInsideAction: { [weak popupController] _ in
+                
+                if !keepsDialogPresented, let presentingViewController = popupController?.presentingViewController {
+                    
+                    presentingViewController.dismiss(animated: true) {
+                        handler?(PopupControllerWrapper(popupController))
+                    }
+                    
                 } else {
-                    handler?()
+                    handler?(PopupControllerWrapper(popupController))
                 }
             })
         

@@ -86,13 +86,13 @@ public class ToastView: UIView, Configurable {
         var image: UIImage {
             switch self {
             case .success:
-                Icons.toastSuccess
+                Icons.alertSuccess
             case .error:
-                Icons.toastError
+                Icons.alertError
             case .note:
-                Icons.toastNote
+                Icons.alertNote
             case .warning:
-                Icons.toastWarning
+                Icons.alertWarning
             }
         }
         

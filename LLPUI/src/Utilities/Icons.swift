@@ -21,13 +21,13 @@ public struct Icons {
 
     public static let cancel = LLPUIFramework.image(named: "cancel")
     
-    public static let toastSuccess = LLPUIFramework.image(named: "toast.success")
+    public static let alertSuccess = LLPUIFramework.image(named: "alert.success")
     
-    public static let toastError = LLPUIFramework.image(named: "toast.error")
+    public static let alertError = LLPUIFramework.image(named: "alert.error")
 
-    public static let toastNote = LLPUIFramework.image(named: "toast.note")
+    public static let alertNote = LLPUIFramework.image(named: "alert.note")
     
-    public static let toastWarning = LLPUIFramework.image(named: "toast.warning")
+    public static let alertWarning = LLPUIFramework.image(named: "alert.warning")
     
     public static let visibilityOff = LLPUIFramework.image(named: "visibility.off")
 
@@ -43,8 +43,6 @@ public struct Icons {
     
     public static let search = LLPUIFramework.image(named: "search")
     
-    public static let alertCircle = LLPUIFramework.image(named: "alert.circle")
-
     public static let arrowRight = LLPUIFramework.image(named: "arrow.right")
     
     public static let filter = LLPUIFramework.image(named: "filter")

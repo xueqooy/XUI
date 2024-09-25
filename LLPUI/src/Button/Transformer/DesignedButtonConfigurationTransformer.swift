@@ -26,6 +26,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         case secondary
         case secondarySmall
         case borderless
+        case borderlessSmall
     }
     
     public enum ContentInsetsMode {
@@ -110,6 +111,19 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         return conf
     }()
     
+    static let borderlessSmallConfiguration: ButtonConfiguration = {
+        var bg = BackgroundConfiguration.clear()
+
+        var conf = ButtonConfiguration()
+        conf.titleFont = Constants.smallFont
+        conf.imagePadding = Constants.smallImagePadding
+        conf.indicatorSize = CGSize.square(Constants.smallFont.lineHeight)
+        conf.background =  bg
+        
+        return conf
+    }()
+    
+    
     public var style: Style
     
     public var mainColor: UIColor {
@@ -148,6 +162,8 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
             template = Self.secondarySmallConfiguration
         case .borderless:
             template = Self.borderlessConfiguration
+        case .borderlessSmall:
+            template = Self.borderlessSmallConfiguration
         }
         
         configuration.titleFont = template.titleFont
@@ -210,7 +226,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
             backgroundColor = alternativeBackgroundColor
             strokeColor = mainColor
     
-        case .borderless:
+        case .borderless, .borderlessSmall:
             foregroundColor = mainColor
             backgroundColor = alternativeBackgroundColor
             strokeColor = .clear
@@ -247,6 +263,8 @@ extension DesignedButtonConfigurationTransformer.Style : CustomStringConvertible
             return "Secondary small"
         case .borderless:
             return "Borderless"
+        case .borderlessSmall:
+            return "Borderless small"
         }
     }
 }

@@ -10,14 +10,14 @@ import LLPUtils
 import SnapKit
 
 public extension UIView {
-    @discardableResult func addForm(scrollingBehavior: FormView.ContentScrollingBehavior = .normal, configure: ((_ formView: FormView) -> Void)? = nil, layout: ((_ make: ConstraintMaker) -> Void)? = nil, @ArrayBuilder<FormComponent> populate: () -> [FormComponent]) -> FormView {
+    @discardableResult func addForm(scrollingBehavior: FormView.ContentScrollingBehavior = .normal, respectsSafeArea: Bool = true, configure: ((_ formView: FormView) -> Void)? = nil, @ArrayBuilder<FormComponent> populate: () -> [FormComponent]) -> FormView {
         let formView = FormView(contentScrollingBehavior: scrollingBehavior)
         configure?(formView)
         
         addSubview(formView)
         formView.snp.makeConstraints { make in
-            if let layout = layout {
-                layout(make)
+            if respectsSafeArea {
+                make.edges.equalTo(self.safeAreaLayoutGuide)
             } else {
                 make.edges.equalToSuperview()
             }
