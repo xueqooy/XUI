@@ -360,7 +360,7 @@ extension SegmentControl.Style {
     var textInsets: UIEdgeInsets {
         switch self {
         case .firstLevel:
-            return .init(uniformValue: 12)
+            return .init(top: 12, left: 6, bottom: 12, right: 6)
         case .secondLevel:
             return .init(top: 12, left: 26, bottom: 12, right: 26)
         case .toggle:

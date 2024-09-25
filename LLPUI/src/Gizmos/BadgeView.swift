@@ -10,8 +10,8 @@ import UIKit
 public class BadgeView: UIView {
     
     private struct Constants {
-        static let defaultColor: UIColor = Colors.lightRed
-        static let textFont = Fonts.body2
+        static let defaultColor: UIColor = Colors.red
+        static let textFont = Fonts.body4
         static let dotSize = CGSize(width: 6, height: 6)
         static let numberMinimumSize = CGSize(width: 18, height: 18)
         static let numberPadding = 5.0

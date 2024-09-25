@@ -54,7 +54,7 @@ class ConfirmationDialogDemoController: DemoController {
     private func showConfirmationDialog() {
         let buttonLabelAndRoleArray: [(String, ConfirmationDialog.ButtonRole)] = [
             ("Cancel", .cancel),
-            ("Primary", .destructive),
+            ("Delete", .destructive),
         ]
         
         let nameSubject = CurrentValueSubject<String, Never>("")
@@ -80,12 +80,12 @@ class ConfirmationDialogDemoController: DemoController {
             detailText: "Deleting an item permanently removes it and its contents.")
         {
             for buttonLabelAndRole in buttonLabelAndRoleArray {
-                CDButton(title: buttonLabelAndRole.0, role: buttonLabelAndRole.1, enabler: buttonEnabler) {
+                CDButton(title: buttonLabelAndRole.0, role: buttonLabelAndRole.1/*, enabler: buttonEnabler*/) {
                     print(buttonLabelAndRole.0)
                 }
             }
-            CDInput(label: "Name", placeholder: "New name", textSubscriber: AnySubscriber(nameSubject))
-            CDInput(label: "Description (Optional)", placeholder: "New description", isMultiline: true, textSubscriber: AnySubscriber(descSubject))
+//            CDInput(label: "Name", placeholder: "New name", textSubscriber: AnySubscriber(nameSubject))
+//            CDInput(label: "Description (Optional)", placeholder: "New description", isMultiline: true, textSubscriber: AnySubscriber(descSubject))
 //            CDButton(title: "Cancel", role: .cancel)
         }
         .show(in: self)
