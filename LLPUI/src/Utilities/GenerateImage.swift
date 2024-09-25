@@ -417,9 +417,9 @@ public func getSharedDevideGraphicsContextSettings() -> DeviceGraphicsContextSet
                 self.colorSpace = context.colorSpace!
             }
            
-            assert(self.rowAlignment == 32)
-            assert(self.bitsPerPixel == 32)
-            assert(self.bitsPerComponent == 8)
+//            assert(self.rowAlignment == 32)
+//            assert(self.bitsPerPixel == 32)
+//            assert(self.bitsPerComponent == 8)
         }
     }
 

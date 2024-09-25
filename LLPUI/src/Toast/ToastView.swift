@@ -197,6 +197,7 @@ public class ToastView: UIView, Configurable {
     private let VContainer = VStackView(spacing: .LLPUI.spacing2, layoutMargins: Constants.contentInset)
     
     private let HContainer = HStackView(distribution: .fill, alignment: .top, spacing: Constants.horizontalSpacing)
+        .settingContentHuggingPriority(.required, for: .vertical)
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -221,7 +222,9 @@ public class ToastView: UIView, Configurable {
         return messageLabel
     }()
     
-    private lazy var hideButton = Button(configuration: .init(image: Icons.cancel)) { [weak self] _ in
+    private static let hideButtonImage = generateImageWithMargins(image: Icons.cancel, margins: .init(uniformValue: 3)).withRenderingMode(.alwaysTemplate)
+    
+    private lazy var hideButton = Button(configuration: .init(image: Self.hideButtonImage)) { [weak self] _ in
         self?.hide()
     }.settingContentCompressionResistanceAndHuggingPriority(.required)
     
@@ -230,7 +233,6 @@ public class ToastView: UIView, Configurable {
     private lazy var secondaryActionButton = Button(designStyle: .secondary, contentInsetsMode: .override(.nondirectional(top: 0, left: 40, bottom: 0, right: 40)))
 
     private lazy var actionContainerView = HStackView(spacing: .LLPUI.spacing4) { UIView() }
-        .settingHeightConstraint(Constants.actionContainerHeight)
    
     private var constraintWhenHidden: NSLayoutConstraint!
     private var constraintWhenShown: NSLayoutConstraint!
@@ -244,6 +246,8 @@ public class ToastView: UIView, Configurable {
     private var shouldShowSecondaryActionButton: Bool {
         configuration.secondaryAction != nil && !configuration.secondaryAction!.title.isEmpty
     }
+    
+    private var isDismissibleStyle: Bool = false
     
     public init(configuration: Configuration = .init()) {
         self.configuration = configuration
@@ -323,7 +327,6 @@ public class ToastView: UIView, Configurable {
         
         setupDissmissibleStyle()
 
-        translatesAutoresizingMaskIntoConstraints = false
         if let anchorView = anchorView, anchorView.superview == view {
             view.insertSubview(self, belowSubview: anchorView)
         } else {
@@ -450,53 +453,6 @@ public class ToastView: UIView, Configurable {
         }
     }
 
-
-    public override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var suggestedWidth: CGFloat = size.width
-        var availableLabelWidth = suggestedWidth
-
-        if let windowWidth = window?.frame.width {
-            suggestedWidth = windowWidth
-        }
-
-        // for iPad regular width size, notification toast might look too wide
-        if traitCollection.userInterfaceIdiom == .pad &&
-            traitCollection.horizontalSizeClass == .regular &&
-            traitCollection.preferredContentSizeCategory < .accessibilityMedium {
-            suggestedWidth = max(suggestedWidth / 2, 375.0)
-        } else {
-            suggestedWidth -= (safeAreaInsets.left + safeAreaInsets.right + 2 * Constants.presentationOffset)
-        }
-        suggestedWidth = ceil(suggestedWidth)
-        availableLabelWidth = suggestedWidth
-        
-        let contentInsets = Constants.contentInset
-        
-        availableLabelWidth -= contentInsets.horizontal
-        
-        let imageSize = imageView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        availableLabelWidth -= (imageSize.width + Constants.horizontalSpacing)
-        
-        if isShown {
-            availableLabelWidth -= Constants.horizontalSpacing
-            availableLabelWidth -= hideButton.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
-        }
-
-        var suggesgedHeight: CGFloat = contentInsets.vertical
-        let messagelabelSize = messageLabel.systemLayoutSizeFitting(CGSize(width: availableLabelWidth, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
-        suggesgedHeight += messagelabelSize.height
-
-        if shouldShowPrimaryActionButton || shouldShowSecondaryActionButton  {
-            suggesgedHeight += (Constants.actionContainerHeight + Constants.verticalSpacing)
-        }
-        
-        return CGSize(width: suggestedWidth, height: suggesgedHeight)
-    }
-
-    public override var intrinsicContentSize: CGSize {
-        return sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
-    }
-
     private func update() {
         let style = configuration.style
         let message = configuration.message
@@ -562,11 +518,13 @@ public class ToastView: UIView, Configurable {
             
         // Background
         backgroundView.configuration = .init(fillColor: style.backgroundColor, cornerStyle: .fixed(.LLPUI.smallCornerRadius))
-        
-        invalidateIntrinsicContentSize()
     }
     
     private func setupDissmissibleStyle() {
+        isDismissibleStyle = true
+        
+        translatesAutoresizingMaskIntoConstraints = false
+                
         if let hapticFeedbackType = configuration.style.hapticFeedbackType {
             self.hapticFeedback = HapticFeedback(type: hapticFeedbackType)
             self.hapticFeedback?.prepare()
@@ -582,6 +540,8 @@ public class ToastView: UIView, Configurable {
     }
 
     private func removeDissmissibleStyle() {
+        isDismissibleStyle = false
+        
         backgroundView.update {
             $0.strokeColor = nil
             $0.strokeWidth = 0
