@@ -118,7 +118,7 @@ public class EntityListController: UIViewController {
     
     private lazy var searchField = SearchInputField(placeholder: Strings.search)
     
-    private lazy var applyButton = LLPUI.Button(designStyle: .primary, title: Strings.apply).then {
+    private lazy var applyButton = Button(designStyle: .primary, title: Strings.apply).then {
         $0.touchUpInsideAction = { [weak self] _ in
             guard let self else { return }
             // Apply selection

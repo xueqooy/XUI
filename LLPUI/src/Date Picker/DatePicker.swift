@@ -14,7 +14,7 @@ public class DatePicker: ContentPresenter {
         
         let dateDidSelectHandler = dateDidSelectHandler
         
-        let applyButton = LLPUI.Button(designStyle: .primary, title: Strings.apply, width: 270) { _ in
+        let applyButton = Button(designStyle: .primary, title: Strings.apply, width: 270) { _ in
             self.dateDidSelectHandler(scheduleDate)
             self.deactivate()
         }
@@ -27,7 +27,7 @@ public class DatePicker: ContentPresenter {
             applyButton?.isEnabled = scheduleDate != nil
         }
         
-        let cancelButton = LLPUI.Button(designStyle: .secondary, title: Strings.cancel, width: 270) { _ in
+        let cancelButton = Button(designStyle: .secondary, title: Strings.cancel, width: 270) { _ in
 
             self.deactivate()
         }

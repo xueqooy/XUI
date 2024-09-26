@@ -42,7 +42,7 @@ public class FilterSortActionView: UIView {
         configuration.titleFont = Fonts.button2
     }
     
-    private lazy var filterButton: LLPUI.Button = {
+    private lazy var filterButton: Button = {
         var config = ButtonConfiguration()
         config.title = Strings.filter
         config.image = Icons.filter
@@ -50,7 +50,7 @@ public class FilterSortActionView: UIView {
         return .init(configuration: config, configurationTransformer: buttonConfigurationTransformer)
     }()
     
-    private lazy var sortButton: LLPUI.Button = {
+    private lazy var sortButton: Button = {
         var config = ButtonConfiguration()
         config.title = Strings.sortBy
         config.image = Icons.sort
