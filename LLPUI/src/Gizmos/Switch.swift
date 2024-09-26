@@ -28,5 +28,7 @@ open class Switch: UISwitch {
         onTintColor = Colors.green
         
         subviews.first?.subviews.first?.backgroundColor = Colors.disabledText
+        
+        transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
     }
 }

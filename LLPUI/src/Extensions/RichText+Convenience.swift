@@ -32,7 +32,7 @@ public extension RichText {
         tokenToActionMap.forEach { (token, action) in
             // Match text between token
             result
-                .addStyles(.foreground(Colors.teal), .underline(.single), .action(action), checkings: [.regex("\(token)(.*?)\(token)")])
+                .addStyles(.foreground(Colors.mediumTeal), .underline(.single), .action(action), checkings: [.regex("\(token)(.*?)\(token)")])
             
             // Remove token
             result
