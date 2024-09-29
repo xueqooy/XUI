@@ -196,8 +196,13 @@ extension UILabel {
         guard sender.state == .ended else { return }
         RichText.ActionQueue.main.action { [weak self] in
             guard let self = self else { return }
-            guard self.isActionEnabled else { return }
             guard let touched = self.touched else { return }
+
+            self.touched = nil
+            
+            guard self.isActionEnabled else { return }
+            
+            
             let actions = touched.1.flatMap({ $0.value })
             for action in actions where action.trigger.matching(sender) {
                 action.internalHandler?()
@@ -320,7 +325,7 @@ extension UILabel {
         }
         
         RichText.ActionQueue.main.ended {
-            self.touched = nil
+//            self.touched = nil
             self.attributedText = touched.0.attributedString
         }
     }

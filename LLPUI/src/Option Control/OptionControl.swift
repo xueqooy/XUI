@@ -51,6 +51,16 @@ public class OptionControl: UIControl {
     
     public var title: String? {
         set {
+            guard !updatingTitle else {
+                return
+            }
+            updatingTitle = true
+            defer {
+                updatingTitle = false
+            }
+            
+            richTitle = nil
+            
             titleLabel.text = newValue
             titleLabel.isUserInteractionEnabled = false
             
@@ -63,6 +73,16 @@ public class OptionControl: UIControl {
     
     public var richTitle: RichText? {
         set {
+            guard !updatingTitle else {
+                return
+            }
+            updatingTitle = true
+            defer {
+                updatingTitle = false
+            }
+            
+            title = nil
+            
             titleLabel.richText = newValue
             titleLabel.isUserInteractionEnabled = true
             
@@ -99,6 +119,16 @@ public class OptionControl: UIControl {
             }
     
             horizontalStackView.alpha = isEnabled ? 1.0 : Constants.disabledAlpha
+        }
+    }
+    
+    public var isSelectionEnabled: Bool = true {
+        didSet {
+            if style == .switch {
+                switchView.isEnabled = isSelectionEnabled
+            } else {
+                tapGestureRegnizer.isEnabled = isSelectionEnabled
+            }
         }
     }
     
@@ -140,10 +170,16 @@ public class OptionControl: UIControl {
     private lazy var indicatorView = OptionControlIndicatorView(style: style)
     
     private lazy var switchView = Switch()
+        .settingContentCompressionResistanceAndHuggingPriority(.required)
+    
+    private lazy var tapGestureRegnizer = UITapGestureRecognizer(target: self, action: #selector(Self.tapped))
+
     
     private var hasDisplayedImage = false
     private var hasDisplayedTitle = false
     private var hasDisplayedIndicatorOrSwitch = false
+    
+    private var updatingTitle: Bool = false
     
     public init(style: Style, titlePlacement: TitlePlacement = .leading, alignment: Alignment = .center) {
         self.style = style
@@ -203,7 +239,6 @@ public class OptionControl: UIControl {
                 make.size.equalTo(Constants.indicatorSize)
             }
             
-            let tapGestureRegnizer = UITapGestureRecognizer(target: self, action: #selector(Self.tapped))
             addGestureRecognizer(tapGestureRegnizer)
         } else {
             switchView.addTarget(self, action: #selector(Self.tapped), for: .valueChanged)

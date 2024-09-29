@@ -25,8 +25,9 @@ extension RichText {
         }
         
         func ended(_ handler: @escaping Handler) {
-            self.handler?()
             handler()
+            
+            self.handler?()
         }
         
         func cancelled(_ handler: @escaping Handler) {
