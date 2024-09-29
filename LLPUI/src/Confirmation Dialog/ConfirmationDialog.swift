@@ -12,7 +12,7 @@ import Combine
 public protocol ConfirmationDialogToken {
     func updateLayout(animted: Bool)
     
-    func hide()
+    func hide(completion: (() -> Void)?)
 }
 
 private struct PopupControllerWrapper: ConfirmationDialogToken {
@@ -28,8 +28,8 @@ private struct PopupControllerWrapper: ConfirmationDialogToken {
         popupController?.updateLayout(animated: animted)
     }
     
-    func hide() {
-        popupController?.presentingViewController?.dismiss(animated: true)
+    func hide(completion: (() -> Void)? = nil) {
+        popupController?.presentingViewController?.dismiss(animated: true, completion: completion)
     }
 }
 
