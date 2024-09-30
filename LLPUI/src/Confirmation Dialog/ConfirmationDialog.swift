@@ -9,26 +9,33 @@ import UIKit
 import LLPUtils
 import Combine
 
-public protocol ConfirmationDialogToken {
-    func updateLayout(animted: Bool)
-    
-    func hide(completion: (() -> Void)?)
-}
+private let titleLabelTag = 1000001
 
-private struct PopupControllerWrapper: ConfirmationDialogToken {
-    
+public typealias PopupConfiguration = PopupController.Configuration
+
+public struct ConfirmationDialogToken {
+
     private weak var popupController: PopupController?
     
     init(_ popupController: PopupController?) {
         self.popupController = popupController
     }
     
-    func updateLayout(animted: Bool) {
-        popupController?.contentView?.invalidateIntrinsicContentSize()
+    public func updatePopupConfiguraiton(_ modifier: (inout PopupConfiguration) -> Void){
+        popupController?.update(modifier)
+    }
+    
+    /// Just update the exisiting title
+    public func updateTitle(_ title: String) {
+        (popupController?.contentView?.viewWithTag(titleLabelTag) as? UILabel)?.text = title
+        updateLayout()
+    }
+    
+    public func updateLayout(animted: Bool = true) {
         popupController?.updateLayout(animated: animted)
     }
     
-    func hide(completion: (() -> Void)? = nil) {
+    public func hide(completion: (() -> Void)? = nil) {
         popupController?.presentingViewController?.dismiss(animated: true, completion: completion)
     }
 }
@@ -75,11 +82,11 @@ public class ConfirmationDialog {
         }
     }
     
-    public static let defaultPopupConfiguration = PopupController.Configuration(showsCancelButton: true)
+    public static let defaultPopupConfiguration = PopupConfiguration(showsCancelButton: true)
     
     private static let cancellablesAssociation = Association<Set<AnyCancellable>>(wrap: .retain)
     
-    private let popupConfiguration: PopupController.Configuration
+    private let popupConfiguration: PopupConfiguration
     private let title: String?
     private let image: UIImage?
     private let imageSize: CGSize?
@@ -90,7 +97,7 @@ public class ConfirmationDialog {
     private let buttonElements: [Element]
     private var shouldAddButtonsHorizontally: Bool = false
     
-    public init(popupConfiguration: PopupController.Configuration = ConfirmationDialog.defaultPopupConfiguration, image: UIImage? = nil, imageSize: CGSize? = nil, title: String? = nil, detailText: String? = nil, detailRichText: RichText? = nil, elements: [Element] = []) {
+    public init(popupConfiguration: PopupConfiguration = ConfirmationDialog.defaultPopupConfiguration, image: UIImage? = nil, imageSize: CGSize? = nil, title: String? = nil, detailText: String? = nil, detailRichText: RichText? = nil, elements: [Element] = []) {
         self.popupConfiguration = popupConfiguration
         self.image = image
         self.imageSize = imageSize
@@ -112,7 +119,7 @@ public class ConfirmationDialog {
                 
         viewController.present(popupController, animated: true)
         
-        return PopupControllerWrapper(popupController)
+        return ConfirmationDialogToken(popupController)
     }
     
     private func createContentView(for popupController: PopupController) -> UIView {
@@ -147,13 +154,19 @@ public class ConfirmationDialog {
             
             if let title, !title.isEmpty {
                 FormRow(
-                    UILabel(
-                        text: title,
-                        textColor: Colors.bodyText1,
-                        font: Fonts.body2Bold,
-                        textAlignment: .center,
-                        numberOfLines: 0
-                    ),
+                    {
+                        let label = UILabel(
+                            text: title,
+                            textColor: Colors.bodyText1,
+                            font: Fonts.body2Bold,
+                            textAlignment: .center,
+                            numberOfLines: 0
+                        )
+                        
+                        label.tag = titleLabelTag
+                        
+                        return label
+                    }(),
                     alignment: .center
                 )
                 .settingCustomSpacingAfter(!(detailText ?? "").isEmpty ? .LLPUI.spacing3 : .LLPUI.spacing5)
@@ -268,11 +281,11 @@ public class ConfirmationDialog {
                 if !keepsDialogPresented, let presentingViewController = popupController?.presentingViewController {
                     
                     presentingViewController.dismiss(animated: true) {
-                        handler?(PopupControllerWrapper(popupController))
+                        handler?(ConfirmationDialogToken(popupController))
                     }
                     
                 } else {
-                    handler?(PopupControllerWrapper(popupController))
+                    handler?(ConfirmationDialogToken(popupController))
                 }
             })
         

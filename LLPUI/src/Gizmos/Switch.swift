@@ -8,6 +8,17 @@
 import Foundation
 
 open class Switch: UISwitch {
+    
+    open override var isEnabled: Bool {
+        didSet {
+            guard isEnabled != oldValue else { return }
+            
+            subviews.forEach {
+                $0.alpha = isEnabled ? 1.0 : 0.5
+            }
+        }
+    }
+    
     public convenience init() {
         self.init(frame: .zero)
     }

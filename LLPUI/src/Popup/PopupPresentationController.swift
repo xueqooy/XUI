@@ -25,17 +25,31 @@ class PopupPresentationController: UIPresentationController {
     
     private var cancellable: AnyCancellable?
     
+    var adjustHeightForKeyboard: Bool = false {
+        didSet {
+            guard oldValue != adjustHeightForKeyboard else { return }
+            
+            if adjustHeightForKeyboard {
+                keyboardManager = KeyboardManager()
+                cancellable = keyboardManager?.didReceiveEventPublisher
+                    .filter { $0.0 == .willChangeFrame }
+                    .sink { [weak self] (_, info) in
+                        self?.keyboardWillChangeFrame(info)
+                    }
+            } else {
+                keyboardManager = nil
+                cancellable = nil
+            }
+        }
+    }
+    
+    
     init(presentedViewController: UIViewController, presentingViewController: UIViewController?, adjustHeightForKeyboard: Bool) {
         
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         
-        if adjustHeightForKeyboard {
-            keyboardManager = KeyboardManager()
-            cancellable = keyboardManager?.didReceiveEventPublisher
-                .filter { $0.0 == .willChangeFrame }
-                .sink { [weak self] (_, info) in
-                    self?.keyboardWillChangeFrame(info)
-                }
+        defer {
+            self.adjustHeightForKeyboard = adjustHeightForKeyboard
         }
     }
     

@@ -10,7 +10,7 @@ import SnapKit
 
 
 /// `PopupController` is used to present a portion of UI  in the center of the screen
-open class PopupController: UIViewController {
+open class PopupController: UIViewController, Configurable {
         
     private struct Constants {
         static let horizontalMarginForCompactWidth: CGFloat = .LLPUI.spacing5
@@ -18,7 +18,7 @@ open class PopupController: UIViewController {
         static let contentInsets = UIEdgeInsets(top: .LLPUI.spacing5, left: .LLPUI.spacing5, bottom: .LLPUI.spacing5, right: .LLPUI.spacing5)
     }
     
-    public struct Configuration {
+    public struct Configuration: Equatable {
         
         public var title: String? = nil
         
@@ -40,7 +40,33 @@ open class PopupController: UIViewController {
         
     }
     
-    public let configuration: Configuration
+    public var configuration: Configuration {
+        didSet {
+            guard configuration != oldValue else {
+                return
+            }
+            
+            if oldValue.title != configuration.title || oldValue.showsCancelButton != configuration.showsCancelButton {
+                updateTopView()
+            }
+
+            if oldValue.adjustsHeightForKeyboard != configuration.adjustsHeightForKeyboard {
+                (presentationController as? PopupPresentationController)?.adjustHeightForKeyboard = configuration.adjustsHeightForKeyboard
+            }
+            
+            if oldValue.wrapsContentWithDefaultInsets != configuration.wrapsContentWithDefaultInsets {
+                if let currentContentController = contentController {
+                    contentController = nil
+                    contentController = currentContentController
+                } else if let currentContentView = _contentView {
+                    contentView = nil
+                    contentView = currentContentView
+                }
+            }
+            
+            updateLayout()
+        }
+    }
     
     /**
      Set `contentController` to provide a controller that will represent popup's content. Its view will be hosted in the root view of the popoup and will be sized and positioned to accommodate any shell UI of the popup.
@@ -255,14 +281,15 @@ open class PopupController: UIViewController {
         }
         
         updateTopView()
-        maybeUpdateContentWrapper()
+        maybeUpdateMarginsForContentWrapper()
     }
 
     public func updateLayout(animated: Bool = true) {
+        contentView?.invalidateIntrinsicContentSize()
         (presentationController as? PopupPresentationController)?.updateLayout(animated: animated)
     }
     
-    private func maybeUpdateContentWrapper() {
+    private func maybeUpdateMarginsForContentWrapper() {
         if !configuration.wrapsContentWithDefaultInsets {
             return
         }
