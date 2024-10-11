@@ -154,7 +154,7 @@ public class OptionControl: UIControl {
     private(set) lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.textColor = Colors.bodyText1
-        label.font = Fonts.caption
+        label.font = Fonts.body4Bold
         label.numberOfLines = 0
 //        // After testing, on iOS13, the label may be compressed horizontally, but not on iOS16. Add this line of code to fix the issue on iOS13 (it is uncertain which version will no longer need to do this)
 //        label.settingContentCompressionResistanceAndHuggingPriority(.required, for: .horizontal)
