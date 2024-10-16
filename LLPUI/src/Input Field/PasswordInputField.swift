@@ -139,7 +139,7 @@ public class PasswordInputField: InputField  {
     }
     
     private func updateVisibilityButtonImage() {
-        visibilityButton.configuration.image = textInput.isSecureTextEntry ? Icons.visibilityOn : Icons.visibilityOff
+        visibilityButton.configuration.image = textInput.isSecureTextEntry ? Icons.visibilityOff : Icons.visibilityOn
     }
     
 }
