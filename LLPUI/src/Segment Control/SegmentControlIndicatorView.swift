@@ -41,9 +41,9 @@ class SegmentControlIndicatorView: UIView {
             make.height.equalTo(style.sliderThickness)
             
             switch style {
-            case .firstLevel:
+            case .page:
                 make.bottom.equalToSuperview()
-            case .secondLevel, .toggle:
+            case .tab, .toggle:
                 make.centerY.equalToSuperview()
             }
         }

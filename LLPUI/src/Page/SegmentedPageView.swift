@@ -26,7 +26,7 @@ open class SegmentedPageView: PageView {
     }
     
     private(set) lazy var segmentControl: SegmentControl = {
-        let segmentControl = SegmentControl(style: .firstLevel)
+        let segmentControl = SegmentControl(style: .page)
         segmentControl.automaticallyUpdateIndicatorPostion = false
         segmentControl.selectionChanged = { [weak self] control in
             guard let self = self else {

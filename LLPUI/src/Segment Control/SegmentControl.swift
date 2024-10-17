@@ -13,7 +13,7 @@ import Combine
 open class SegmentControl: UIControl {
     
     public enum Style {
-        case firstLevel, secondLevel, toggle
+        case page, tab, toggle
     }
     
     /// If the `BadgeValue` is nil, do not display the Badge. If it is empty, display the Dot Badge. Otherwise, display the Text Badge
@@ -147,7 +147,7 @@ open class SegmentControl: UIControl {
     
     private lazy var indicatorView = SegmentControlIndicatorView(style: style)
         
-    public init(style: SegmentControl.Style = .firstLevel, fillEqually: Bool = false, items: [Item] = []) {
+    public init(style: SegmentControl.Style = .page, fillEqually: Bool = false, items: [Item] = []) {
         self.style = style
         self.fillEqually = fillEqually
         self.items = items
@@ -288,9 +288,9 @@ extension SegmentControl.Style {
     
     var backgroundConfiguration: BackgroundConfiguration? {
         switch self {
-        case .firstLevel:
+        case .page:
             return nil
-        case .secondLevel:
+        case .tab:
             return .overlay(color: Colors.darkTeal, cornerStyle: .capsule)
         case .toggle:
             var configuration = BackgroundConfiguration()
@@ -304,9 +304,9 @@ extension SegmentControl.Style {
     
     var contentInset: UIEdgeInsets {
         switch self {
-        case .firstLevel:
+        case .page:
             return .init(top: 0, left: .LLPUI.spacing5, bottom: 0, right: .LLPUI.spacing5)
-        case .secondLevel:
+        case .tab:
             return .init(top: 6, left: 8, bottom: 6, right: 8)
         case .toggle:
             return .init(top: 0, left: 1, bottom: 0, right: 1)
@@ -315,9 +315,9 @@ extension SegmentControl.Style {
     
     var intrinsicHeight: CGFloat {
         switch self {
-        case .firstLevel:
+        case .page:
             return 48
-        case .secondLevel:
+        case .tab:
             return 56
         case .toggle:
             return 40
@@ -326,9 +326,9 @@ extension SegmentControl.Style {
     
     var itemSpacing: CGFloat {
         switch self {
-        case .firstLevel:
+        case .page:
             return 12.0
-        case .secondLevel:
+        case .tab:
             return 6.0
         case .toggle:
             return 0
@@ -337,9 +337,9 @@ extension SegmentControl.Style {
     
     func textFont(forSelected isSelected: Bool) -> UIFont {
         switch self {
-        case .firstLevel:
+        case .page:
             return isSelected ? Fonts.body3Bold : Fonts.body3
-        case .secondLevel:
+        case .tab:
             return Fonts.body4Bold
         case .toggle:
             return Fonts.body1
@@ -348,9 +348,9 @@ extension SegmentControl.Style {
     
     func textColor(forSelected isSelected: Bool) -> UIColor {
         switch self {
-        case .firstLevel:
+        case .page:
             return Colors.bodyText1
-        case .secondLevel:
+        case .tab:
             return isSelected ? Colors.darkTeal : .white
         case .toggle:
             return isSelected ? .white : Colors.title
@@ -359,9 +359,9 @@ extension SegmentControl.Style {
     
     var textInsets: UIEdgeInsets {
         switch self {
-        case .firstLevel:
+        case .page:
             return .init(top: 12, left: 6, bottom: 12, right: 6)
-        case .secondLevel:
+        case .tab:
             return .init(top: 12, left: 26, bottom: 12, right: 26)
         case .toggle:
             return .init(top: 9.5, left: 25, bottom: 9.5, right: 25)
@@ -370,9 +370,9 @@ extension SegmentControl.Style {
             
     var sliderThickness: CGFloat {
         switch self {
-        case .firstLevel:
+        case .page:
             return 2
-        case .secondLevel:
+        case .tab:
             return 44
         case .toggle:
             return 38
@@ -381,7 +381,7 @@ extension SegmentControl.Style {
     
     var sliderColor: UIColor {
         switch self {
-        case .secondLevel:
+        case .tab:
             return .white
         default:
             return Colors.mediumTeal
@@ -391,7 +391,7 @@ extension SegmentControl.Style {
     
     var sliderCornerStyle: CornerStyle {
         switch self {
-        case .firstLevel, .secondLevel:
+        case .page, .tab:
             return .capsule
         case .toggle:
             return .fixed(7)
@@ -400,7 +400,7 @@ extension SegmentControl.Style {
     
     func sliderMaskedCorner(for position: SegmentControlIndicatorView.Position) -> CACornerMask {
         switch self {
-        case .firstLevel, .secondLevel:
+        case .page, .tab:
             return [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         case .toggle:
             switch position {
@@ -416,7 +416,7 @@ extension SegmentControl.Style {
     
     func animateIndicator(_ indicatorView: SegmentControlIndicatorView, updateIndicatorPosition: @escaping () -> Void) {
         switch self {
-        case .firstLevel, .secondLevel:
+        case .page, .tab:
             UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut], animations: updateIndicatorPosition)
         case .toggle:
             indicatorView.layer.animateScale(from: 1.1, to: 1, duration: 0.15, timingFunction: .spring)
