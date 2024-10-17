@@ -91,6 +91,15 @@ open class PageView: UIView {
         }
     }
     
+    public var isScrollEnabled: Bool {
+        get {
+            scrollView.isScrollEnabled
+        }
+        set {
+            scrollView.isScrollEnabled = newValue
+        }
+    }
+    
     private(set) lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -191,7 +200,7 @@ open class PageView: UIView {
         
         let didLoadTargetContentBefore = self.loadedContents[index] != nil
         
-        self.updateSelectedPageIndex(index, animated: true)
+        self.updateSelectedPageIndex(index, animated: animated)
     
         // beginAppearanceTransition(true) has been called for newly-created content
         self.beginAppearanceTransition(from: fromIndex, to: didLoadTargetContentBefore ? index : nil)

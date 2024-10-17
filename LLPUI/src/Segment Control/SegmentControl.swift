@@ -362,7 +362,7 @@ extension SegmentControl.Style {
         case .page:
             return .init(top: 12, left: 6, bottom: 12, right: 6)
         case .tab:
-            return .init(top: 12, left: 26, bottom: 12, right: 26)
+            return .init(top: 12, left: 14, bottom: 12, right: 14)
         case .toggle:
             return .init(top: 9.5, left: 25, bottom: 9.5, right: 25)
         }
