@@ -10,6 +10,7 @@ import LLPUtils
 import Combine
 
 private let titleLabelTag = 1000001
+private let detailTextLabelTag = 1000002
 
 public typealias PopupConfiguration = PopupController.Configuration
 
@@ -28,6 +29,11 @@ public struct ConfirmationDialogToken {
     /// Just update the exisiting title
     public func updateTitle(_ title: String) {
         (popupController?.contentView?.viewWithTag(titleLabelTag) as? UILabel)?.text = title
+        updateLayout()
+    }
+    /// Just update the exisiting detailText
+    public func updateDetailText(_ title: String) {
+        (popupController?.contentView?.viewWithTag(detailTextLabelTag) as? UILabel)?.text = title
         updateLayout()
     }
     
@@ -186,14 +192,17 @@ public class ConfirmationDialog {
                 .settingCustomSpacingAfter(.LLPUI.spacing5)
                 
             } else if let detailText, !detailText.isEmpty {
+                let label = UILabel(
+                    text: detailText,
+                    textColor: Colors.bodyText1,
+                    font: Fonts.body2,
+                    textAlignment: .center,
+                    numberOfLines: 0
+                )
+                label.tag = detailTextLabelTag
                 FormRow(
-                    UILabel(
-                        text: detailText,
-                        textColor: Colors.bodyText1,
-                        font: Fonts.body2,
-                        textAlignment: .center,
-                        numberOfLines: 0
-                    ),
+                    label
+                    ,
                     alignment: .center
                 )
                 .settingCustomSpacingAfter(.LLPUI.spacing5)
