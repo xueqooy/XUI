@@ -33,11 +33,11 @@ open class SegmentedPageView: PageView {
                 return
             }
             
-            guard control.selectedSegmentIndex != self.selectedPageIndex else {
+            guard control.selectedSegmentIndex != .LLPUI.noSelection, control.selectedSegmentIndex != self.selectedPageIndex else {
                 return
             }
             
-            self.selectPage(at: control.selectedSegmentIndex, animated: false)
+            self.selectPage(at: control.selectedSegmentIndex, animated: true)
         }
         return segmentControl
     }()

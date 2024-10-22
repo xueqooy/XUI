@@ -18,7 +18,7 @@ public class CoachmarkGenericContentView: UIView {
         let instructionLabel = UILabel(text: instruction, textColor: Colors.title, font: Fonts.body2, numberOfLines: 0)
         instructionLabel.preferredMaxLayoutWidth = 270
         
-        let nextButton = Button(designStyle: .primarySmall, title: isLastStep ? Strings.done : Strings.next) { [weak controller] _ in
+        let nextButton = Button(designStyle: .primary, title: isLastStep ? Strings.done : Strings.next) { [weak controller] _ in
             guard let controller = controller else { return }
             controller.next()
         }

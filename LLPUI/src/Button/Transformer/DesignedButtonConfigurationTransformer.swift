@@ -16,15 +16,15 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         static let largeImagePadding: CGFloat = 16
         static let mediumImagePadding: CGFloat = 10
         static let smallImagePadding: CGFloat = 4
-        static let normalContentInsets: Insets = .directional(top: 12, leading: 80, bottom: 12, trailing: 80)
+        static let normalContentInsets: Insets = .directional(top: 12, leading: 32, bottom: 12, trailing: 32)
         static let smallContentInsets: Insets = .directional(top: 4, leading: 32, bottom: 4, trailing: 32)
     }
     
     public enum Style: CaseIterable {
         case primary
-        case primarySmall
+//        case primarySmall
         case secondary
-        case secondarySmall
+//        case secondarySmall
         case borderless
         case borderlessSmall
     }
@@ -154,12 +154,12 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         switch style {
         case .primary:
             template = Self.primaryConfiguration
-        case .primarySmall:
-            template = Self.primarySmallConfiguration
+//        case .primarySmall:
+//            template = Self.primarySmallConfiguration
         case .secondary:
             template = Self.secondaryConfiguration
-        case .secondarySmall:
-            template = Self.secondarySmallConfiguration
+//        case .secondarySmall:
+//            template = Self.secondarySmallConfiguration
         case .borderless:
             template = Self.borderlessConfiguration
         case .borderlessSmall:
@@ -216,12 +216,12 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         let strokeColor: UIColor
         
         switch style {
-        case .primary, .primarySmall:
+        case .primary/*, .primarySmall*/:
             foregroundColor = isDarkMainColor ? .white : .black
             backgroundColor = mainColor
             strokeColor = .clear
     
-        case .secondary, .secondarySmall:
+        case .secondary/*, .secondarySmall*/:
             foregroundColor = mainColor
             backgroundColor = alternativeBackgroundColor
             strokeColor = mainColor
@@ -241,7 +241,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     public override var shouldAutomaticallyAdjustForegroundAlpha: Bool {
         switch style {
-        case .primary, .primarySmall:
+        case .primary/*, .primarySmall*/:
             return false
         default:
             return true
@@ -255,12 +255,12 @@ extension DesignedButtonConfigurationTransformer.Style : CustomStringConvertible
         switch self {
         case .primary:
             return "Primary"
-        case .primarySmall:
-            return "Primary small"
+//        case .primarySmall:
+//            return "Primary small"
         case .secondary:
             return "Secondary"
-        case .secondarySmall:
-            return "Secondary small"
+//        case .secondarySmall:
+//            return "Secondary small"
         case .borderless:
             return "Borderless"
         case .borderlessSmall:

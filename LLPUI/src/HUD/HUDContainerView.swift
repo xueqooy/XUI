@@ -76,7 +76,7 @@ class HUDContainerView: UIView {
         
     private let contentStackView = VStackView(spacing: .LLPUI.spacing5, layoutMargins: .init(uniformValue: .LLPUI.spacing5))
     
-    private lazy var actionButton = Button(designStyle: .primarySmall, contentInsetsMode: .override(.nondirectional(top: 6, left: 20, bottom: 6, right: 20))) { [weak self] _ in
+    private lazy var actionButton = Button(designStyle: .primary, contentInsetsMode: .override(.nondirectional(top: 6, left: 20, bottom: 6, right: 20))) { [weak self] _ in
         self?.actionHandler?()
     }
     

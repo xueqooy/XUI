@@ -71,6 +71,7 @@ open class PageView: UIView {
     
     public weak var delegate: PageViewDelegate?
     
+    @EquatableState
     public private(set) var numberOfPages: Int = 0
     
     public var didSelectPagePublisher: AnyPublisher<Int, Never> {
@@ -79,15 +80,60 @@ open class PageView: UIView {
     private let didSelectPageSubject = PassthroughSubject<Int, Never>()
     
     /// The view controller that houses the view.
+    /// - note: view controller's shouldAutomaticallyForwardAppearanceMethods should be false.
     public weak var viewController: UIViewController? {
         didSet {
-            guard oldValue !== viewController, dataSource != nil else {
+            guard oldValue !== viewController else {
                 return
             }
             
-            if didLoadData {
+            if dataSource != nil, didLoadData {
                 reloadData()
             }
+            
+            lifecycleSubscription = nil
+    
+            if let viewController {
+                if !viewController.shouldAutomaticallyForwardAppearanceMethods {
+                    // Manually forward appearance methods for current content
+                    lifecycleSubscription = viewController.viewStatePublisher
+                        .sink { [weak self] viewState in
+                            guard let self, let currentContent = self.loadedContents[self.innerSelectedPageIndex] as? UIViewController else { return }
+                            
+                            switch viewState {
+                            case .willAppear:
+                                currentContent.beginAppearanceTransition(true, animated: true)
+                    
+                            case .willDisappear:
+                                currentContent.beginAppearanceTransition(false, animated: true)
+                                
+                            case .didDisappear, .didAppear:
+                                currentContent.endAppearanceTransition()
+                            default:
+                                break
+                            }
+                        }
+                    
+                } else {
+                    Logs.warn("""
+                        The parent view controller should not automatically forward appearance methods, it may cause incorrect appearance transition for child view controllers.
+                        
+                        The appearance methods of parent view controller will be forwarded to all children simultaneously, which is not what we want. It should be forwarded to the selected child view controller.
+                        """)
+                }
+            }
+        }
+    }
+    
+    /// The display of EmptyView is automatic. When PageView has no pages to display, EmptyView will be displayed
+    public var emptyConfiguraiton: EmptyConfiguration {
+        set {
+            emptyView.configuration = newValue
+            
+            setupEmptyView()
+        }
+        get {
+            emptyView.configuration
         }
     }
     
@@ -102,13 +148,20 @@ open class PageView: UIView {
     
     private(set) lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         return scrollView
     }()
+    
+    
+    private lazy var emptyView = EmptyView().settingHidden(true)
+    
+    private var didAddEmptyView = false
+    
+    private var emptyViewVisibilitySubscription: AnyCancellable?
+    
         
     private var loadedContents = [Int : PageContent]()
     
@@ -125,6 +178,8 @@ open class PageView: UIView {
             didSelectPageSubject.send(innerSelectedPageIndex)
         }
     }
+    
+    private var lifecycleSubscription: AnyCancellable?
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -212,6 +267,10 @@ open class PageView: UIView {
         loadedContents[index]
     }
     
+    public func updateEmptyConfiguration(_ modifier: (inout EmptyConfiguration) -> Void) {
+        modifier(&emptyConfiguraiton)
+    }
+    
     // MARK: - Private
 
     private func loadDataIfNeeded() {
@@ -245,6 +304,12 @@ open class PageView: UIView {
                     // This prevents the system from firing viewDidAppear, but keep viewWillAppear.
                     // We need to manually end the appearance transition after the content is selected
                     child.beginAppearanceTransition(true, animated: true)
+                    
+                } else if !parent.shouldAutomaticallyForwardAppearanceMethods {
+                    // System will not fire viewWillAppear and viewDidAppear
+                    // We need to manually begin and end the appearance transition
+                    child.beginAppearanceTransition(true, animated: true)
+                    child.endAppearanceTransition()
                 } /* else {
                    // Will automatically fire viewWillAppear and viewDidAppear.
                 }*/
@@ -313,6 +378,24 @@ open class PageView: UIView {
         page = max(0, min(numberOfPages, page))
         selectPage(at: page, animated: false)
     }
+    
+    private func setupEmptyView() {
+        guard emptyView.superview != self else { return }
+        
+        addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        didAddEmptyView = true
+        
+        // Tracking pages changes to update empty view visibility
+        emptyViewVisibilitySubscription = $numberOfPages.didChange
+            .sink { [weak self] numberOfPages in
+                self?.emptyView.isHidden = numberOfPages > 0
+            }
+    }
+    
     
     // MARK: - Appearance Transition
     
@@ -391,7 +474,6 @@ open class PageView: UIView {
                 
         draggingProbablePageIndex = nil
     }
-
 }
 
 extension PageView: UIScrollViewDelegate {

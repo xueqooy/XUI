@@ -305,6 +305,14 @@ public extension CALayer {
         self.animate(from: from != nil ? NSNumber(value: Float(from!)) : nil, to: NSNumber(value: Float(to)), keyPath: "transform.scale.y", timingFunction: timingFunction, duration: duration, delay: delay, removeOnCompletion: removeOnCompletion, completion: completion)
     }
     
+    func animateTranslationX(from: CGFloat? = nil, to: CGFloat, duration: Double, delay: Double = 0.0, timingFunction: AnimationTimingFunction = .easeInEaseOut, removeOnCompletion: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        self.animate(from: from != nil ? NSNumber(value: Float(from!)) : nil, to: NSNumber(value: Float(to)), keyPath: "transform.translation.x", timingFunction: timingFunction, duration: duration, delay: delay, removeOnCompletion: removeOnCompletion, completion: completion)
+    }
+    
+    func animateTranslationY(from: CGFloat? = nil, to: CGFloat, duration: Double, delay: Double = 0.0, timingFunction: AnimationTimingFunction = .easeInEaseOut, removeOnCompletion: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        self.animate(from: from != nil ? NSNumber(value: Float(from!)) : nil, to: NSNumber(value: Float(to)), keyPath: "transform.translation.y", timingFunction: timingFunction, duration: duration, delay: delay, removeOnCompletion: removeOnCompletion, completion: completion)
+    }
+    
     func animateRotation(from: CGFloat? = nil, to: CGFloat, duration: Double, delay: Double = 0.0, timingFunction: AnimationTimingFunction = .easeInEaseOut, removeOnCompletion: Bool = true, completion: ((Bool) -> Void)? = nil) {
         self.animate(from: from != nil ? NSNumber(value: Float(from!)) : nil, to: NSNumber(value: Float(to)), keyPath: "transform.rotation.z", timingFunction: timingFunction, duration: duration, delay: delay, removeOnCompletion: removeOnCompletion, completion: completion)
     }

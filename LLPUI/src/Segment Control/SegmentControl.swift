@@ -313,7 +313,7 @@ extension SegmentControl.Style {
         }
     }
     
-    var intrinsicHeight: CGFloat {
+    public var intrinsicHeight: CGFloat {
         switch self {
         case .page:
             return 48
@@ -327,7 +327,7 @@ extension SegmentControl.Style {
     var itemSpacing: CGFloat {
         switch self {
         case .page:
-            return 12.0
+            return 0
         case .tab:
             return 6.0
         case .toggle:
@@ -360,7 +360,7 @@ extension SegmentControl.Style {
     var textInsets: UIEdgeInsets {
         switch self {
         case .page:
-            return .init(top: 12, left: 6, bottom: 12, right: 6)
+            return .init(top: 14, left: 16, bottom: 14, right: 16)
         case .tab:
             return .init(top: 12, left: 14, bottom: 12, right: 14)
         case .toggle:
@@ -371,7 +371,7 @@ extension SegmentControl.Style {
     var sliderThickness: CGFloat {
         switch self {
         case .page:
-            return 2
+            return 3
         case .tab:
             return 44
         case .toggle:
@@ -391,7 +391,9 @@ extension SegmentControl.Style {
     
     var sliderCornerStyle: CornerStyle {
         switch self {
-        case .page, .tab:
+        case .page:
+            return .fixed(0)
+        case .tab:
             return .capsule
         case .toggle:
             return .fixed(7)

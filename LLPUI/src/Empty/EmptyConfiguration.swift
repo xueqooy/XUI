@@ -33,6 +33,9 @@ public struct EmptyConfiguration: Equatable, Then {
         
         /// The height of the view is not determined by the content, it is always centered
         case centeredVertically(offset: CGFloat = 0)
+        
+        /// The height of the view is not determined by the conten, it is always at the top
+        case top(offset: CGFloat = 0)
     }
     
     public var image: UIImage?
@@ -40,19 +43,19 @@ public struct EmptyConfiguration: Equatable, Then {
     public var text: String?
     
     public var detailText: String?
-    
-    public var action: Action?
-    
+        
     public var isLoading: Bool
         
     public var alignment: Alignment
     
-    public init(image: UIImage? = nil, text: String? = nil, detailText: String? = nil, action: Action? = nil, isLoading: Bool = false, alignment: Alignment = .fill()) {
+    public var action: Action?
+
+    public init(image: UIImage? = nil, text: String? = nil, detailText: String? = nil, isLoading: Bool = false, alignment: Alignment = .fill(), action: Action? = nil) {
         self.image = image
         self.text = text
         self.detailText = detailText
-        self.action = action
         self.isLoading = isLoading
         self.alignment = alignment
+        self.action = action
     }
 }

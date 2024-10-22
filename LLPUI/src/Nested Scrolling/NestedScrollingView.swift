@@ -19,7 +19,6 @@ public extension NestedScrollingHeader {
     }
 }
 
-
 public protocol NestedScrollingContent: UIView {
     var childScrollView: UIScrollView? { get }
     var childScrollViewDidChangePublisher: AnyPublisher<UIScrollView?, Never>? { get }
@@ -34,6 +33,42 @@ public extension NestedScrollingContent {
 
 open class NestedScrollingView: UIView {
         
+    public enum DraggingStatus: Equatable {
+        case idle
+        case dragging(translation: CGPoint)
+        
+        public var isDragging: Bool {
+            self != .idle
+        }
+        
+        public enum Direction {
+            case left
+            case right
+            case up
+            case down
+        }
+        
+        public var direction: Direction? {
+            guard case .dragging(let translation) = self else {
+                return nil
+            }
+            
+            if abs(translation.y) > abs(translation.x) {
+                if translation.y > 0 {
+                    return .down
+                } else {
+                    return .up
+                }
+            } else {
+                if translation.x > 0 {
+                    return .right
+                } else {
+                    return .left
+                }
+            }
+        }
+    }
+    
     public enum BounceTarget {
         case automatic // parent or child, depending on whether the parent or child scroll view is being touched
         case parent
@@ -41,7 +76,7 @@ open class NestedScrollingView: UIView {
     }
         
     public var bounceTarget: BounceTarget = .automatic
-    
+        
     public var headerView: NestedScrollingHeader? {
         didSet {
             headerContainerView.headerView = headerView
@@ -105,8 +140,8 @@ open class NestedScrollingView: UIView {
     }
     
     @EquatableState
-    public private(set) var isDragging: Bool = false
-    
+    public private(set) var draggingStatus: DraggingStatus = .idle
+ 
     public var parentDidScrollPublisher: AnyPublisher<UIScrollView, Never> {
         parentDidScrollSubject.eraseToAnyPublisher()
     }
@@ -121,6 +156,16 @@ open class NestedScrollingView: UIView {
     
     public var didEndDraggingPublisher: AnyPublisher<Void, Never> {
         didEndDraggingSubject.eraseToAnyPublisher()
+    }
+    
+    public let stickyHeader: Bool
+    
+    private var headerHeight: CGFloat {
+        headerView?.bounds.height ?? 0
+    }
+    
+    private var criticalPoint: CGFloat {
+        stickyHeader ? 0 : headerHeight
     }
     
     private let parentScrollView = NestedParentScrollView()
@@ -141,9 +186,10 @@ open class NestedScrollingView: UIView {
     private let willBeginDraggingSubject = PassthroughSubject<Void, Never>()
     private let didEndDraggingSubject = PassthroughSubject<Void, Never>()
 
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public init(stickyHeader: Bool = false) {
+        self.stickyHeader = stickyHeader
+        
+        super.init(frame: .zero)
         
         parentScrollView.delegate = self
         
@@ -169,11 +215,20 @@ open class NestedScrollingView: UIView {
         }
         
         parentScrollView.addSubview(contentContainerView)
-        contentContainerView.snp.remakeConstraints { make in
-            make.top.equalTo(headerContainerView.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.size.equalTo(self)
+        contentContainerView.snp.makeConstraints { make in
+            if !stickyHeader {
+                make.top.equalTo(headerContainerView.snp.bottom)
+                make.leading.bottom.trailing.equalToSuperview()
+                make.size.equalTo(self)
+                
+            } else {
+                make.top.equalTo(headerContainerView.snp.bottom)
+                make.leading.bottom.trailing.equalToSuperview()
+                make.width.bottom.equalTo(self)
+            }
         }
+        
+        addGestureRecognizer(draggingDetectGesture)
     }
         
     private func observeParentScrollling() {
@@ -239,18 +294,19 @@ open class NestedScrollingView: UIView {
     }
     
     // MARK: - Handle Scrolling
-    
+        
     private func parentScrollViewDidScroll(_ parentScrollView: UIScrollView) {
         let parentOffset = parentScrollView.contentOffset.y
-        let headerHeight = headerView?.bounds.height ?? 0
-        
+                
         if shouldBounceParent {
-            if !canScrollParent {
-                parentScrollView.contentOffset.y = headerHeight
+            if parentOffset <= -parentScrollView.adjustedContentInset.top {
+                canScrollParent = true
+            } else if !canScrollParent {
+                parentScrollView.contentOffset.y = criticalPoint
                 canScrollChild  = true
-            } else if parentOffset >= headerHeight {
+            } else if parentOffset >= criticalPoint {
                 if childScrollView != nil {
-                    parentScrollView.contentOffset.y = headerHeight
+                    parentScrollView.contentOffset.y = criticalPoint
                     canScrollParent = false
                     canScrollChild = true
                 }
@@ -262,11 +318,11 @@ open class NestedScrollingView: UIView {
             }
             
             if !canScrollParent {
-                parentScrollView.contentOffset.y = headerHeight
+                parentScrollView.contentOffset.y = criticalPoint
                 canScrollChild = true
-            } else if parentOffset >= headerHeight {
+            } else if parentOffset >= criticalPoint {
                 if childScrollView != nil {
-                    parentScrollView.contentOffset.y = headerHeight
+                    parentScrollView.contentOffset.y = criticalPoint
                     canScrollParent = false
                     canScrollChild = true
                 }
@@ -295,7 +351,6 @@ open class NestedScrollingView: UIView {
     private func childScrollViewDidScroll(_ childScrollView: UIScrollView) {
         let parentOffset = parentScrollView.contentOffset.y
         let childOffset = childScrollView.contentOffset.y
-        let headerHeight = headerView?.bounds.height ?? 0
 
         if shouldBounceParent {
             if !canScrollChild {
@@ -312,7 +367,7 @@ open class NestedScrollingView: UIView {
                     canScrollChild = true
                 }
                 canScrollParent = true
-            } else if parentOffset > -parentScrollView.adjustedContentInset.top && parentOffset < headerHeight {
+            } else if parentOffset > -parentScrollView.adjustedContentInset.top && parentOffset < criticalPoint {
                 canScrollChild = false
             }
         }
@@ -320,6 +375,42 @@ open class NestedScrollingView: UIView {
         if canScrollChild {
             childDidScrollSubject.send(childScrollView)
         }
+    }
+
+    // MARK: Dragging Status
+    
+    private lazy var draggingDetectGesture: DraggingDetectGesture = {
+        let gesture = DraggingDetectGesture()
+        gesture.cancelsTouchesInView = false
+        gesture.addTarget(self, action: #selector(Self.handleDraggingDetectGesture(_:)))
+        gesture.delegate = self
+        return gesture
+    }()
+    
+    @objc private func handleDraggingDetectGesture(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .changed:
+            let translation = gesture.translation(in: gesture.view)
+            self.draggingStatus = .dragging(translation: translation)
+            
+        case .ended, .cancelled, .failed:
+            draggingStatus = .idle
+            
+        default:
+            break
+        }
+    }
+}
+
+
+private class DraggingDetectGesture: UIPanGestureRecognizer {
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension NestedScrollingView: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        gestureRecognizer is DraggingDetectGesture
     }
 }
 
@@ -339,16 +430,8 @@ extension NestedScrollingView: UIScrollViewDelegate {
         return true
     }
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard scrollView === parentScrollView else { return }
-        
-        isDragging = true
-    }
-    
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard scrollView === parentScrollView else { return }
-        
-        isDragging = false
         
         guard automaticallyShowsHeader, let headerView else { return }
         

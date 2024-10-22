@@ -27,6 +27,9 @@ public class Colors: NSObject {
     /// #31728C
     public static let teal = LLPUIFramework.color(named: "teal")
     
+    /// #BFE2F2
+    public static let lightTeal = LLPUIFramework.color(named: "lightTeal")
+    
     /// #81C2DE
     public static let mediumTeal = LLPUIFramework.color(named: "mediumTeal")
     

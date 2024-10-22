@@ -15,6 +15,7 @@
     [self load_uiviewController_viewsizetransition];
     [self load_uicontrol_selectable];
     [self load_uibaritem_viewhook];
+    [self load_uiview_safeareainsetspublisher];
 }
 
 /// UIViewController+ViewState
@@ -71,6 +72,21 @@
     #pragma clang diagnostic pop
 
     Class cls = UIBarItem.class;
+    Method method = class_getClassMethod(cls, sel);
+    if (method != NULL) {
+        IMP imp = method_getImplementation(method);
+        ((id (*)(Class, SEL))imp)(cls, sel);
+    }
+}
+
+/// UIView+SafeAreaInsetsPublisher
++ (void)load_uiview_safeareainsetspublisher {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
+    SEL sel = @selector(LLPUI_load_uiview_safeareainsetspublisher);
+    #pragma clang diagnostic pop
+
+    Class cls = UIView.class;
     Method method = class_getClassMethod(cls, sel);
     if (method != NULL) {
         IMP imp = method_getImplementation(method);

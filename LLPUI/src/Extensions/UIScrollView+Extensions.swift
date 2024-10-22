@@ -8,15 +8,7 @@
 import UIKit
 
 public extension UIScrollView {
-    /// Inverted from user's finger directionality
-    /// e.g A user moves their finger from the screen's bottom to the top (an "upward" direction) to scroll down the view
-    /// - up: scrolling up, AKA user is moving finger down
-    /// - down: scrolling down, AKA user is moving finger up
-    enum VerticalScrollDirection {
-        case up
-        case down
-    }
-
+    
     // Describes the location of the scroll offset, relative to the content and scrollView
     enum ScrollLocationDescriptor {
         case excessivelyPrecedingContent // analogous to "Pull to Refresh"

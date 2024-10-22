@@ -57,9 +57,9 @@ public extension CGFloat {
         /// 40
         public static let spacing10: CGFloat = 40
         
-        /// 20
+        /// 8
         public static let cornerRadius: CGFloat = 8
-        /// 10
+        /// 4
         public static let smallCornerRadius: CGFloat = 4
         /// 0.5
         public static let dimmingAlpha: CGFloat = 0.5

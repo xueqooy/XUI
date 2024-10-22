@@ -27,13 +27,13 @@ public class EmptyView: UIView, Configurable {
     
     private lazy var imageContainerView = AlignedContainerView(imageView, alignment: .centerHorizontally)
     
-    private lazy var textLabel = UILabel(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center, numberOfLines: 0)
+    private lazy var textLabel = UILabel(textColor: Colors.bodyText1, font: Fonts.body1Bold, textAlignment: .center, numberOfLines: 0)
         .settingContentCompressionResistanceAndHuggingPriority(.required, for: .vertical)
 
-    private lazy var detailTextLabel = UILabel(textColor: Colors.bodyText1, font: Fonts.body2, textAlignment: .center, numberOfLines: 0)
+    private lazy var detailTextLabel = UILabel(textColor: Colors.bodyText1, font: Fonts.body3, textAlignment: .center, numberOfLines: 0)
         .settingContentCompressionResistanceAndHuggingPriority(.defaultHigh)
     
-    private lazy var actionButton = Button(designStyle: .primarySmall) { [weak self] _ in
+    private lazy var actionButton = Button(designStyle: .primary) { [weak self] _ in
         self?.configuration.action?.handler()
     }.settingContentCompressionResistanceAndHuggingPriority(.required)
     
@@ -102,6 +102,15 @@ public class EmptyView: UIView, Configurable {
                     make.left.right.equalToSuperview().inset(CGFloat.LLPUI.spacing5)
                     make.centerY.equalToSuperview().offset(offset)
                 }
+            
+            case .top(let offset):
+                topSpacer.spacing = 0
+                bottomSpacer.spacing = 0
+                
+                contentStackView.snp.remakeConstraints { make in
+                    make.left.right.equalToSuperview().inset(CGFloat.LLPUI.spacing5)
+                    make.top.equalToSuperview().offset(offset)
+                }
             }
         }
         
@@ -137,17 +146,29 @@ public class EmptyView: UIView, Configurable {
             
             if showImage {
                 imageContainerView
-                    .settingCustomSpacingAfter(showText || showDetailText || showActionButton ? .LLPUI.spacing8 : 0)
+                    .settingCustomSpacingAfter({
+                        if showActionButton && !showText && !showDetailText {
+                            return CGFloat.LLPUI.spacing6
+                        }
+                        
+                        return showText || showDetailText ? .LLPUI.spacing3 : 0
+                    }())
             }
             
             if showText {
                 textLabel
-                    .settingCustomSpacingAfter(showDetailText || showActionButton ? .LLPUI.spacing4 : 0)
+                    .settingCustomSpacingAfter({
+                        if showActionButton && !showDetailText {
+                            return CGFloat.LLPUI.spacing6
+                        }
+                        
+                        return showDetailText ? .LLPUI.spacing3 : 0
+                    }())
             }
             
             if showDetailText {
                 detailTextLabel
-                    .settingCustomSpacingAfter(showActionButton ? .LLPUI.spacing8 : 0)
+                    .settingCustomSpacingAfter(showActionButton ? .LLPUI.spacing6 : 0)
             }
             
             if showActionButton {
