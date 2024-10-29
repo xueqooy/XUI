@@ -156,7 +156,7 @@ public struct Icons {
     
     public static let menu = LLPUIFramework.image(named: "menu")
     
-    public static let brokenImage = LLPUIFramework.image(named: "broken.Image")
+    public static let brokenImage = LLPUIFramework.image(named: "broken.image")
     
     public static let coverPlaceholder = generateImageWithMargins(image: Icons.brokenImage, margins: .init(top: 68, left: 136, bottom: 68, right: 136))
     
