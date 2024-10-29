@@ -18,16 +18,14 @@ public struct Icons {
     public static let dropdown = LLPUIFramework.image(named: "dropdown")
     
     public static let calendar = LLPUIFramework.image(named: "calendar")
-
-    public static let cancel = LLPUIFramework.image(named: "cancel")
     
     public static let alertSuccess = LLPUIFramework.image(named: "alert.success")
     
-    public static let alertError = LLPUIFramework.image(named: "alert.error")
-
     public static let alertNote = LLPUIFramework.image(named: "alert.note")
     
     public static let alertWarning = LLPUIFramework.image(named: "alert.warning")
+    
+    public static let alertWarningLarge = LLPUIFramework.image(named: "alert.warning.large")
     
     public static let visibilityOff = LLPUIFramework.image(named: "visibility.off")
 
@@ -151,4 +149,44 @@ public struct Icons {
     }
     
     public static let hourglass = LLPUIFramework.image(named: "hourglass")
+    
+    public static let xmark = LLPUIFramework.image(named: "xmark")
+    
+    public static let xmarkSmall = LLPUIFramework.image(named: "xmark.small")
+    
+    public static let menu = LLPUIFramework.image(named: "menu")
+    
+    public static let brokenImage = LLPUIFramework.image(named: "broken.image")
+    
+    public static let coverPlaceholder = generateImageWithMargins(image: Icons.brokenImage, margins: .init(top: 68, left: 136, bottom: 68, right: 136))
+    
+    public static let books = LLPUIFramework.image(named: "books")
+    
+    public static let warningWave = generateWaveImage(with: Icons.alertWarningLarge)
+    
+    private static func generateWaveImage(with image: UIImage) -> UIImage {
+        let radii: [CGFloat] = [77, 108, 144]
+        let colors = [Colors.extraLightTeal, Colors.lightTeal, Colors.teal]
+        let maxRadius = radii.last!
+        let center = CGPoint(x: maxRadius, y: maxRadius)
+        let imageSize: CGSize = .square(48)
+        let imageColor = colors[1]
+        
+        return generateImage(.square(maxRadius * 2), flipped: true) { size, context in
+            for (index, radius) in radii.reversed().enumerated() {
+                context.setFillColor(colors[index].cgColor)
+                context.addEllipse(in: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2))
+                context.fillPath()
+            }
+            
+            if let mask = image.cgImage {
+                let imageRect = CGRect(origin: .init(x: center.x - imageSize.width / 2, y: center.y - imageSize.height / 2), size: imageSize)
+               
+                context.setFillColor(imageColor.cgColor)
+                context.clip(to: imageRect, mask: mask)
+                context.fill(imageRect)
+            }
+            
+        } ?? UIImage()
+    }
 }

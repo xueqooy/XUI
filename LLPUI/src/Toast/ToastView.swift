@@ -87,11 +87,9 @@ public class ToastView: UIView, Configurable {
             switch self {
             case .success:
                 Icons.alertSuccess
-            case .error:
-                Icons.alertError
             case .note:
                 Icons.alertNote
-            case .warning:
+            case .warning, .error:
                 Icons.alertWarning
             }
         }
@@ -222,7 +220,7 @@ public class ToastView: UIView, Configurable {
         return messageLabel
     }()
     
-    private static let hideButtonImage = generateImageWithMargins(image: Icons.cancel, margins: .init(uniformValue: 3)).withRenderingMode(.alwaysTemplate)
+    private static let hideButtonImage = generateImageWithMargins(image: Icons.xmarkSmall, margins: .init(uniformValue: 3)).withRenderingMode(.alwaysTemplate)
     
     private lazy var hideButton = Button(configuration: .init(image: Self.hideButtonImage)) { [weak self] _ in
         self?.hide()

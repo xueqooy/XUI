@@ -22,6 +22,7 @@ private let grayscaleColorSpace = CGColorSpaceCreateDeviceGray()
 
 let deviceScale = UIScreen.main.scale
 
+
 public func generateImagePixel(_ size: CGSize, scale: CGFloat, pixelGenerator: (CGSize, UnsafeMutablePointer<UInt8>, Int) -> Void) -> UIImage? {
     let context = DrawingContext(size: size, scale: scale, opaque: false, clear: false)
     pixelGenerator(CGSize(width: size.width * scale, height: size.height * scale), context.bytes.assumingMemoryBound(to: UInt8.self), context.bytesPerRow)
@@ -397,6 +398,7 @@ public func generateImageWithMargins(image: UIImage, margins: UIEdgeInsets) -> U
         context.draw(image.cgImage!, in: .init(x: margins.left, y: margins.top, width: image.size.width, height: image.size.height))
     }!
 }
+
 
 public func getSharedDevideGraphicsContextSettings() -> DeviceGraphicsContextSettings {
     struct OpaqueSettings {

@@ -38,3 +38,6 @@
 "Note" = "Note";
 "Warning" = "Warning";
 "Error" = "Error";
+"Oops, no relevant content found" = "Oops, no relevant content found";
+"Oops, something went wrong" = "Oops, something went wrong";
+"Refresh" = "Refresh";

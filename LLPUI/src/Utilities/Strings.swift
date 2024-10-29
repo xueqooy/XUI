@@ -27,6 +27,10 @@ public struct Strings {
     public static let note = "Note".localized
     public static let warning = "Warning".localized
     public static let error = "Error".localized
+    public static let noRelevantContentFound = "Oops, no relevant content found".localized
+    public static let somethingWentWrong = "Oops, something went wrong".localized
+    public static let refresh = "Refresh".localized
+    
 
     public struct PasswordStrength {
         public static let weak = "PasswordStrength.Weak".localized

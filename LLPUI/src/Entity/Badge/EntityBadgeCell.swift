@@ -42,7 +42,7 @@ class CancellableEntityBadgeCell<View: BindingView>: EntityBadgeCell<View>, Enti
     
     var cancelHandler: (() -> Void)?
     
-    private lazy var cancelButton = Button(image: Icons.cancel, imageSize: .square(14), foregroundColor: Colors.teal) { [weak self] _ in
+    private lazy var cancelButton = Button(image: Icons.xmarkSmall, imageSize: .square(14), foregroundColor: Colors.teal) { [weak self] _ in
         self?.cancelHandler?()
     }
     

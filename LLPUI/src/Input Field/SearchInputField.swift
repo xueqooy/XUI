@@ -101,6 +101,6 @@ public class SearchInputField: InputField {
     }
     
     private func updateButtonImage() {
-        button.configuration.image = isActive ? Icons.cancel : Icons.search
+        button.configuration.image = isActive ? Icons.xmarkSmall : Icons.search
     }
 }

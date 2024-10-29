@@ -121,7 +121,9 @@ open class SegmentControl: UIControl {
                 reloadIndexes.append(IndexPath(item: innerSelectedSegmentIndex, section: 0))
             }
             if !reloadIndexes.isEmpty {
-                collectionView.reloadItems(at: reloadIndexes)
+                UIView.performWithoutAnimation {
+                    self.collectionView.reloadItems(at: reloadIndexes)
+                }
             }
         }
     }

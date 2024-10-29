@@ -38,3 +38,6 @@
 "Note" = "บันทึก";
 "Warning" = "คำเตือน";
 "Error" = "ข้อผิดพลาด";
+"Oops, no relevant content found" = "Ồ, không tìm thấy nội dung có liên quan";
+"Oops, something went wrong" = "Ồ, có gì đó không ổn";
+"Refresh" = "Làm cho khỏe lại";

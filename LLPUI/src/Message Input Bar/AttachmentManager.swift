@@ -144,7 +144,7 @@ public class AttachmentManager: StateObservableObject {
         case 1:
             let attachment = attachments.first!
             
-            let removeButton = Button(designStyle: .borderless, image: Icons.cancel) { [weak self] _ in
+            let removeButton = Button(designStyle: .borderless, image: Icons.xmarkSmall) { [weak self] _ in
                 self?.removeAttachment(at: 0)
             }
             
@@ -231,7 +231,7 @@ public class AttachmentManager: StateObservableObject {
             isLoading = false
         }
         
-        let item = MediaListView.Item(media: media, trailingButtonConfiguration: .init(image: Icons.cancel, action: { [weak self] view, index in
+        let item = MediaListView.Item(media: media, trailingButtonConfiguration: .init(image: Icons.xmarkSmall, action: { [weak self] view, index in
             self?.removeAttachment(at: index)
         }), isLoading: isLoading)
         

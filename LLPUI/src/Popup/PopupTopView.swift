@@ -35,7 +35,7 @@ class PopupTopView: UIView {
             title: title,
             titleLines: 2,
             titleStyleConfiguration: .init(textColor: .white, font: Fonts.body2Bold, textAlignment: .center),
-            buttonConfiguration: showsCancelButton ? .init(image: Icons.cancel, imageSize: .square(16), foregroundColor: .white) : nil,
+            buttonConfiguration: showsCancelButton ? .init(image: Icons.xmarkSmall, imageSize: .square(16), foregroundColor: .white) : nil,
             buttonAction: showsCancelButton ? { _ in cancelAction!() } : nil
         )
         

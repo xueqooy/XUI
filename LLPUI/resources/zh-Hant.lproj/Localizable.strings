@@ -38,3 +38,6 @@
 "Note" = "注意";
 "Warning" = "警告";
 "Error" = "錯誤";
+"Oops, no relevant content found" = "哎呀，沒有找到相關內容";
+"Oops, something went wrong" = "哎呀，出了點問題";
+"Refresh" = "刷新";
