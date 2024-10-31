@@ -11,6 +11,19 @@ import Combine
 
 open class Tab {
     
+    public struct Identifier : Hashable, Equatable, RawRepresentable {
+
+        public var rawValue: String
+        
+        public init(_ rawValue: String) {
+            self.rawValue = rawValue
+        }
+
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+    
     public typealias TabItem = SegmentControl.Item
     
     @EquatableState
@@ -36,9 +49,9 @@ open class Tab {
     
     private var lifecycleSubscription: AnyCancellable?
         
-    public let identifier: String
+    public let identifier: Identifier
     
-    public init(identifier: String) {
+    public init(identifier: Identifier) {
         self.identifier = identifier
         self.tabItem = defaultTabItem
     }

@@ -49,6 +49,10 @@ open class TabController: UIViewController {
         }
     }
     
+    public var selectedIndex: Int {
+        tabBar.selectedSegmentIndex
+    }
+    
     public var tabBarState: TabBarState = .normal {
         didSet {
             guard tabBarState != oldValue else {
