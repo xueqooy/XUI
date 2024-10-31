@@ -17,8 +17,8 @@ open class PageCollectionViewController<ViewModel: PageCollectionViewModel>: Bin
     }
 
     private lazy var nestedScrollingView: NestedScrollingView? = {
-        if let navigationTitleView {
-            NestedScrollingView(stickyHeader: Device.current.isPad).then {
+        if let titleView {
+            NestedScrollingView(stickyHeader: navigationTitleView == nil).then {
                 $0.automaticallyShowsHeader = true
                 // Set it to never here, and the external safe area can be passed to the child interface (the parent scroll view may be set to automatic, which will cause the automatic behavior of the child scroll view to fail)
                 $0.parent.contentInsetAdjustmentBehavior = .never
@@ -62,29 +62,11 @@ open class PageCollectionViewController<ViewModel: PageCollectionViewModel>: Bin
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationTitleView)
         }
         
-        if let titleView {
-            if let nestedScrollingView {
-                // Title view's position is animated
-                
-                view.addSubview(nestedScrollingView)
-                nestedScrollingView.snp.makeConstraints { make in
-                    make.top.bottom.equalToSuperview()
-                    make.left.right.equalTo(view.safeAreaLayoutGuide)
-                }
-            } else {
-                // Title view's position  is fixed
-                view.addSubview(titleView)
-                titleView.snp.makeConstraints { make in
-                    make.top.equalToSuperview()
-                    make.left.right.equalTo(view.safeAreaLayoutGuide)
-                }
-                
-                view.addSubview(segmentedPageView)
-                segmentedPageView.snp.makeConstraints { make in
-                    make.top.equalTo(titleView.snp.bottom)
-                    make.bottom.equalToSuperview()
-                    make.left.right.equalTo(view.safeAreaLayoutGuide)
-                }
+        if let nestedScrollingView {
+            view.addSubview(nestedScrollingView)
+            nestedScrollingView.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+                make.left.right.equalTo(view.safeAreaLayoutGuide)
             }
         } else {
             // Title view is hidden

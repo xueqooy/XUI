@@ -12,10 +12,8 @@ import SnapKit
 /// `PopupController` is used to present a portion of UI  in the center of the screen
 open class PopupController: UIViewController, Configurable {
         
-    private struct Constants {
-        static let horizontalMarginForCompactWidth: CGFloat = .LLPUI.spacing5
-        static let minWidthForPad = 375.0
-        static let contentInsets = UIEdgeInsets(top: .LLPUI.spacing5, left: .LLPUI.spacing5, bottom: .LLPUI.spacing5, right: .LLPUI.spacing5)
+    public enum ContentHorizontalSizeClass {
+        case regular, compact
     }
     
     public struct Configuration: Equatable {
@@ -23,6 +21,11 @@ open class PopupController: UIViewController, Configurable {
         public var title: String? = nil
         
         public var showsCancelButton: Bool = true
+        
+        /**
+         Indicate the default width size class of the content when `preferredContentSize.width <= 0` and there is sufficient available layout width
+         */
+        public var contentHorizontalSizeClass: ContentHorizontalSizeClass
                 
         /**
          Set `adjustsHeightForKeyboard` to `true` to allow popup to adjust its height when keyboard is shown or hidden, so that popup's content is always visible.
@@ -31,11 +34,12 @@ open class PopupController: UIViewController, Configurable {
 
         public var wrapsContentWithDefaultInsets: Bool = true
         
-        public init(title: String? = nil, showsCancelButton: Bool = true, adjustsHeightForKeyboard: Bool = true, wrapsContentWithDefaultInsets: Bool = true) {
+        public init(title: String? = nil, showsCancelButton: Bool = true, adjustsHeightForKeyboard: Bool = true, wrapsContentWithDefaultInsets: Bool = true, contentHorizontalSizeClass: ContentHorizontalSizeClass = .compact) {
             self.title = title
             self.showsCancelButton = showsCancelButton
             self.adjustsHeightForKeyboard = adjustsHeightForKeyboard
             self.wrapsContentWithDefaultInsets = wrapsContentWithDefaultInsets
+            self.contentHorizontalSizeClass = contentHorizontalSizeClass
         }
         
     }
@@ -178,31 +182,7 @@ open class PopupController: UIViewController, Configurable {
             if let contentView = contentView {
                 var contentSize = preferredContentSize
                 if contentSize.width <= 0 {
-                    var suggestedWidth = 0.0
-                    if let windowWidth = (self.view.window ?? self.view)?.frame.width {
-                        suggestedWidth = windowWidth
-                    }
-                    
-                    let useFullWidth: Bool
-                    if traitCollection.userInterfaceIdiom == .phone {
-                        if Device.current.orientation == .landscape {
-                            useFullWidth = false
-                        } else {
-                            useFullWidth = true
-                        }
-                    } else if traitCollection.horizontalSizeClass == .compact {
-                        useFullWidth = true
-                    } else {
-                        useFullWidth = false
-                    }
-
-                    if useFullWidth {
-                        suggestedWidth -= (self.view.safeAreaInsets.horizontal + 2 * Constants.horizontalMarginForCompactWidth)
-                    } else {
-                        suggestedWidth = max(suggestedWidth / 2, Constants.minWidthForPad)
-                    }
-                                    
-                    contentSize.width = ceil(suggestedWidth)
+                    contentSize.width = calculateSuggestedContentWidth()
                 }
                 
                 if contentSize.height <= 0 {
@@ -301,7 +281,7 @@ open class PopupController: UIViewController, Configurable {
             reduceTopInset = false
         }
         
-        var layoutMargins = Constants.contentInsets
+        var layoutMargins = UIEdgeInsets(top: .LLPUI.spacing5, left: .LLPUI.spacing5, bottom: .LLPUI.spacing5, right: .LLPUI.spacing5)
         if reduceTopInset {
             layoutMargins.top = .LLPUI.spacing2
         }
@@ -323,6 +303,39 @@ open class PopupController: UIViewController, Configurable {
         topView = PopupTopView(title: configuration.title, cancelAction: configuration.showsCancelButton ? { [weak self] in
             self?.dismiss(animated: true)
         } : nil)
+    }
+    
+    private func calculateSuggestedContentWidth() -> CGFloat {
+        var suggestedWidth = 0.0
+        let windowWidth = (self.view.window ?? self.view)?.frame.width ?? 0
+        
+        let useFullWidth: Bool
+        if traitCollection.userInterfaceIdiom == .phone {
+            if Device.current.orientation == .landscape {
+                useFullWidth = false
+            } else {
+                useFullWidth = true
+            }
+        } else if traitCollection.horizontalSizeClass == .compact {
+            useFullWidth = true
+        } else {
+            useFullWidth = false
+        }
+
+        if useFullWidth {
+            suggestedWidth -= (self.view.safeAreaInsets.horizontal + 2 * CGFloat.LLPUI.spacing6)
+        } else {
+            let scale = switch configuration.contentHorizontalSizeClass {
+            case .regular:
+                0.7
+                
+            case .compact:
+                0.5
+            }
+            suggestedWidth = max(375, windowWidth * scale)
+        }
+        
+        return ceil(suggestedWidth)
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

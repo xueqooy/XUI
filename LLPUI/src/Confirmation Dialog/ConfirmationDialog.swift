@@ -88,7 +88,7 @@ public class ConfirmationDialog {
         }
     }
     
-    public static let defaultPopupConfiguration = PopupConfiguration(showsCancelButton: true)
+    public static let defaultPopupConfiguration = PopupConfiguration(showsCancelButton: true, contentHorizontalSizeClass: .compact)
     
     private static let cancellablesAssociation = Association<Set<AnyCancellable>>(wrap: .retain)
     

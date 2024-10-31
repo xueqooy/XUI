@@ -94,6 +94,12 @@ public extension UIView {
 // MARK: - Constraints
 
 public extension UIView {
+    
+    func addSubview(_ subview: UIView, layoutClosure: (_ make: ConstraintMaker) -> Void) {
+        addSubview(subview)
+        subview.snp.makeConstraints(layoutClosure)
+    }
+    
     /// Search constraints until we find one for the given view
     /// and attribute. This will enumerate ancestors since constraints are
     /// always added to the common ancestor.
