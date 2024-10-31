@@ -89,8 +89,22 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
         state = .cancelled
     }
     
+    public override func shouldRequireFailure(of otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    public override func reset() {
+        super.reset()
+        
+        resetProgress()
+    }
+    
     private func resetProgress() {
         animator = nil
+        
+        guard progress != 0 else {
+            return
+        }
         
         if resetDuration > 0 {
             let duration = progress * resetDuration

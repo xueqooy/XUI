@@ -100,7 +100,6 @@ open class Button: UIControl, Configurable {
                 self.subviews.forEach { $0.alpha = opacity }
             }
         }
-        progressiveGestureRecognizer.delegate = self
         
         addGestureRecognizer(progressiveGestureRecognizer)
     }
@@ -1109,13 +1108,5 @@ open class Button: UIControl, Configurable {
             }
         }
         return true
-    }
-}
-
-
-extension Button: UIGestureRecognizerDelegate {
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        gestureRecognizer is ProgressivePressGestureRecognizer
     }
 }
