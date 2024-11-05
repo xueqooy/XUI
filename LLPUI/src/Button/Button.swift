@@ -101,6 +101,8 @@ open class Button: UIControl, Configurable {
             }
         }
         
+        progressiveGestureRecognizer.priority = .button
+        
         addGestureRecognizer(progressiveGestureRecognizer)
     }
     

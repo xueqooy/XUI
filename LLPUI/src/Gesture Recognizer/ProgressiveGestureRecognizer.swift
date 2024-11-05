@@ -11,12 +11,27 @@ import LLPUtils
 
 public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
     
+    public struct Priority : Hashable, Equatable, RawRepresentable {
+
+        public var rawValue: Int
+        
+        public init(_ rawValue: Int) {
+            self.rawValue = rawValue
+        }
+
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+    }
+    
     @EquatableState
     public private(set) var progress: CGFloat = 0 {
         didSet {
             progressChanged?(progress)
         }
     }
+    
+    public var priority: Priority = .default
      
     private let maxPressDuration: TimeInterval
     
@@ -53,7 +68,11 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
             animator = DisplayLinkAnimator(duration: duration, from: progress, to: 1, update: { [weak self] value in
                 guard let self else { return }
                 
-                self.progress = value
+                if self.state == .began || self.state == .changed {
+                    self.progress = value
+                } else {
+                    self.resetProgress()
+                }
             })
         } else {
             progress = 1
@@ -90,6 +109,10 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
     }
     
     public override func shouldRequireFailure(of otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let otherGestureRecognizer = otherGestureRecognizer as? ProgressivePressGestureRecognizer {
+            return priority < otherGestureRecognizer.priority
+        }
+        
         return true
     }
     
@@ -123,5 +146,45 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
             progress = 0
         }
     }
+}
+
+
+extension ProgressivePressGestureRecognizer.Priority: Comparable, ExpressibleByIntegerLiteral {
     
+    static let background = ProgressivePressGestureRecognizer.Priority(rawValue: -100)
+    
+    static let `default` = ProgressivePressGestureRecognizer.Priority(0)
+    
+    static let button = ProgressivePressGestureRecognizer.Priority(100)
+    
+    
+    // MARK: - ExpressibleByIntegerLiteral
+    public init(integerLiteral value: IntegerLiteralType) {
+        self.init(rawValue: value)
+    }
+    
+    // MARK: - Comparable
+    
+    public static func < (lhs: ProgressivePressGestureRecognizer.Priority, rhs: ProgressivePressGestureRecognizer.Priority) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+    
+    // MARK: - Arithmetic Operations
+    
+    public static func + (lhs: ProgressivePressGestureRecognizer.Priority, rhs: ProgressivePressGestureRecognizer.Priority) -> ProgressivePressGestureRecognizer.Priority {
+        return ProgressivePressGestureRecognizer.Priority(lhs.rawValue + rhs.rawValue)
+    }
+
+    public static func - (lhs: ProgressivePressGestureRecognizer.Priority, rhs: ProgressivePressGestureRecognizer.Priority) -> ProgressivePressGestureRecognizer.Priority {
+        return ProgressivePressGestureRecognizer.Priority(lhs.rawValue - rhs.rawValue)
+    }
+
+    public static func * (lhs: ProgressivePressGestureRecognizer.Priority, rhs: ProgressivePressGestureRecognizer.Priority) -> ProgressivePressGestureRecognizer.Priority {
+        return ProgressivePressGestureRecognizer.Priority(lhs.rawValue * rhs.rawValue)
+    }
+
+    public static func / (lhs: ProgressivePressGestureRecognizer.Priority, rhs: ProgressivePressGestureRecognizer.Priority) -> ProgressivePressGestureRecognizer.Priority? {
+        guard rhs.rawValue != 0 else { return nil }
+        return ProgressivePressGestureRecognizer.Priority(lhs.rawValue / rhs.rawValue)
+    }
 }

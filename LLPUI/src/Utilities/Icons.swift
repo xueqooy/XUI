@@ -19,13 +19,13 @@ public struct Icons {
     
     public static let calendar = LLPUIFramework.image(named: "calendar")
     
-    public static let alertSuccess = LLPUIFramework.image(named: "alert.success")
+    public static let checkCircle = LLPUIFramework.image(named: "check.circle")
     
-    public static let alertNote = LLPUIFramework.image(named: "alert.note")
+    public static let noteCircle = LLPUIFramework.image(named: "note.circle")
     
-    public static let alertWarning = LLPUIFramework.image(named: "alert.warning")
-    
-    public static let alertWarningLarge = LLPUIFramework.image(named: "alert.warning.large")
+    public static let warningCircle = LLPUIFramework.image(named: "warning.circle")
+        
+    public static let warningCircleLarge = LLPUIFramework.image(named: "warning.circle.large")
     
     public static let visibilityOff = LLPUIFramework.image(named: "visibility.off")
 
@@ -162,7 +162,11 @@ public struct Icons {
     
     public static let books = LLPUIFramework.image(named: "books")
     
-    public static let warningWave = generateWaveImage(with: Icons.alertWarningLarge)
+    public static let booksLarge = LLPUIFramework.image(named: "books.large")
+    
+    public static let warningWave = generateWaveImage(with: Icons.warningCircleLarge)
+    
+    public static let booksWave = generateWaveImage(with: Icons.booksLarge)
     
     private static func generateWaveImage(with image: UIImage) -> UIImage {
         let radii: [CGFloat] = [77, 108, 144]

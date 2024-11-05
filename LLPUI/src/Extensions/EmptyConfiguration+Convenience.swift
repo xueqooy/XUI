@@ -9,27 +9,22 @@ import UIKit
 
 public extension EmptyConfiguration {
     
-    static func noRelevantContentFound() -> EmptyConfiguration {
-        let text = Strings.noRelevantContentFound
-        
+    static func deviceAdaptation(image: @autoclosure () -> UIImage? = { nil }(), text: String? = nil, detailText: String? = nil, action: Action? = nil) -> EmptyConfiguration {
         return if Device.current.isPhone && Device.current.orientation == .landscape {
-            EmptyConfiguration(text: text, alignment: .top(offset: .LLPUI.spacing10 * 2))
+            EmptyConfiguration(image: image(), text: text, detailText: detailText, alignment: .top(offset: .LLPUI.spacing10 * 2), action: action)
 
         } else {
-            EmptyConfiguration(image: Icons.warningWave, text: text, alignment: .top(offset: .LLPUI.spacing8))
+            EmptyConfiguration(image: image(), text: text, detailText: detailText, alignment: .top(offset: .LLPUI.spacing8), action: action)
         }
     }
     
+    static func noRelevantContentFound() -> EmptyConfiguration {
+        deviceAdaptation(image: Icons.warningWave, text: Strings.noRelevantContentFound)
+    }
+    
     static func somethingWentWrong(refreshHandler: @escaping () -> Void) -> EmptyConfiguration {
-        let text = Strings.somethingWentWrong
-                
         let action = EmptyConfiguration.Action(title: Strings.refresh, handler: refreshHandler)
         
-        return if Device.current.isPhone && Device.current.orientation == .landscape {
-            EmptyConfiguration(text: text, alignment: .top(offset: .LLPUI.spacing10 * 2), action: action)
-
-        } else {
-            EmptyConfiguration(image: Icons.warningWave, text: text, alignment: .top(offset: .LLPUI.spacing8), action: action)
-        }
+        return deviceAdaptation(image: Icons.warningWave, text: Strings.somethingWentWrong, action: action)
     }
 }
