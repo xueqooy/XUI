@@ -16,6 +16,10 @@ public typealias PopupConfiguration = PopupController.Configuration
 
 public struct ConfirmationDialogToken {
 
+    public var viewStatePublisher: AnyPublisher<UIViewController.ViewState, Never> {
+        popupController?.viewStatePublisher ?? Empty().eraseToAnyPublisher()
+    }
+    
     private weak var popupController: PopupController?
     
     init(_ popupController: PopupController?) {

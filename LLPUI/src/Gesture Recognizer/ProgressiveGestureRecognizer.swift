@@ -151,11 +151,11 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
 
 extension ProgressivePressGestureRecognizer.Priority: Comparable, ExpressibleByIntegerLiteral {
     
-    static let background = ProgressivePressGestureRecognizer.Priority(rawValue: -100)
+    public static let background = ProgressivePressGestureRecognizer.Priority(rawValue: -100)
     
-    static let `default` = ProgressivePressGestureRecognizer.Priority(0)
+    public static let `default` = ProgressivePressGestureRecognizer.Priority(0)
     
-    static let button = ProgressivePressGestureRecognizer.Priority(100)
+    public static let button = ProgressivePressGestureRecognizer.Priority(100)
     
     
     // MARK: - ExpressibleByIntegerLiteral
