@@ -92,7 +92,7 @@ public class ConfirmationDialog {
         }
     }
     
-    public static let defaultPopupConfiguration = PopupConfiguration(showsCancelButton: true, contentHorizontalSizeClass: .compact)
+    public static let defaultPopupConfiguration = PopupConfiguration(cancelAction: .withoutHandler, contentHorizontalSizeClass: .compact)
     
     private static let cancellablesAssociation = Association<Set<AnyCancellable>>(wrap: .retain)
     
@@ -136,7 +136,7 @@ public class ConfirmationDialog {
         var cancellables = Set<AnyCancellable>()
         
         let formView = FormView()
-        formView.contentInset = .nondirectional(top: (popupConfiguration.title ?? "").isEmpty && !popupConfiguration.showsCancelButton ? .LLPUI.spacing5 : 0, left: 0, bottom: .LLPUI.spacing5, right: 0)
+        formView.contentInset = .nondirectional(top: (popupConfiguration.title ?? "").isEmpty && popupConfiguration.cancelAction == nil ? .LLPUI.spacing5 : 0, left: 0, bottom: .LLPUI.spacing5, right: 0)
         formView.itemSpacing = 0
                 
         formView.populate {

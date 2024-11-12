@@ -16,7 +16,7 @@ class PopupTopView: UIView {
     
     private let showsTitle: Bool
     
-    init?(title: String?, cancelAction: (() -> Void)?) {
+    init?(title: String?, cancelAction: (() -> Void)? = nil) {
         let showsTitle = !(title ?? "").isEmpty
         let showsCancelButton = cancelAction != nil
         
