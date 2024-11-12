@@ -204,6 +204,16 @@ open class SegmentControl: UIControl {
         return CGSize(width: totalWidth, height: style.intrinsicHeight)
     }
     
+    public func setSelectedSegmentIndex(_ index: Int, animated: Bool = true) {
+        if animated {
+            selectedSegmentIndex = index
+        } else {
+            UIView.performWithoutAnimation {
+                self.selectedSegmentIndex = index
+            }
+        }
+    }
+    
     public func updateIndicatorPosition(fromIndex: Int, toIndex: Int, fraction: CGFloat) {
         let fromAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: fromIndex, section: 0))
         let toAttributes = collectionView.layoutAttributesForItem(at: IndexPath(item: toIndex, section: 0))
@@ -362,7 +372,7 @@ extension SegmentControl.Style {
     var textInsets: UIEdgeInsets {
         switch self {
         case .page:
-            return .init(top: 14, left: 16, bottom: 14, right: 16)
+            return .init(top: 14, left: 12, bottom: 14, right: 12)
         case .tab:
             return .init(top: 12, left: 14, bottom: 12, right: 14)
         case .toggle:
