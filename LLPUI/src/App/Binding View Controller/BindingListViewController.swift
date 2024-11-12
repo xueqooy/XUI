@@ -17,7 +17,12 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: BindingVi
         $0.canRefresh = true
     }
     
+    /// Reload data when view is appearing
+    public var alwaysReloadDataWhenAppearing: Bool = false
+    
     private var emptyView: EmptyView?
+    
+    private var hasRequestedData = false
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,14 +94,16 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: BindingVi
     
     /// Super required
     open override func performBinding() {
-        // Initial data loading
         viewStatePublisher
             .filter { $0 == .isAppearing }
-            .first()
             .sink { [weak self] _ in
                 guard let self else { return }
                 
-                self.viewModel.reloadData()
+                if !self.hasRequestedData || self.alwaysReloadDataWhenAppearing {
+                    self.viewModel.reloadData()
+                }
+                
+                self.hasRequestedData = true
             }
             .store(in: &cancellables)
         
