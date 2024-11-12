@@ -18,9 +18,28 @@ open class PopupController: UIViewController, Configurable {
     
     public struct Configuration: Equatable {
         
+        public struct CancelAction: Equatable {
+
+            /// The cancel action without extra handler
+            public static let withoutHandler = CancelAction()
+            
+            let handler: (() -> Void)?
+            
+            private let identifier: UUID = .init()
+            
+            public init(handler: (() -> Void)? = nil) {
+                self.handler = handler
+            }
+            
+            public static func == (lhs: Configuration.CancelAction, rhs: Configuration.CancelAction) -> Bool {
+                lhs.identifier == rhs.identifier
+            }
+        }
+        
         public var title: String? = nil
         
-        public var showsCancelButton: Bool = true
+        /// Set `cancelAction` to provide a cancel action that will be displayed in the top of the popup. When the action is triggered, the popup will be dismissed.
+        public var cancelAction: CancelAction? = .withoutHandler
         
         /**
          Indicate the default width size class of the content when `preferredContentSize.width <= 0` and there is sufficient available layout width
@@ -34,9 +53,9 @@ open class PopupController: UIViewController, Configurable {
 
         public var wrapsContentWithDefaultInsets: Bool = true
         
-        public init(title: String? = nil, showsCancelButton: Bool = true, adjustsHeightForKeyboard: Bool = true, wrapsContentWithDefaultInsets: Bool = true, contentHorizontalSizeClass: ContentHorizontalSizeClass = .compact) {
+        public init(title: String? = nil, cancelAction: CancelAction? = .withoutHandler, adjustsHeightForKeyboard: Bool = true, wrapsContentWithDefaultInsets: Bool = true, contentHorizontalSizeClass: ContentHorizontalSizeClass = .compact) {
             self.title = title
-            self.showsCancelButton = showsCancelButton
+            self.cancelAction = cancelAction
             self.adjustsHeightForKeyboard = adjustsHeightForKeyboard
             self.wrapsContentWithDefaultInsets = wrapsContentWithDefaultInsets
             self.contentHorizontalSizeClass = contentHorizontalSizeClass
@@ -50,7 +69,7 @@ open class PopupController: UIViewController, Configurable {
                 return
             }
             
-            if oldValue.title != configuration.title || oldValue.showsCancelButton != configuration.showsCancelButton {
+            if oldValue.title != configuration.title || oldValue.cancelAction != configuration.cancelAction {
                 updateTopView()
             }
 
@@ -300,14 +319,18 @@ open class PopupController: UIViewController, Configurable {
     }
     
     private func updateTopView() {
-        topView = PopupTopView(title: configuration.title, cancelAction: configuration.showsCancelButton ? { [weak self] in
-            self?.dismiss(animated: true)
-        } : nil)
+        if let cancelAction = configuration.cancelAction {
+            topView = PopupTopView(title: configuration.title, cancelAction: { [weak self] in
+                self?.dismiss(animated: true, completion: cancelAction.handler)
+            })
+        } else {
+            topView = PopupTopView(title: configuration.title)
+        }
     }
     
     private func calculateSuggestedContentWidth() -> CGFloat {
-        var suggestedWidth = 0.0
         let windowWidth = (self.view.window ?? self.view)?.frame.width ?? 0
+        var suggestedWidth = windowWidth
         
         let useFullWidth: Bool
         if traitCollection.userInterfaceIdiom == .phone {
