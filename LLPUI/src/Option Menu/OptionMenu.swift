@@ -55,7 +55,7 @@ public class OptionMenu: ContentPresenter {
     }
     
     public override var popupConfiguration: PopupController.Configuration {
-        .init(showsCancelButton: false)
+        .init(cancelAction: nil)
     }
     
     public override var preferredContentSize: CGSize? {

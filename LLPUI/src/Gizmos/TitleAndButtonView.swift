@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 public class TitleAndButtonView: UIView {
     
     private lazy var leftPlaceholderView = UIView()
@@ -15,10 +16,14 @@ public class TitleAndButtonView: UIView {
         .settingContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         .settingContentCompressionResistancePriority(.required, for: .vertical)
     
-    private lazy var button = Button()
-        .settingContentCompressionResistanceAndHuggingPriority(.required)
+    private lazy var button: Button = {
+        let button = Button()
+        button.settingContentCompressionResistanceAndHuggingPriority(.required)
+        
+        return button
+    }()
             
-    public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center), buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {
+    public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center), titleToButtonSpacing: CGFloat = .LLPUI.spacing3, buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {
         super.init(frame: .zero)
         
         let shouldShowTitle = !(title ?? "").isEmpty
@@ -39,7 +44,7 @@ public class TitleAndButtonView: UIView {
             }
         }
         
-        let stackView = HStackView(spacing: .LLPUI.spacing3) {
+        let stackView = HStackView(spacing: titleToButtonSpacing) {
             if shouldShowTitle && shouldShowButton {
                 leftPlaceholderView
             }

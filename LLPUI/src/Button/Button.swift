@@ -52,6 +52,8 @@ open class Button: UIControl, Configurable {
     /// The convenience for `touchUpInside` action.
     open var touchUpInsideAction: ((Button) -> Void)?
     
+    public var hitTestSlop: UIEdgeInsets = .zero
+    
     public init(configuration: ButtonConfiguration = ButtonConfiguration(), configurationTransformer: ButtonConfigurationTransforming? = PlainButtonConfigurationTransformer(), touchUpInsideAction: ((Button) -> Void)? = nil) {
         self.configuration = configuration
         self._effectiveConfiguration =  configuration
@@ -1110,5 +1112,13 @@ open class Button: UIControl, Configurable {
             }
         }
         return true
+    }
+    
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if hitTestSlop == .zero {
+            super.point(inside: point, with: event)
+        } else {
+            bounds.inset(by: hitTestSlop).contains(point)
+        }
     }
 }

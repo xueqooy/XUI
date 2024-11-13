@@ -164,13 +164,12 @@ open class TabController: UIViewController {
         }
     }
     
-    public func showTab(at index: Int) {
+    public func showTab(at index: Int, animated: Bool = true) {
         let tab = tabs[index]
-        tab.navigationController.popToRootViewController(animated: true)
         
-        tabBar.selectedSegmentIndex = index
+        tabBar.setSelectedSegmentIndex(index, animated: animated)
     }
-    
+        
     private func reloadPagesIfNecessary() {
         guard needReloadTabs, isViewLoaded else {
             return
