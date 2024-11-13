@@ -18,13 +18,12 @@ public class TitleAndButtonView: UIView {
     
     private lazy var button: Button = {
         let button = Button()
-        button.hitTestSlop = .init(uniformValue: -8)
         button.settingContentCompressionResistanceAndHuggingPriority(.required)
         
         return button
     }()
             
-    public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center), buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {
+    public init(title: String?, titleLines: Int = 2, titleStyleConfiguration: TextStyleConfiguration = .init(textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center), titleToButtonSpacing: CGFloat = .LLPUI.spacing3, buttonConfiguration: ButtonConfiguration?, buttonAction: ((UIView) -> Void)? = nil) {
         super.init(frame: .zero)
         
         let shouldShowTitle = !(title ?? "").isEmpty
@@ -45,7 +44,7 @@ public class TitleAndButtonView: UIView {
             }
         }
         
-        let stackView = HStackView(spacing: .LLPUI.spacing3) {
+        let stackView = HStackView(spacing: titleToButtonSpacing) {
             if shouldShowTitle && shouldShowButton {
                 leftPlaceholderView
             }

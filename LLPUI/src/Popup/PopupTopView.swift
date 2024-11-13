@@ -35,13 +35,15 @@ class PopupTopView: UIView {
             title: title,
             titleLines: 2,
             titleStyleConfiguration: .init(textColor: .white, font: Fonts.body2Bold, textAlignment: .center),
-            buttonConfiguration: showsCancelButton ? .init(image: Icons.xmarkSmall, imageSize: .square(16), foregroundColor: .white) : nil,
+            titleToButtonSpacing: 0,
+            buttonConfiguration: showsCancelButton ? .init(image: Icons.xmarkSmall, imageSize: .square(16), contentInsets: .nondirectional(uniformValue: .LLPUI.spacing3), foregroundColor: .white) : nil,
             buttonAction: showsCancelButton ? { _ in cancelAction!() } : nil
         )
         
         addSubview(titleAndCancelButtonView)
         titleAndCancelButtonView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(CGFloat.LLPUI.spacing5)
+            make.left.equalToSuperview().inset(CGFloat.LLPUI.spacing5)
+            make.right.equalToSuperview().inset(CGFloat.LLPUI.spacing2)
             make.centerY.equalToSuperview()
         }
     
