@@ -43,6 +43,8 @@ public struct Icons {
     
     public static let arrowRight = LLPUIFramework.image(named: "arrow.right")
     
+    public static let arrowBack = LLPUIFramework.image(named: "arrow.back")
+    
     public static let filter = LLPUIFramework.image(named: "filter")
     
     public static let sort = LLPUIFramework.image(named: "sort")
