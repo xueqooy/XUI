@@ -97,7 +97,7 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: BindingVi
         viewStatePublisher
             .filter { $0 == .isAppearing }
             .sink { [weak self] _ in
-                guard let self else { return }
+                guard let self, self.viewModel.loadStatus.simple != .loading else { return }
                 
                 if !self.hasRequestedData || self.alwaysReloadDataWhenAppearing {
                     self.viewModel.reloadData()
