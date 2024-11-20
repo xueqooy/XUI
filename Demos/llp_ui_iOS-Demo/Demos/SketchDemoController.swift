@@ -99,7 +99,7 @@ class SketchDemoController: DemoController {
         addRow([undoButton, redoButton, exportButton, clearButton], itemSpacing: 10, distribution: .fillEqually)
         addItem(sketchViewItem)
         
-        let toolSegmentControl = SegmentControl(style: .secondLevel, fillEqually: true, items: ["Brush", "Eraser"])
+        let toolSegmentControl = SegmentControl(style: .tab, fillEqually: true, items: ["Brush", "Eraser"])
         toolSegmentControl.selectedSegmentIndex = 0
         toolSegmentControl.addTarget(self, action: #selector(Self.toolDidChange(_:)), for: .valueChanged)
         

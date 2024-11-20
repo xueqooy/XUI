@@ -79,7 +79,7 @@ class MediaDemoController: DemoController {
         
         addSpacer(.LLPUI.spacing3)
         
-        let drawerButton = Button(designStyle: .primarySmall, title: "Show In Drawer") { [weak self] button in
+        let drawerButton = Button(designStyle: .primary, title: "Show In Drawer") { [weak self] button in
             self?.showInDrawer(from: button)
         }
         addRow(drawerButton)
@@ -93,7 +93,7 @@ class MediaDemoController: DemoController {
         }
         
         let items = Self.medias.map { media in
-            MediaListView.Item(media: media, trailingButtonConfiguration: .init(image: Icons.cancel, action: { [weak drawer] view, index in
+            MediaListView.Item(media: media, trailingButtonConfiguration: .init(image: Icons.xmark, action: { [weak drawer] view, index in
                 view.removeItem(at: index)
                 
                 if view.items.isEmpty {

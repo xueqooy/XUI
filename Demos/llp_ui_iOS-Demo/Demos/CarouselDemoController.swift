@@ -36,7 +36,7 @@ class CarouselDemoController: DemoController {
         }
         flexibleCarouselView.viewModels = flexibleCarouselViewModels
         
-        let updateHeightButton = Button(designStyle: .primarySmall, title: "Update Height") { [weak self] _ in
+        let updateHeightButton = Button(designStyle: .primary, title: "Update Height") { [weak self] _ in
             guard let self else { return }
             UIView.animate(withDuration: 0.3) {
                 heightAnchor.constant = CGFloat.random(in: 80...200)

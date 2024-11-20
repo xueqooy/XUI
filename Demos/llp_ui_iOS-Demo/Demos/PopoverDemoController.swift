@@ -140,7 +140,7 @@ class PopoverDemoController: DemoController {
             input3.placeholder = "Confirm your password"
             
             
-            let confirmButton = Button(designStyle: .primarySmall, title: "Confirm") { [weak self] _ in
+            let confirmButton = Button(designStyle: .primary, title: "Confirm") { [weak self] _ in
                 self?.popover.hide()
             }
             

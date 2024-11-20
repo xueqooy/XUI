@@ -194,7 +194,7 @@ class RichTextDemoController: DemoController {
         
         
         addTitle("Image Attachment")
-        let alertIcon = Icons.alertCircle.withTintColor(Colors.teal)
+        let alertIcon = Icons.checkCircle.withTintColor(Colors.teal)
         addLabel((
         """
         

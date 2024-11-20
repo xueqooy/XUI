@@ -37,7 +37,7 @@ class DropdownMenuDemoController: DemoController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let button = LLPUI.Button(designStyle: .secondarySmall, alternativeBackgroundColor: .white, contentInsetsMode: .ignoreVertical, configuration: .init(image: Icons.dropdown, imagePlacement: .trailing))
+        let button = LLPUI.Button(designStyle: .secondary, alternativeBackgroundColor: .white, contentInsetsMode: .ignoreVertical, configuration: .init(image: Icons.dropdown, imagePlacement: .trailing))
         
         $selectedItem.didChange
             .sink {

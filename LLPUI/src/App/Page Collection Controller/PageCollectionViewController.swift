@@ -156,7 +156,7 @@ open class PageCollectionViewController<ViewModel: PageCollectionViewModel>: Bin
             segmentedPageView.emptyConfiguraiton.isLoading = false
             refreshControl.endRefreshing()
             
-        case .failed(let error):
+        case .failed(_):
             segmentedPageView.emptyConfiguraiton = .somethingWentWrong { [weak self] in
                 guard let self else { return }
                 

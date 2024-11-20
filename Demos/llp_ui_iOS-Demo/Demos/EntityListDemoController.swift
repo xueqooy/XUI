@@ -50,7 +50,7 @@ class EntityListDemoController: DemoController {
      
     private lazy var assigneeNameField = InputField(placeholder: "Assignee Name")
     
-    private lazy var assigneeTypeSegmentControl = SegmentControl(style: .secondLevel, items: ["Persona", "Group", "SmallGroup"]).then {
+    private lazy var assigneeTypeSegmentControl = SegmentControl(style: .page, items: ["Persona", "Group", "SmallGroup"]).then {
         $0.selectedSegmentIndex = 0
     }
     

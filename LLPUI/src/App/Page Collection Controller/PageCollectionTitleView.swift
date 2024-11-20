@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import LLPUI
 import SnapKit
 
 class PageCollectionTitleView: UIView, NestedScrollingHeader {

@@ -17,19 +17,19 @@ class SegmentControlDemoController: DemoController {
     override func viewDidLoad() {
         super.viewDidLoad()
                         
-        let firstLevelControl = SegmentControl(style: .firstLevel, items: ["All", .badgedText("In Progress", value: "10"), .text("Completed"), .badgedText("Overdue")])
+        let firstLevelControl = SegmentControl(style: .page, items: ["All", .badgedText("In Progress", value: "10"), .text("Completed"), .badgedText("Overdue")])
         firstLevelControl.selectedSegmentIndex = 0
         addTitle("First Level")
         addRow(firstLevelControl)
         addSeparator()
         
-        let secondLevelControl = SegmentControl(style: .secondLevel, items: ["Student", .badgedText("Teacher", value: "99+")])
+        let secondLevelControl = SegmentControl(style: .tab, items: ["Student", .badgedText("Teacher", value: "99+")])
         secondLevelControl.selectedSegmentIndex = 0
         addTitle("Second Level")
         addRow(secondLevelControl)
         addSeparator()
         
-        let fillEquallyControl = SegmentControl(style: .firstLevel, fillEqually: true, items: ["Username or Email", "Mobile Number"])
+        let fillEquallyControl = SegmentControl(style: .page, fillEqually: true, items: ["Username or Email", "Mobile Number"])
         fillEquallyControl.selectedSegmentIndex = 0
         addTitle("Fill Equally")
         addRow(fillEquallyControl, alignment: .fill)

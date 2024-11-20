@@ -24,11 +24,15 @@ class InputFieldDemoController: DemoController {
     
     let searchField = SearchInputField(label: "Search", placeholder: "Search")
     
+    let largeSearchField = SearchInputField(style: .large, placeholder: "Search")
+
     private var fields = [Field]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
                         
+        view.backgroundColor = Colors.background1
+        
         let nameField = InputField(label: "Username", placeholder: "Input your username")
       
         let passwordField = PasswordInputField(label: "Password", placeholder: "Input your password")
@@ -83,6 +87,7 @@ class InputFieldDemoController: DemoController {
         customField.label = "Custom Field"
         customField.contentInset = .directional(uniformValue: .LLPUI.spacing4)
         
+        fields.append(largeSearchField)
         fields.append(searchField)
         fields.append(nameField)
         fields.append(passwordField)
@@ -145,7 +150,7 @@ class InputFieldDemoController: DemoController {
 
 extension InputFieldDemoController: Editable {
     var editableResponder: UIResponder? {
-        searchField
+        largeSearchField
     }
 }
     

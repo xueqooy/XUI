@@ -287,9 +287,11 @@ open class Field: UIControl {
         switch fieldState {
         case .normal:
             configuration.strokeColor = Colors.line2
+            configuration.fillColor = UIColor.white
             
         case .active:
             configuration.strokeColor = Colors.teal
+            configuration.fillColor = UIColor.white
             
         case .disabled:
             configuration.strokeColor = Colors.line2
@@ -298,13 +300,13 @@ open class Field: UIControl {
                 
         switch validationState {
         case .success(_):
-            if fieldState != .disabled {
-                configuration.fillColor =  Colors.green.withAlphaComponent(fieldState == .active ? 0 : 0.05)
+            if fieldState == .normal  {
+                configuration.fillColor = Colors.green.withAlphaComponent(0.05)
             }
             configuration.strokeColor = Colors.green
         case .error(_):
-            if fieldState != .disabled {
-                configuration.fillColor = Colors.red.withAlphaComponent(fieldState == .active ? 0 : 0.05)
+            if fieldState == .normal {
+                configuration.fillColor = Colors.red.withAlphaComponent(0.05)
             }
             configuration.strokeColor = Colors.red
         default:

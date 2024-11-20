@@ -23,13 +23,13 @@ class PageControlDemoController: DemoController {
         let pageControl = PageControl()
         pageControl.numberOfPages = 15
         
-        let nextPageButton = Button(designStyle: .primarySmall, title: "➡️") { _ in
+        let nextPageButton = Button(designStyle: .primary, title: "➡️") { _ in
 
             pageControl.currentPage = pageControl.currentPage + 1
             systemPageControl.currentPage = systemPageControl.currentPage + 1
         }
 
-        let prePageButton = Button(designStyle: .primarySmall, title: "⬅️") { _ in
+        let prePageButton = Button(designStyle: .primary, title: "⬅️") { _ in
     
             pageControl.currentPage = pageControl.currentPage - 1
             systemPageControl.currentPage = systemPageControl.currentPage - 1
