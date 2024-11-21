@@ -1,6 +1,6 @@
 //
 //  Nested.swift
-//  Pods
+//  LLPUI
 //
 //  Created by xueqooy on 2024/11/20.
 //
@@ -99,7 +99,7 @@ private class TitleView: UIView, NestedScrollingHeader {
             if let customView {
                 addSubview(customView)
                 customView.snp.makeConstraints { make in
-                    make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.LLPUI.spacing2)
+                    make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.LLPUI.spacing5)
                     make.left.right.equalToSuperview().inset(CGFloat.LLPUI.spacing4)
                     make.bottom.equalToSuperview().inset(CGFloat.LLPUI.spacing2)
                 }
