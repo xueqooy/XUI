@@ -11,28 +11,26 @@ import LLPUtils
 import Combine
 import IGListDiffKit
 
-open class PagingDataListViewModel<DataProvider: PagingDataProviding> {
-    
-    public var cancellables = Set<AnyCancellable>()
+open class PagingDataListViewModel<DataProvider: PagingDataProviding>: BindingListViewModel {
     
     public private(set) var dataManager: PagingDataManager<DataProvider>!
          
+    public override var canLoadMorePublisher: AnyPublisher<Bool, Never>? {
+        $canLoadMore.didChange
+    }
+    
     private let debounceToUpdateObjectsSubject = PassthroughSubject<Void, Never>()
     
     private var updateObjectsCancellable: AnyCancellable?
     
     private var dataManagerBoundCancellables = Set<AnyCancellable>()
     
-    @State
-    private var objects: [ListDiffable] = []
-    
-    @State
-    public private(set) var loadStatus: BindingListLoadStatus = .idle
-    
     @EquatableState
     private var canLoadMore: Bool = false
     
-    public init() {
+    public override init() {
+        super.init()
+        
         // Avoid frequent update calls
         updateObjectsCancellable = debounceToUpdateObjectsSubject
             .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main)
@@ -103,6 +101,16 @@ open class PagingDataListViewModel<DataProvider: PagingDataProviding> {
         }
     }
     
+    public override func loadData() {
+        dataWillReload()
+        
+        dataManager.loadData()
+    }
+    
+    public override func loadMoreData() {
+        dataManager.loadData(action: .loadMore)
+    }
+    
     private func updateObjects() {
         objects = makeObjects()
     }
@@ -118,29 +126,5 @@ open class PagingDataListViewModel<DataProvider: PagingDataProviding> {
     
     open func makeObjects() -> [ListDiffable] {
         fatalError("Suclass should override this method")
-    }
-}
-
-extension PagingDataListViewModel: BindingListViewModel {
-    public var objectsPublisher: AnyPublisher<[ListDiffable], Never> {
-        $objects.didChange
-    }
-    
-    public var loadStatusPublisher: AnyPublisher<BindingListLoadStatus, Never>? {
-        $loadStatus.didChange
-    }
-    
-    public var canLoadMorePublisher: AnyPublisher<Bool, Never>? {
-        $canLoadMore.didChange
-    }
-
-    public func reloadData() {
-        dataWillReload()
-        
-        dataManager.loadData()
-    }
-    
-    public func loadMoreData() {
-        dataManager.loadData(action: .loadMore)
     }
 }

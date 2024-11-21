@@ -11,19 +11,14 @@ import IGListKit
 import IGListDiffKit
 import Combine
 
-open class BindingListViewController<ViewModel: BindingListViewModel>: BindingViewController<ViewModel> {
+open class BindingListViewController<ViewModel: BindingListViewModel>: GenericBindingViewController<ViewModel> {
     
     public let listController = ListController().then {
         $0.canRefresh = true
     }
     
-    /// Reload data when view is appearing
-    public var alwaysReloadDataWhenAppearing: Bool = false
-    
     private var emptyView: EmptyView?
-    
-    private var hasRequestedData = false
-    
+        
     open override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,23 +89,12 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: BindingVi
     
     /// Super required
     open override func performBinding() {
-        viewStatePublisher
-            .filter { $0 == .isAppearing }
-            .sink { [weak self] _ in
-                guard let self, self.viewModel.loadStatus.simple != .loading else { return }
-                
-                if !self.hasRequestedData || self.alwaysReloadDataWhenAppearing {
-                    self.viewModel.reloadData()
-                }
-                
-                self.hasRequestedData = true
-            }
-            .store(in: &cancellables)
+        super.performBinding()
         
         listController.refreshHandler = { [weak self] _ in
             guard let self = self else { return }
             
-            self.viewModel.reloadData()
+            self.viewModel.loadData()
         }
         
         listController.loadMoreHandler = { [weak self] _ in
@@ -119,7 +103,7 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: BindingVi
             self.viewModel.loadMoreData()
         }
         
-        viewModel.objectsPublisher
+        viewModel.$objects.didChange
             .handleEvents(receiveOutput: { [weak self] objects in
                 guard let self = self else {
                     return
@@ -133,7 +117,7 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: BindingVi
             .assign(to: \.objects, on: listController)
             .store(in: &cancellables)
         
-        viewModel.loadStatusPublisher?
+        viewModel.$loadStatus.didChange
             .sink { [weak self] status in
                 guard let self else { return }
                 
