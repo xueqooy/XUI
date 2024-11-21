@@ -44,7 +44,7 @@ class DatePickerDemoController: DemoController {
             }
             .store(in: &cancellables)
         
-        let validationSegmentControl = SegmentControl(style: .secondLevel, items: ["None", "Validating", "Success", "Error"])
+        let validationSegmentControl = SegmentControl(style: .tab, items: ["None", "Validating", "Success", "Error"])
         validationSegmentControl.selectedSegmentIndex = 0
         validationSegmentControl.selectedSegmentIndexPublisher
             .sink { index in
@@ -67,7 +67,7 @@ class DatePickerDemoController: DemoController {
             }
             .store(in: &cancellables)
         
-        let applyCurrentDateButton = createButton(title: "Apply Current Date", style: .primarySmall) { _ in
+        let applyCurrentDateButton = createButton(title: "Apply Current Date", style: .primary) { _ in
             let currentDate = Date()
             
             dateSelector.date = currentDate

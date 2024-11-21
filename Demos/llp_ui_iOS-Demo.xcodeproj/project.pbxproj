@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D2D86852CEDCCF80066D99B /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6D2D86842CEDCCF80066D99B /* DemoMacro */; };
 		6D9D31AB2CA169A800E4D987 /* ColorPickerDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D316C2CA169A700E4D987 /* ColorPickerDemoController.swift */; };
 		6D9D31AC2CA169A800E4D987 /* CoachmarkDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D316D2CA169A700E4D987 /* CoachmarkDemoController.swift */; };
 		6D9D31AD2CA169A800E4D987 /* PopoverDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D316E2CA169A700E4D987 /* PopoverDemoController.swift */; };
@@ -68,6 +69,9 @@
 		6D9D31E62CA169A800E4D987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D31AA2CA169A800E4D987 /* AppDelegate.swift */; };
 		6DCD0D832CA16F9300538569 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DCD0D822CA16F9300538569 /* DemoMacro */; };
 		6DCD0D882CA1716800538569 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DCD0D872CA1716800538569 /* DemoMacro */; };
+		6DD80F8F2CEDCE4900B30FE4 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DD80F8E2CEDCE4900B30FE4 /* DemoMacro */; };
+		6DD80F922CEDCEAE00B30FE4 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DD80F912CEDCEAE00B30FE4 /* DemoMacro */; };
+		6DD80F952CEDCF2A00B30FE4 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DD80F942CEDCF2A00B30FE4 /* DemoMacro */; };
 		AA709108B70772F4590F097D /* Pods_llp_ui_iOS_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3323C354BCA23590CF9BEE /* Pods_llp_ui_iOS_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -143,6 +147,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D2D86852CEDCCF80066D99B /* DemoMacro in Frameworks */,
+				6DD80F8F2CEDCE4900B30FE4 /* DemoMacro in Frameworks */,
+				6DD80F922CEDCEAE00B30FE4 /* DemoMacro in Frameworks */,
+				6DD80F952CEDCF2A00B30FE4 /* DemoMacro in Frameworks */,
 				6DCD0D832CA16F9300538569 /* DemoMacro in Frameworks */,
 				AA709108B70772F4590F097D /* Pods_llp_ui_iOS_Demo.framework in Frameworks */,
 				6DCD0D882CA1716800538569 /* DemoMacro in Frameworks */,
@@ -307,6 +315,10 @@
 			packageProductDependencies = (
 				6DCD0D822CA16F9300538569 /* DemoMacro */,
 				6DCD0D872CA1716800538569 /* DemoMacro */,
+				6D2D86842CEDCCF80066D99B /* DemoMacro */,
+				6DD80F8E2CEDCE4900B30FE4 /* DemoMacro */,
+				6DD80F912CEDCEAE00B30FE4 /* DemoMacro */,
+				6DD80F942CEDCF2A00B30FE4 /* DemoMacro */,
 			);
 			productName = "llp_ui_iOS-Demo";
 			productReference = 7F11A3DBE97DBA6915FD86C5 /* llp_ui_iOS-Demo.app */;
@@ -336,7 +348,7 @@
 			);
 			mainGroup = 1D391A364DBC91650B7DF655;
 			packageReferences = (
-				6DCD0D862CA1716800538569 /* XCLocalSwiftPackageReference "DemoMacro" */,
+				6DD80F932CEDCF2A00B30FE4 /* XCLocalSwiftPackageReference "DemoMacro" */,
 			);
 			productRefGroup = DB3003190B767EE89FA6ABC1 /* Products */;
 			projectDirPath = "";
@@ -665,18 +677,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6DCD0D862CA1716800538569 /* XCLocalSwiftPackageReference "DemoMacro" */ = {
+		6DD80F932CEDCF2A00B30FE4 /* XCLocalSwiftPackageReference "DemoMacro" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DemoMacro;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D2D86842CEDCCF80066D99B /* DemoMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DemoMacro;
+		};
 		6DCD0D822CA16F9300538569 /* DemoMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DemoMacro;
 		};
 		6DCD0D872CA1716800538569 /* DemoMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DemoMacro;
+		};
+		6DD80F8E2CEDCE4900B30FE4 /* DemoMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DemoMacro;
+		};
+		6DD80F912CEDCEAE00B30FE4 /* DemoMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DemoMacro;
+		};
+		6DD80F942CEDCF2A00B30FE4 /* DemoMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DemoMacro;
 		};

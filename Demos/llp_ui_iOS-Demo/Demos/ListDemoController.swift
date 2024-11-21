@@ -68,7 +68,7 @@ class ListDemoController: DemoController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let configuration = PopupController.Configuration(title: "Generic List", showsCancelButton: true)
+        let configuration = PopupController.Configuration(title: "Generic List")
 
         let popupController = PopupController(configuration: configuration)
         popupController.contentController = BindingListViewController()
@@ -148,12 +148,12 @@ private class HeaderView: UIView, NestedScrollingHeader {
     init(listController: ListController) {
         super.init(frame: .zero)
 
-        let refreshButton = Button(designStyle: .primarySmall, contentInsetsMode: .ignoreHorizontal, title: "Refresh") { _ in
+        let refreshButton = Button(designStyle: .primary, contentInsetsMode: .ignoreHorizontal, title: "Refresh") { _ in
             listController.beginRefreshing()
         }
         refreshButton.isEnabled = false
         
-        let loadMoreButton = Button(designStyle: .primarySmall, contentInsetsMode: .ignoreHorizontal, title: "Load More") { _ in
+        let loadMoreButton = Button(designStyle: .primary, contentInsetsMode: .ignoreHorizontal, title: "Load More") { _ in
             listController.beginLoadingMore()
         }
         loadMoreButton.isEnabled = false

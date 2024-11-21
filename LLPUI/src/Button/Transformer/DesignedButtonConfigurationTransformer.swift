@@ -22,9 +22,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     public enum Style: CaseIterable {
         case primary
-//        case primarySmall
         case secondary
-//        case secondarySmall
         case borderless
         case borderlessSmall
     }
@@ -154,12 +152,8 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         switch style {
         case .primary:
             template = Self.primaryConfiguration
-//        case .primarySmall:
-//            template = Self.primarySmallConfiguration
         case .secondary:
             template = Self.secondaryConfiguration
-//        case .secondarySmall:
-//            template = Self.secondarySmallConfiguration
         case .borderless:
             template = Self.borderlessConfiguration
         case .borderlessSmall:
@@ -216,7 +210,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         let strokeColor: UIColor
         
         switch style {
-        case .primary/*, .primarySmall*/:
+        case .primary/*, primary*/:
             foregroundColor = isDarkMainColor ? .white : .black
             backgroundColor = mainColor
             strokeColor = .clear
@@ -241,7 +235,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     public override var shouldAutomaticallyAdjustForegroundAlpha: Bool {
         switch style {
-        case .primary/*, .primarySmall*/:
+        case .primary/*, primary*/:
             return false
         default:
             return true
@@ -255,12 +249,8 @@ extension DesignedButtonConfigurationTransformer.Style : CustomStringConvertible
         switch self {
         case .primary:
             return "Primary"
-//        case .primarySmall:
-//            return "Primary small"
         case .secondary:
             return "Secondary"
-//        case .secondarySmall:
-//            return "Secondary small"
         case .borderless:
             return "Borderless"
         case .borderlessSmall:

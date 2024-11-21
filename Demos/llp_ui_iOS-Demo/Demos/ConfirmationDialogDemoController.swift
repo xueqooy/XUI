@@ -74,13 +74,13 @@ class ConfirmationDialogDemoController: DemoController {
             .store(in: &cancellables)
         
         ConfirmationDialog(
-            popupConfiguration: .init(title: showsPopupTitle ? "Dialog Title" : nil, showsCancelButton: showsPopupCancelButton),
+            popupConfiguration: .init(title: showsPopupTitle ? "Dialog Title" : nil, cancelAction: showsPopupCancelButton ? .withoutHandler : nil),
             image: Icons.trashColour,
             title: "Are you sure?",
             detailText: "Deleting an item permanently removes it and its contents.")
         {
             for buttonLabelAndRole in buttonLabelAndRoleArray {
-                CDButton(title: buttonLabelAndRole.0, role: buttonLabelAndRole.1/*, enabler: buttonEnabler*/) {
+                CDButton(title: buttonLabelAndRole.0, role: buttonLabelAndRole.1/*, enabler: buttonEnabler*/) { _ in 
                     print(buttonLabelAndRole.0)
                 }
             }

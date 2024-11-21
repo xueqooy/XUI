@@ -53,7 +53,7 @@ class DemoController: UIViewController {
         }
     }
 
-    func createButton(image: UIImage? = nil, title: String? = nil, style: DesignedButtonConfigurationTransformer.Style = .primarySmall, action: @escaping (Button) -> ()) -> Button {
+    func createButton(image: UIImage? = nil, title: String? = nil, style: DesignedButtonConfigurationTransformer.Style = .primary, action: @escaping (Button) -> ()) -> Button {
         let button = Button(designStyle: style, touchUpInsideAction: action)
         button.configuration.title = title
         button.configuration.image = image

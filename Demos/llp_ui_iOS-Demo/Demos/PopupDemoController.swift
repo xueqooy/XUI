@@ -96,7 +96,7 @@ class PopupDemoController: DemoController {
     
     private func presentPopup(title: String? = nil, showsCancelButton: Bool = true, contentView: UIView? = nil, contentController: UIViewController? = nil, adjustsHeightForKeyboard: Bool = true) {
         
-        let configuration = PopupController.Configuration(title: title, showsCancelButton: showsCancelButton, adjustsHeightForKeyboard: adjustsHeightForKeyboard)
+        let configuration = PopupController.Configuration(title: title, cancelAction: showsCancelButton ? .withoutHandler : nil, adjustsHeightForKeyboard: adjustsHeightForKeyboard)
         
         let popupController = PopupController(configuration: configuration)
         if let contentView = contentView {

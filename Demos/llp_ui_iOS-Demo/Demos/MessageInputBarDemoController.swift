@@ -183,7 +183,7 @@ class DemoGifProvider: AttachmentProviding {
         let popover = Popover(configuration: configuration)
         
         let view = FormView()
-        let attachButton = Button(designStyle: .primarySmall, title: "Attach GIF") { [weak self, weak popover] _ in
+        let attachButton = Button(designStyle: .primary, title: "Attach GIF") { [weak self, weak popover] _ in
             guard let self = self else { return }
             
             let gif: Media = .networkPicture(name: "GIF-\(Date().timeIntervalSince1970)", url: .randomImageURL(), placeholder: nil)
@@ -222,7 +222,7 @@ class DemoAttachmentProvider: AttachmentProviding {
         
         let view = FormView()
         view.itemSpacing = .LLPUI.spacing5
-        let regularMediaButton = Button(designStyle: .primarySmall, contentInsetsMode: .overrideHorizontal(20), title: "Attach Regular Attachment") { [weak self, weak popover] _ in
+        let regularMediaButton = Button(designStyle: .primary, contentInsetsMode: .overrideHorizontal(20), title: "Attach Regular Attachment") { [weak self, weak popover] _ in
             guard let self = self else { return }
             
             self.attachmentSubject.send(MediaDemoController.randomMedia)
@@ -231,7 +231,7 @@ class DemoAttachmentProvider: AttachmentProviding {
             }
         }
         
-        let fulfillingPromiseMedia = Button(designStyle: .primarySmall, contentInsetsMode: .overrideHorizontal(20), title: "Attach Fulfilling Promise Attachment") { [weak self, weak popover] _ in
+        let fulfillingPromiseMedia = Button(designStyle: .primary, contentInsetsMode: .overrideHorizontal(20), title: "Attach Fulfilling Promise Attachment") { [weak self, weak popover] _ in
             guard let self = self else { return }
             
             let placeholder: Media = .unknown(name: "Fulfilling Promise Attachment")
@@ -248,7 +248,7 @@ class DemoAttachmentProvider: AttachmentProviding {
             }
         }
         
-        let rejectingfPromiseMedia = Button(designStyle: .primarySmall, contentInsetsMode: .overrideHorizontal(20), title: "Attach Rejecting Promise Attachment") { [weak self, weak popover] _ in
+        let rejectingfPromiseMedia = Button(designStyle: .primary, contentInsetsMode: .overrideHorizontal(20), title: "Attach Rejecting Promise Attachment") { [weak self, weak popover] _ in
             guard let self = self else { return }
             
             let placeholder: Media = .unknown(name: "Rejecting Promise Attachment")
@@ -291,7 +291,7 @@ class DemoMediaViewer: MediaViewing {
         
         let mediaView = MediaView(media: media.asMedia())
     
-        let popupController = PopupController(configuration: .init(showsCancelButton: true))
+        let popupController = PopupController(configuration: .init())
         popupController.contentView = mediaView
         popupController.preferredContentSize = .init(width: 350, height: 0)
         

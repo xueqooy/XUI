@@ -10,9 +10,16 @@ import Combine
 
 public class SearchInputField: InputField {
     
+    public enum Style {
+        case `default`
+        case large
+    }
+    
     private struct Constants {
         static let buttonWidth = 20
     }
+    
+    public let style: Style
 
     public override var returnKeyType: UIReturnKeyType {
         set { }
@@ -54,14 +61,26 @@ public class SearchInputField: InputField {
     }()
     
     private var editingChangedSubscription: AnyCancellable?
+    
 
-    public override init() {
+    public init(style: Style = .default) {
+        self.style = style
+        
         super.init()
 
         initialize()
     }
     
+    public convenience init(style: Style = .default, label: String? = nil, placeholder: String? = nil) {
+        self.init(style: style)
+        
+        self.label = label
+        self.placeholder = placeholder
+    }
+    
     required init?(coder: NSCoder) {
+        self.style = .default
+        
         super.init(coder: coder)
         
         initialize()
@@ -88,8 +107,41 @@ public class SearchInputField: InputField {
     public override func stateDidChange() {
         super.stateDidChange()
         
-        button.configuration.foregroundColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
+        button.configuration.foregroundColor = fieldState == .disabled ? Colors.disabledText : Colors.bodyText1
     }
+    
+    public override var defaultContentInset: Insets {
+        switch style {
+        case .default:
+            super.defaultContentInset
+        case .large:
+            .directional(top: 0, leading: .LLPUI.spacing6, bottom: 0, trailing: .LLPUI.spacing6)
+        }
+    }
+    
+    public override var defaultContentHeight: CGFloat {
+        switch style {
+        case .default:
+            super.defaultContentHeight
+        case .large:
+            72
+        }
+    }
+    
+    public override func defaultBackgroundConfiguration(forFieldState fieldState: Field.FieldState, validationState: Field.ValidationState) -> BackgroundConfiguration {
+        var configuration = super.defaultBackgroundConfiguration(forFieldState: fieldState, validationState: validationState)
+        
+        if style == .large {
+            configuration.cornerStyle = .capsule
+            
+            if fieldState == .normal {
+                configuration.strokeWidth = 0
+            }
+        }
+                
+        return configuration
+    }
+    
     
     private func deactivate() {
         text = nil
