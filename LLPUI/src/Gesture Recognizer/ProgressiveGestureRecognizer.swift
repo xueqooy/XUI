@@ -113,7 +113,7 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
             return priority < otherGestureRecognizer.priority
         }
         
-        return true
+        return false
     }
     
     public override func reset() {
