@@ -10,30 +10,40 @@ import Combine
 
 public class SearchInputField: InputField {
     
+    public typealias ActionHandler = (SearchInputField, Action) -> Void
+    
     public enum Style {
         case `default`
         case large
     }
     
-    private struct Constants {
-        static let buttonWidth = 20
+    public enum Action {
+        case search
+        case cancel
     }
     
     public let style: Style
+    
+    public var actionHandler: ActionHandler?
 
     public override var returnKeyType: UIReturnKeyType {
         set { }
         get { .search }
     }
-    
-    public override var enablesReturnKeyAutomatically: Bool {
-        set { }
-        get { true }
-    }
-    
-    private var isActive: Bool = false {
+
+    public override var text: String? {
         didSet {
-            if oldValue == isActive {
+            if oldValue == text {
+                return
+            }
+            
+            hasText = text?.isEmpty == false
+        }
+    }
+        
+    private var hasText: Bool = false {
+        didSet {
+            if oldValue == hasText {
                 return
             }
             
@@ -41,28 +51,21 @@ public class SearchInputField: InputField {
         }
     }
     
-    public override var text: String? {
-        didSet {
-            if oldValue == text {
-                return
-            }
-            
-            updateActiveState()
-        }
-    }
-    
     private lazy var button: Button = {
         let button = Button() { [weak self] _ in
-            guard let self = self, self.isActive else { return }
+            guard let self else { return }
             
-            self.deactivate()
+            if self.hasText {
+                self.cancel()
+            } else {
+                self.search()
+            }
         }
         return button
     }()
     
     private var editingChangedSubscription: AnyCancellable?
     
-
     public init(style: Style = .default) {
         self.style = style
         
@@ -71,11 +74,12 @@ public class SearchInputField: InputField {
         initialize()
     }
     
-    public convenience init(style: Style = .default, label: String? = nil, placeholder: String? = nil) {
+    public convenience init(style: Style = .default, label: String? = nil, placeholder: String? = nil, actionHandler: ActionHandler? = nil) {
         self.init(style: style)
         
         self.label = label
         self.placeholder = placeholder
+        self.actionHandler = actionHandler
     }
     
     required init?(coder: NSCoder) {
@@ -92,15 +96,15 @@ public class SearchInputField: InputField {
         
         boxStackView.addArrangedSubview(button)
         button.snp.makeConstraints { make in
-            make.width.equalTo(Constants.buttonWidth)
+            make.width.equalTo(20)
         }
         
         updateButtonImage()
         
         editingChangedSubscription = textInput.editingChangedPublisher.sink { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             
-            self.updateActiveState()
+            self.hasText = self.text?.isEmpty == false
         }
     }
     
@@ -142,17 +146,26 @@ public class SearchInputField: InputField {
         return configuration
     }
     
+    private func search() {
+        _ = resignFirstResponder()
+        
+        actionHandler?(self, .search)
+    }
     
-    private func deactivate() {
+    private func cancel() {
         text = nil
         _ = resignFirstResponder()
+        
+        actionHandler?(self, .cancel)
     }
-    
-    private func updateActiveState() {
-        isActive = text?.isEmpty == false
-    }
-    
+
     private func updateButtonImage() {
-        button.configuration.image = isActive ? Icons.xmarkSmall : Icons.search
+        button.configuration.image = hasText ? Icons.xmarkSmall : Icons.search
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        search()
+        
+        return true
     }
 }

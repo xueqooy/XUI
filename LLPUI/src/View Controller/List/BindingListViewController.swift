@@ -17,6 +17,12 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: GenericBi
         $0.canRefresh = true
     }
     
+    public var canDisplayEmptyView: Bool = true {
+        didSet {
+            emptyView?.alpha = canDisplayEmptyView ? 1.0 : 0
+        }
+    }
+    
     private var emptyView: EmptyView?
         
     open override func viewDidLoad() {
@@ -51,6 +57,8 @@ open class BindingListViewController<ViewModel: BindingListViewModel>: GenericBi
         } else {
             emptyView = nil
         }
+        
+        emptyView?.alpha = canDisplayEmptyView ? 1.0 : 0
         
         listController.emptyView = emptyView
         

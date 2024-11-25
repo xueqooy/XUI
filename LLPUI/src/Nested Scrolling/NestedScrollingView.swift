@@ -8,6 +8,7 @@
 import UIKit
 import LLPUtils
 import Combine
+import SnapKit
 
 public protocol NestedScrollingHeader: UIView {
     var headerHeight: CGFloat { get }
@@ -73,6 +74,11 @@ open class NestedScrollingView: UIView {
         case automatic // parent or child, depending on whether the parent or child scroll view is being touched
         case parent
         case child
+    }
+    
+    public enum HeaderStickyMode {
+        case never
+        case stick(tolerance: CGFloat = 0)
     }
         
     public var bounceTarget: BounceTarget = .automatic
@@ -158,14 +164,19 @@ open class NestedScrollingView: UIView {
         didEndDraggingSubject.eraseToAnyPublisher()
     }
     
-    public let stickyHeader: Bool
+    public let headerStickyMode: HeaderStickyMode
     
     private var headerHeight: CGFloat {
-        headerView?.bounds.height ?? 0
+        headerContainerView.bounds.height ?? 0
     }
     
     private var criticalPoint: CGFloat {
-        stickyHeader ? 0 : headerHeight
+        switch headerStickyMode {
+        case .never:
+            headerHeight
+        case .stick(let tolerance):
+            min(headerHeight, tolerance)
+        }
     }
     
     private let parentScrollView = NestedParentScrollView()
@@ -186,8 +197,12 @@ open class NestedScrollingView: UIView {
     private let willBeginDraggingSubject = PassthroughSubject<Void, Never>()
     private let didEndDraggingSubject = PassthroughSubject<Void, Never>()
 
-    public init(stickyHeader: Bool = false) {
-        self.stickyHeader = stickyHeader
+    private var contentHeightConstraint: Constraint?
+    private let headerLayoutObserver = ViewLayoutPropertyObserver()
+    private var headerLayoutObservation: AnyCancellable?
+    
+    public init(headerStickyMode: HeaderStickyMode = .never) {
+        self.headerStickyMode = headerStickyMode
         
         super.init(frame: .zero)
         
@@ -195,6 +210,10 @@ open class NestedScrollingView: UIView {
         
         setupViews()
         observeParentScrollling()
+    }
+    
+    public convenience init(stickyHeader: Bool = false) {
+        self.init(headerStickyMode: stickyHeader ? .stick() : .never)
     }
     
     required public init?(coder: NSCoder) {
@@ -216,19 +235,45 @@ open class NestedScrollingView: UIView {
         
         parentScrollView.addSubview(contentContainerView)
         contentContainerView.snp.makeConstraints { make in
-            if !stickyHeader {
+            switch headerStickyMode {
+            case .never:
                 make.top.equalTo(headerContainerView.snp.bottom)
                 make.leading.bottom.trailing.equalToSuperview()
                 make.size.equalTo(self)
                 
-            } else {
-                make.top.equalTo(headerContainerView.snp.bottom)
-                make.leading.bottom.trailing.equalToSuperview()
-                make.width.bottom.equalTo(self)
+            case .stick(let tolerance):
+                if tolerance > 0 {
+                    make.top.equalTo(headerContainerView.snp.bottom)
+                    make.leading.bottom.trailing.equalToSuperview()
+                    make.width.equalTo(self)
+                    contentHeightConstraint = make.height.equalTo(self).offset(-(max(0, headerHeight - tolerance))).constraint
+                    
+                    maybeObserveHeaderLayout()
+                } else {
+                    make.top.equalTo(headerContainerView.snp.bottom)
+                    make.leading.bottom.trailing.equalToSuperview()
+                    make.width.bottom.equalTo(self)
+                }
             }
         }
         
         addGestureRecognizer(draggingDetectGesture)
+    }
+    
+    private func maybeObserveHeaderLayout() {
+        guard let contentHeightConstraint, case .stick(let tolerance) = headerStickyMode, tolerance > 0 else {
+            return
+        }
+        
+        // Observe header layout changes, update content height constraint
+        
+        headerLayoutObserver.addToView(headerContainerView)
+        headerLayoutObservation = headerLayoutObserver.propertyDidChangePublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                contentHeightConstraint.update(offset: -(max(0, self.headerHeight - tolerance)))
+            }
     }
         
     private func observeParentScrollling() {

@@ -8,11 +8,15 @@
 import UIKit
 import SnapKit
 
-public class TitledNestedScrollingConfiguration: NestedScrollingConfiguration {
+open class TitledNestedScrollingConfiguration: NestedScrollingConfiguration {
+        
+    public var shouldDisplayTitleOverNavigation: Bool {
+        navigationTitleView != nil
+    }
     
     private var navigationTitleView: TitleView?
     
-    public init(title: String, isRefreshEnabled: Bool = true, customHeaderView: UIView? = nil) {
+    public init(title: String, isRefreshEnabled: Bool = true, customHeaderView: UIView? = nil, stickyToleranceForNavigationTitleDisplay: CGFloat? = nil) {
         navigationTitleView = if Device.current.isPhone {
             TitleView(style: .navigation, title: title)
         } else {
@@ -21,16 +25,28 @@ public class TitledNestedScrollingConfiguration: NestedScrollingConfiguration {
         
         let titleView = TitleView(style: .normal(customView: customHeaderView), title: title)
         
-        super.init(headerView: titleView, isRefreshEnabled: isRefreshEnabled, stickyHeader: navigationTitleView == nil)
+        let headerStickyMode: HeaderStickyMode = if navigationTitleView == nil {
+            .stick(tolerance: 0)
+        } else {
+            if let stickyToleranceForNavigationTitleDisplay {
+                .stick(tolerance: stickyToleranceForNavigationTitleDisplay)
+            } else {
+                .never
+            }
+        }
+        
+        super.init(headerView: titleView, isRefreshEnabled: isRefreshEnabled, headerStickyMode: headerStickyMode, criticalValueForAutomaticHeaderDisplay: .fixed(25))
     }
     
-    public override func didAdd(to viewController: UIViewController) {
-        guard let navigationTitleView, viewController.navigationItem.leftBarButtonItem == nil else { return }
+    /// Super required
+    open override func didAdd(to viewController: UIViewController) {
+        guard let navigationTitleView else { return }
         
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navigationTitleView)
     }
     
-    public override func parentContentOffsetDidChange(_ offset: CGFloat) {
+    /// Super required
+    open override func parentContentOffsetDidChange(_ offset: CGFloat) {
         guard let navigationTitleView else { return }
         
         navigationTitleView.offset = -offset
@@ -111,6 +127,8 @@ private class TitleView: UIView, NestedScrollingHeader {
                 topConstraitForNavigation = make.top.equalTo(self.snp.bottom).constraint
             }
         }
+        
+        isEndEditingTapGestureEnabled = true
     }
     
     required init?(coder: NSCoder) {

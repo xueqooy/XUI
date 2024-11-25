@@ -11,8 +11,9 @@ open class NestedScrollingViewController<ViewModel: GenericBindingViewModel>: Ge
         
     private lazy var nestedScrollingView: NestedScrollingView? = {
         if configuration.isRefreshEnabled || configuration.headerView != nil {
-            NestedScrollingView(stickyHeader: configuration.stickyHeader).then {
+            NestedScrollingView(headerStickyMode: configuration.headerStickyMode).then {
                 $0.automaticallyShowsHeader = true
+                $0.criticalValueForAutomaticHeaderDisplay = configuration.criticalValueForAutomaticHeaderDisplay
                 // Set it to never here, and the external safe area can be passed to the child interface (the parent scroll view may be set to automatic, which will cause the automatic behavior of the child scroll view to fail)
                 $0.parent.contentInsetAdjustmentBehavior = .never
                 $0.headerView = configuration.headerView
