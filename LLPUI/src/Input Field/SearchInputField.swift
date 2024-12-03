@@ -139,7 +139,7 @@ public class SearchInputField: InputField {
             configuration.cornerStyle = .capsule
             
             if fieldState == .normal {
-                configuration.strokeWidth = 0
+                configuration.stroke.width = 0
             }
         }
                 

@@ -23,11 +23,11 @@ class CodeItemView: UIView {
         var backgroundConfiguration: BackgroundConfiguration {
             var configuration = BackgroundConfiguration()
             configuration.cornerStyle = .fixed(.LLPUI.smallCornerRadius)
-            configuration.strokeWidth = 1
+            configuration.stroke.width = 1
             
             switch self {
             case .normal(let result):
-                configuration.strokeColor = switch result {
+                configuration.stroke.color = switch result {
                 case .none:
                     Colors.line2
                     
@@ -39,7 +39,7 @@ class CodeItemView: UIView {
                 }
                 
             case .filled(let result):
-                configuration.strokeColor = switch result {
+                configuration.stroke.color = switch result {
                 case .none:
                     Colors.teal
                     
@@ -62,7 +62,7 @@ class CodeItemView: UIView {
                 }
                 
             case .focused(let result):
-                configuration.strokeColor = switch result {
+                configuration.stroke.color = switch result {
                 case .none:
                     Colors.teal
                     
@@ -73,7 +73,7 @@ class CodeItemView: UIView {
                     Colors.green
                 }
             case .disabled(let result):
-                configuration.strokeColor = switch result {
+                configuration.stroke.color = switch result {
                 case .none:
                     Colors.line2
                     

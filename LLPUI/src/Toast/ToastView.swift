@@ -529,8 +529,8 @@ public class ToastView: UIView, Configurable {
         }
         
         backgroundView.update {
-            $0.strokeColor = configuration.style.foregroundColor
-            $0.strokeWidth = 1
+            $0.stroke.color = configuration.style.foregroundColor
+            $0.stroke.width = 1
         }
     
         hideButton.configuration.foregroundColor = configuration.style.foregroundColor
@@ -541,8 +541,8 @@ public class ToastView: UIView, Configurable {
         isDismissibleStyle = false
         
         backgroundView.update {
-            $0.strokeColor = nil
-            $0.strokeWidth = 0
+            $0.stroke.color = nil
+            $0.stroke.width = 0
         }
         
         hideButton.removeFromSuperview()

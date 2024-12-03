@@ -11,8 +11,8 @@ open class CardButtonConfigurationTransformer: PlainButtonConfigurationTransform
 
     private lazy var baseConfiguration: ButtonConfiguration = {
         var bg = BackgroundConfiguration.overlay()
-        bg.strokeWidth = 1
-        bg.strokeColor = strokeColor
+        bg.stroke.width = 1
+        bg.stroke.color = strokeColor
         
         var conf = ButtonConfiguration()
         conf.background = bg
@@ -23,7 +23,7 @@ open class CardButtonConfigurationTransformer: PlainButtonConfigurationTransform
     public let contentInset: Insets
     public var strokeColor: UIColor {
         didSet {
-            baseConfiguration.background?.strokeColor = strokeColor
+            baseConfiguration.background?.stroke.color = strokeColor
         }
     }
     
@@ -36,7 +36,7 @@ open class CardButtonConfigurationTransformer: PlainButtonConfigurationTransform
         let isSelected = button.isSelected
                 
         var template: ButtonConfiguration = baseConfiguration
-        template.background?.strokeWidth = isSelected ? 1.0 : 0.0
+        template.background?.stroke.width = isSelected ? 1.0 : 0.0
 
         configuration.background =  template.background
         configuration.contentInsets = contentInset

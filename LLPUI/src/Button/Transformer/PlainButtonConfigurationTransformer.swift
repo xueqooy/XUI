@@ -43,8 +43,8 @@ open class PlainButtonConfigurationTransformer: ButtonConfigurationTransforming 
                 configuration.background?.fillColor = backgroundFillColor.withMultiplicativeAlpha(overlayAlpha)
             }
             
-            if let backgroundStrokeColor = configuration.background?.strokeColor {
-                configuration.background?.strokeColor = backgroundStrokeColor.withMultiplicativeAlpha(overlayAlpha)
+            if let backgroundStrokeColor = configuration.background?.stroke.color {
+                configuration.background?.stroke.color = backgroundStrokeColor.withMultiplicativeAlpha(overlayAlpha)
             }
         }
     }

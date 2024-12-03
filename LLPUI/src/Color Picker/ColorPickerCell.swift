@@ -29,11 +29,11 @@ class ColorPickerCell: UICollectionViewCell {
                 self.selectedImageView.isHidden = !self.isSelected
             }
             
-            colorView.configuration.strokeWidth = isSelected ? 3 : 0
+            colorView.configuration.stroke.width = isSelected ? 3 : 0
         }
     }
     
-    private let colorView = BackgroundView(configuration: .init(strokeColor: Colors.teal, cornerStyle: .fixed(.LLPUI.smallCornerRadius)))
+    private let colorView = BackgroundView(configuration: .init(cornerStyle: .fixed(.LLPUI.smallCornerRadius), strokeColor: Colors.teal))
     
     private let selectedImageView = UIImageView(image: Icons.checkboxOn, contentMode: .scaleAspectFill, clipsToBounds: true).settingHidden(true)
     

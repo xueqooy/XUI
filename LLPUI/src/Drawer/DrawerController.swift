@@ -956,7 +956,7 @@ extension DrawerController: DrawerPresentationControllerDelegate {
     }
     
     func drawerPrsentationControllerPresentedViewMaskUpdateRequested(_ presentationController: DrawerPresentationController, expectedMaskedCorners: CACornerMask) {
-        backgroundView.configuration.stylishCorners = expectedMaskedCorners.rectCorners
+        backgroundView.configuration.maskedCorners = expectedMaskedCorners.asUIRectCorner()
     }
 }
 

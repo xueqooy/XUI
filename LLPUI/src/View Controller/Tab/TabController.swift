@@ -114,7 +114,7 @@ open class TabController: UIViewController {
     
     /// Used to set an additional bottom safe area to prevent views based on safe area layout from being covered by tabControl
     private var additionalSafeAreaInsetsForTabBar: UIEdgeInsets {
-        var addition: CGFloat = if let originalSafeAreaInsets, originalSafeAreaInsets.bottom == 0 {
+        let addition: CGFloat = if let originalSafeAreaInsets, originalSafeAreaInsets.bottom == 0 {
             // When the original bottom spacing of the safe area is 0, add additional spacing to prevent the tabBar from sticking to the bottom
             CGFloat.LLPUI.spacing4
         } else {
@@ -141,7 +141,7 @@ open class TabController: UIViewController {
             make.centerX.equalToSuperview()
             make.width.lessThanOrEqualToSuperview().offset(-40)
             
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(tabBarTopToSafeAreaBottomSpacing).constraint
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(tabBarTopToSafeAreaBottomSpacing)
         }
         
         tabPageView.dataSource = self

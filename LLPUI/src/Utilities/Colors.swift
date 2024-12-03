@@ -18,6 +18,9 @@ public class Colors: NSObject {
     /// #5C7183
     public static let bodyText1 = LLPUIFramework.color(named: "bodyText1")
     
+    /// #8A9AA8
+    public static let bodyText2 = LLPUIFramework.color(named: "bodyText2")
+
     /// #C1CAD1
     public static let disabledText = LLPUIFramework.color(named: "disabledText")
     

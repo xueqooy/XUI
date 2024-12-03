@@ -8,7 +8,7 @@
 import UIKit
 
 public extension UIRectCorner {
-    var maskedCorners: CACornerMask {
+    func asCACornerMask() -> CACornerMask {
         var corners: CACornerMask = []
         if self.contains(.topLeft) {
             corners.insert(.layerMinXMinYCorner)
@@ -27,7 +27,7 @@ public extension UIRectCorner {
 }
 
 public extension CACornerMask {
-    var rectCorners: UIRectCorner {
+    func asUIRectCorner() -> UIRectCorner {
         var corners: UIRectCorner = []
         if self.contains(.layerMinXMinYCorner) {
             corners.insert(.topLeft)

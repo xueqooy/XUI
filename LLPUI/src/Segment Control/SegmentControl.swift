@@ -307,8 +307,8 @@ extension SegmentControl.Style {
         case .toggle:
             var configuration = BackgroundConfiguration()
             configuration.fillColor = .white
-            configuration.strokeColor = Colors.line2
-            configuration.strokeWidth = 1
+            configuration.stroke.color = Colors.line2
+            configuration.stroke.width = 1
             configuration.cornerStyle = .fixed(8)
             return configuration
         }

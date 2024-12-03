@@ -109,9 +109,9 @@ public class MessageInputBar: UIView {
     private let backgroundView: BackgroundView = {
         var configuration = BackgroundConfiguration()
         configuration.fillColor = .white
-        configuration.shadowColor = Colors.shadow
-        configuration.shadowBlurRadius = .LLPUI.shadowBlurRadius
-        configuration.shadowOffset = .LLPUI.shadowOffset
+        configuration.shadow.color = Colors.shadow
+        configuration.shadow.blurRadius = .LLPUI.shadowBlurRadius
+        configuration.shadow.offset = .LLPUI.shadowOffset
         
         return BackgroundView(configuration: configuration)
     }()
