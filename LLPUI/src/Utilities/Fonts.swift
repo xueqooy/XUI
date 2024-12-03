@@ -54,9 +54,13 @@ public class Fonts: NSObject {
     
     // Definitions in https://www.figma.com/design/I8BC6rZsFONKRXToutZx2u/%F0%9F%96%A5%EF%B8%8F-Learner-Journey?node-id=3088-2595&node-type=canvas&t=1cAqm2eN2HNZLhoN-0
          
-    /// 18 bold
+    /// 20 bold
     public static let h6 = font(ofSize: 20, weight: .bold)
-        
+    /// 24 bold
+    public static let h5 = font(ofSize: 24, weight: .bold)
+    /// 28 bold
+    public static let h4 = font(ofSize: 28, weight: .bold)
+
     /// 18 regular
     public static let body1 = font(ofSize: 18, weight: .regular)
     /// 16 regular

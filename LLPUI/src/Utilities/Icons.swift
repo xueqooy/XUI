@@ -60,6 +60,10 @@ public struct Icons {
     public static let link = LLPUIFramework.image(named: "link")
     
     public static let video = LLPUIFramework.image(named: "video")
+    
+    public static let videoCamera = LLPUIFramework.image(named: "video.camera")
+    
+    public static let audioHeadphones = LLPUIFramework.image(named: "audio.headphones")
 
     public static let more = LLPUIFramework.image(named: "more")
 
