@@ -150,6 +150,15 @@ public struct Icons {
         context.drawPath(using: .fill)
     }
     
+    public static let progressThumbSmall = generateImage(CGSize.square(10)) { size, context in
+        context.setShadow(offset: .zero, blur: 2.0, color: Colors.shadow.cgColor)
+        
+        let centerRect = CGRect(x: 2, y: 2, width: 6, height: 6)
+        context.setFillColor(UIColor.white.cgColor)
+        context.addEllipse(in: centerRect)
+        context.drawPath(using: .fill)
+    }
+    
     public static let hourglass = LLPUIFramework.image(named: "hourglass")
     
     public static let xmark = LLPUIFramework.image(named: "xmark")
@@ -169,6 +178,18 @@ public struct Icons {
     public static let warningWave = generateWaveImage(with: Icons.warningCircleLarge)
     
     public static let booksWave = generateWaveImage(with: Icons.booksLarge)
+    
+    public static let play = LLPUIFramework.image(named: "play")
+    
+    public static let pause = LLPUIFramework.image(named: "pause")
+    
+    public static let speakerOn = LLPUIFramework.image(named: "speaker.on")
+    
+    public static let speakerOff = LLPUIFramework.image(named: "speaker.off")
+    
+    public static let expand = LLPUIFramework.image(named: "expand")
+    
+    public static let collapse = LLPUIFramework.image(named: "collapse")
     
     private static func generateWaveImage(with image: UIImage) -> UIImage {
         let radii: [CGFloat] = [77, 108, 144]

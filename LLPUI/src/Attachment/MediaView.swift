@@ -78,7 +78,7 @@ public class MediaView: UIView {
         }
     }
     
-    public var backgroundConfiguration = BackgroundConfiguration(fillColor: .white, strokeColor: Colors.line2, strokeWidth: 1, cornerStyle: .fixed(.LLPUI.smallCornerRadius)) {
+    public var backgroundConfiguration = BackgroundConfiguration(fillColor: .white, cornerStyle: .fixed(.LLPUI.smallCornerRadius), strokeColor: Colors.line2, strokeWidth: 1) {
         didSet {
             guard oldValue != backgroundConfiguration else { return }
             

@@ -282,19 +282,19 @@ open class Field: UIControl {
     open func defaultBackgroundConfiguration(forFieldState fieldState: FieldState, validationState: ValidationState) -> BackgroundConfiguration {
         var configuration = BackgroundConfiguration()
         configuration.cornerStyle = .fixed(.LLPUI.smallCornerRadius)
-        configuration.strokeWidth = 1
+        configuration.stroke.width = 1
         
         switch fieldState {
         case .normal:
-            configuration.strokeColor = Colors.line2
+            configuration.stroke.color = Colors.line2
             configuration.fillColor = UIColor.white
             
         case .active:
-            configuration.strokeColor = Colors.teal
+            configuration.stroke.color = Colors.teal
             configuration.fillColor = UIColor.white
             
         case .disabled:
-            configuration.strokeColor = Colors.line2
+            configuration.stroke.color = Colors.line2
             configuration.fillColor = Colors.line1
         }
                 
@@ -303,12 +303,12 @@ open class Field: UIControl {
             if fieldState == .normal  {
                 configuration.fillColor = Colors.green.withAlphaComponent(0.05)
             }
-            configuration.strokeColor = Colors.green
+            configuration.stroke.color = Colors.green
         case .error(_):
             if fieldState == .normal {
                 configuration.fillColor = Colors.red.withAlphaComponent(0.05)
             }
-            configuration.strokeColor = Colors.red
+            configuration.stroke.color = Colors.red
         default:
             break
         }

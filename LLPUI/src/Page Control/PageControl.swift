@@ -97,7 +97,7 @@ public class PageControl: UIControl {
             }
             
             indicatorContentView.color = color
-            interactionBackgroundView.configuration.strokeColor = color
+            interactionBackgroundView.configuration.stroke.color = color
         }
     }
 
@@ -122,8 +122,8 @@ public class PageControl: UIControl {
     private lazy var interactionBackgroundView: BackgroundView = {
         var config = BackgroundConfiguration()
         config.cornerStyle = .capsule
-        config.strokeWidth = 1
-        config.strokeColor = color
+        config.stroke.width = 1
+        config.stroke.color = color
         return BackgroundView(configuration: config)
     }()
 

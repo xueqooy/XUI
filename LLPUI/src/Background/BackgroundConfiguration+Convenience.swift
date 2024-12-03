@@ -35,8 +35,8 @@ public extension BackgroundConfiguration {
     
     func applyingStroke(color: UIColor, width: CGFloat = 1, cornerStyle: CornerStyle? = nil) -> BackgroundConfiguration {
         var config = self
-        config.strokeWidth = 1
-        config.strokeColor = color
+        config.stroke.width = 1
+        config.stroke.color = color
         if let cornerStyle {
             config.cornerStyle = cornerStyle
         }
@@ -46,9 +46,9 @@ public extension BackgroundConfiguration {
     
     func applyingShadow(blurRadius: CGFloat = .LLPUI.shadowBlurRadius, offset: CGSize = .LLPUI.shadowOffset) -> BackgroundConfiguration {
         var config = self
-        config.shadowColor = Colors.shadow
-        config.shadowBlurRadius = blurRadius
-        config.shadowOffset = shadowOffset
+        config.shadow.color = Colors.shadow
+        config.shadow.blurRadius = blurRadius
+        config.shadow.offset = offset
         return config
     }
 

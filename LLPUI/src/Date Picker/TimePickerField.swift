@@ -75,19 +75,19 @@ public class TimePickerField: Field {
                 hourField.validationState = .success()
                 minuteField.validationState = .success()
                 
-                periodControl.backgroundView.configuration.strokeColor = Colors.green
+                periodControl.backgroundView.configuration.stroke.color = Colors.green
                 
             case .error(_):
                 hourField.validationState = .error()
                 minuteField.validationState = .error()
                 
-                periodControl.backgroundView.configuration.strokeColor = Colors.red
+                periodControl.backgroundView.configuration.stroke.color = Colors.red
                 
             default:
                 hourField.validationState = .none
                 minuteField.validationState = .none
                 
-                periodControl.backgroundView.configuration.strokeColor = Colors.line2
+                periodControl.backgroundView.configuration.stroke.color = Colors.line2
             }
         }
     }

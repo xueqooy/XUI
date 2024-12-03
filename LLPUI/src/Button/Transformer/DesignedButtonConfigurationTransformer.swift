@@ -69,7 +69,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     static let secondaryConfiguration: ButtonConfiguration = {
         var bg = BackgroundConfiguration.clear()
-        bg.strokeWidth = 1
+        bg.stroke.width = 1
         bg.cornerStyle = .capsule
         
         var conf = ButtonConfiguration()
@@ -84,7 +84,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
     
     static let secondarySmallConfiguration: ButtonConfiguration = {
         var bg = BackgroundConfiguration.clear()
-        bg.strokeWidth = 1
+        bg.stroke.width = 1
         bg.cornerStyle = .fixed(8)
         
         var conf = ButtonConfiguration()
@@ -163,7 +163,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         configuration.titleFont = template.titleFont
         configuration.imagePadding = template.imagePadding
         configuration.indicatorSize = template.indicatorSize
-        configuration.background?.strokeWidth = template.background?.strokeWidth ?? 0
+        configuration.background?.stroke.width = template.background?.stroke.width ?? 0
         configuration.background?.cornerStyle = template.background?.cornerStyle
         
         
@@ -228,7 +228,7 @@ public class DesignedButtonConfigurationTransformer: PlainButtonConfigurationTra
         
         configuration.foregroundColor = foregroundColor
         configuration.background?.fillColor = backgroundColor
-        configuration.background?.strokeColor = strokeColor
+        configuration.background?.stroke.color = strokeColor
         
         super.update(&configuration, for: button)
     }

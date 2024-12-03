@@ -38,10 +38,10 @@ public class MobileNumberInputField: InputField {
                 codeSelector.host = self
                 codeSelectorActiveSubscription = codeSelector.$isActive.didChange
                     .sink { [weak self] in
-                        self?.codeBackgroundView.configuration.strokeWidth = $0 ? 1 : 0
+                        self?.codeBackgroundView.configuration.stroke.width = $0 ? 1 : 0
                     }
             } else {
-                codeBackgroundView.configuration.strokeWidth = 0
+                codeBackgroundView.configuration.stroke.width = 0
             }
         }
     }
@@ -66,7 +66,7 @@ public class MobileNumberInputField: InputField {
     
     private lazy var codeBackgroundView: BackgroundView = {
         let isLTR = UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .leftToRight
-        let configuration = BackgroundConfiguration(strokeColor: Colors.teal, cornerStyle: .fixed(.LLPUI.smallCornerRadius), stylishCorners: isLTR ? [.topLeft, .bottomLeft] : [.topRight, .bottomRight])
+        let configuration = BackgroundConfiguration(cornerStyle: .fixed(.LLPUI.smallCornerRadius), maskedCorners: isLTR ? [.topLeft, .bottomLeft] : [.topRight, .bottomRight], strokeColor: Colors.teal)
                
         return BackgroundView(configuration: configuration)
     }()
@@ -129,7 +129,7 @@ public class MobileNumberInputField: InputField {
     public override func stateDidChange() {
         super.stateDidChange()
         
-        seperator.color = defaultBackgroundConfiguration(forFieldState: fieldState, validationState: validationState).strokeColor
+        seperator.color = defaultBackgroundConfiguration(forFieldState: fieldState, validationState: validationState).stroke.color
         codeButton.configuration.foregroundColor = fieldState == .disabled ? Colors.disabledText : Colors.teal
 
     }

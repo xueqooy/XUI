@@ -9,10 +9,10 @@ import UIKit
 
 public class ActivityIndicatorView: UIActivityIndicatorView {
     
-    public init() {
+    public init(color: UIColor = Colors.teal) {
         super.init(frame: .zero)
         
-        color = Colors.teal
+        self.color = color
     }
     
     required init(coder: NSCoder) {
