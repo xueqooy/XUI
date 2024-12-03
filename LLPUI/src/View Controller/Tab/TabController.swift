@@ -165,8 +165,6 @@ open class TabController: UIViewController {
     }
     
     public func showTab(at index: Int, animated: Bool = true) {
-        let tab = tabs[index]
-        
         tabBar.setSelectedSegmentIndex(index, animated: animated)
     }
         
