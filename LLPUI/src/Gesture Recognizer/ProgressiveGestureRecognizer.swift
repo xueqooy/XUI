@@ -113,7 +113,10 @@ public class ProgressivePressGestureRecognizer: UIGestureRecognizer {
             return priority < otherGestureRecognizer.priority
         }
         
-        return false
+        let otherName = String(describing: otherGestureRecognizer.classForCoder)
+        
+        // Fixed the issue on iPad devices where when adding this gesture to Button, there was a conflict with the _UISystemGestureGateGestureRecognizer gesture and the click event could not be recognized
+        return !otherName.contains("_UISystemGestureGate" + "GestureRecognizer")
     }
     
     public override func reset() {
