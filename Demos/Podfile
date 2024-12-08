@@ -1,19 +1,13 @@
-source 'ssh://git@cocoapods.sdp.nd:/cocoapods-precompiled/specs.git'
-source 'ssh://git@cocoapods.sdp.nd:/cocoapods/specs.git'
-
-# 官方源
-source 'https://cdn.cocoapods.org/'
-
 platform :ios, '13.0'
 
-target 'llp_ui_iOS-Demo' do
+target 'XUI-Demo' do
   use_frameworks!
   
     root_path = File.join(__dir__, '../')
-    podspec_path = File.join(root_path, 'LLPUI.podspec')
-    pod 'LLPUI', :path => podspec_path.to_s
+    podspec_path = File.join(root_path, 'XUI.podspec')
+    pod 'XUI', :path => podspec_path.to_s
     
-    pod 'LLPUtils', :git => 'git@git.sdp.nd:component-ios/llp_utils_iOS.git', :branch => 'develop'
+    pod 'XKit', :git => 'git@github.com:xueqooy/XKit.git', :branch => 'develop'
     
     pod 'LookinServer', :configurations => ['Debug']
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="JYJ-qo-ULT">
+                                <rect key="frame" x="107" y="218.33333333333337" width="179" height="136"/>
+                                <color key="tintColor" red="0.74901960779999999" green="0.8862745098" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="126.33333333333334" id="LkZ-ul-wpd"/>
+                                    <constraint firstAttribute="width" secondItem="JYJ-qo-ULT" secondAttribute="height" multiplier="179:126" id="sCf-ht-CRu"/>
+                                </constraints>
+                                <imageReference key="image" image="aqi.medium" catalog="system" symbolScale="large"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" name="darkTeal"/>
+                        <constraints>
+                            <constraint firstItem="JYJ-qo-ULT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fu3-2b-dVU"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="aqi.medium" catalog="system" width="128" height="120"/>
+        <namedColor name="darkTeal">
+            <color red="0.0" green="0.2627450980392157" blue="0.35294117647058826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
