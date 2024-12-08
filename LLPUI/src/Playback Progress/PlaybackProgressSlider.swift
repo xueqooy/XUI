@@ -169,4 +169,8 @@ public class PlaybackProgressSlider: UISlider {
             endSeeking()
         }
     }
+    
+    public override var intrinsicContentSize: CGSize {
+        .init(width: UIView.noIntrinsicMetric, height: 30)
+    }
 }

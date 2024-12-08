@@ -231,3 +231,7 @@ public extension UIView {
     }
 }
 
+public extension UIView.AnimationOptions {
+    static let curveIn = UIView.AnimationOptions(rawValue: 8 << 16)
+    static let curveOut = UIView.AnimationOptions(rawValue: 7 << 16)
+}

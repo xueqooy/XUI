@@ -50,7 +50,17 @@ open class Button: UIControl, Configurable {
     }
     
     /// The convenience for `touchUpInside` action.
-    open var touchUpInsideAction: ((Button) -> Void)?
+    public var touchUpInsideAction: ((Button) -> Void)?
+    
+    public var imageTransition: ImageTransition = [] {
+        didSet {
+            guard oldValue != imageTransition else {
+                return
+            }
+            
+            imageView.transition = imageTransition
+        }
+    }
     
     public var hitTestSlop: UIEdgeInsets = .zero
     
@@ -903,8 +913,8 @@ open class Button: UIControl, Configurable {
         return backgroundView
     }()
     
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var imageView: ImageView = {
+        let imageView = ImageView()
         imageView.tintColor = _effectiveConfiguration.foregroundColor
         imageView.contentMode = .scaleAspectFit
         return imageView

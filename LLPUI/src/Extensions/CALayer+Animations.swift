@@ -223,7 +223,7 @@ public extension CALayer {
         self.add(animationGroup, forKey: key)
     }
     
-    func animateKeyframes(values: [AnyObject], duration: Double, keyPath: String, mediaTimingFunction: CAMediaTimingFunction? = nil, removeOnCompletion: Bool = true, additive: Bool = false, completion: ((Bool) -> Void)? = nil) {
+    func animateKeyframes(values: [AnyObject], duration: Double, keyPath: String, mediaTimingFunctions: [CAMediaTimingFunction]? = nil, removeOnCompletion: Bool = true, additive: Bool = false, completion: ((Bool) -> Void)? = nil) {
         let k = Float(CAAnimation.animationDurationFactor)
         var speed: Float = 1.0
         if k != 0 && k != 1 {
@@ -246,8 +246,8 @@ public extension CALayer {
         animation.speed = speed
         animation.duration = duration
         animation.isAdditive = additive
-        if let mediaTimingFunction = mediaTimingFunction {
-            animation.timingFunction = mediaTimingFunction
+        if let mediaTimingFunctions, !mediaTimingFunctions.isEmpty {
+            animation.timingFunctions = mediaTimingFunctions
         }
         animation.isRemovedOnCompletion = removeOnCompletion
         if let completion = completion {

@@ -188,4 +188,8 @@ public class PlaybackProgressView: UIView {
         
         eventHandler?(.requestToSeek(seekTime))
     }
+    
+    public override var intrinsicContentSize: CGSize {
+        .init(width: UIView.noIntrinsicMetric, height: 30)
+    }
 }

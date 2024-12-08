@@ -23,7 +23,7 @@ public class DropdownMenu {
         
         public struct Attributes : OptionSet {
             /// Indicates that the menu should remain presented after firing the element's action rather than dismissing as it normally does.
-            public static var keepsMenuPresented: Attributes = .init(rawValue: 1)
+            public static let keepsMenuPresented: Attributes = .init(rawValue: 1)
             
             public let rawValue: Int8
             
