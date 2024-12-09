@@ -63,7 +63,7 @@ XUI is a UI component library for iOS development. It provides a collection of c
 | **ContentPresenter**     | A tool for presenting content in a flexible way.    |
 
 ### View
-| Component                 | Description                                           |
+| Name                 | Description                                           |
 |---------------------------|-------------------------------------------------------|
 | **FormView**               | A flexible, keyboard-aware and scrollable container based on UIStackView. |
 | **VStackView**             | A vertical stack view that arranges its children vertically. |
