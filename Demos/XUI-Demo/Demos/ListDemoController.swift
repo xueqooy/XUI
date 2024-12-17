@@ -8,6 +8,7 @@
 
 import UIKit
 import XUI
+import XList
 import IGListKit
 import IGListSwiftKit
 import XKit

@@ -68,6 +68,7 @@
 		6D9D31E42CA169A800E4D987 /* URL+RandomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D31A82CA169A800E4D987 /* URL+RandomImage.swift */; };
 		6D9D31E52CA169A800E4D987 /* RandomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D31A92CA169A800E4D987 /* RandomGradientView.swift */; };
 		6D9D31E62CA169A800E4D987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D31AA2CA169A800E4D987 /* AppDelegate.swift */; };
+		6DC915B72D1152E600EF1FCD /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DC915B62D1152E600EF1FCD /* DemoMacro */; };
 		6DCD0D832CA16F9300538569 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DCD0D822CA16F9300538569 /* DemoMacro */; };
 		6DCD0D882CA1716800538569 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DCD0D872CA1716800538569 /* DemoMacro */; };
 		6DD80F8F2CEDCE4900B30FE4 /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6DD80F8E2CEDCE4900B30FE4 /* DemoMacro */; };
@@ -149,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DC915B72D1152E600EF1FCD /* DemoMacro in Frameworks */,
 				6D2D86852CEDCCF80066D99B /* DemoMacro in Frameworks */,
 				6DD80F8F2CEDCE4900B30FE4 /* DemoMacro in Frameworks */,
 				6DD80F922CEDCEAE00B30FE4 /* DemoMacro in Frameworks */,
@@ -323,6 +325,7 @@
 				6DD80F8E2CEDCE4900B30FE4 /* DemoMacro */,
 				6DD80F912CEDCEAE00B30FE4 /* DemoMacro */,
 				6DD80F942CEDCF2A00B30FE4 /* DemoMacro */,
+				6DC915B62D1152E600EF1FCD /* DemoMacro */,
 			);
 			productName = "llp_ui_iOS-Demo";
 			productReference = 7F11A3DBE97DBA6915FD86C5 /* XUI-Demo.app */;
@@ -352,7 +355,7 @@
 			);
 			mainGroup = 1D391A364DBC91650B7DF655;
 			packageReferences = (
-				6DD80F932CEDCF2A00B30FE4 /* XCLocalSwiftPackageReference "DemoMacro" */,
+				6DC915B52D1152E600EF1FCD /* XCLocalSwiftPackageReference "DemoMacro" */,
 			);
 			productRefGroup = DB3003190B767EE89FA6ABC1 /* Products */;
 			projectDirPath = "";
@@ -683,7 +686,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6DD80F932CEDCF2A00B30FE4 /* XCLocalSwiftPackageReference "DemoMacro" */ = {
+		6DC915B52D1152E600EF1FCD /* XCLocalSwiftPackageReference "DemoMacro" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DemoMacro;
 		};
@@ -691,6 +694,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		6D2D86842CEDCCF80066D99B /* DemoMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DemoMacro;
+		};
+		6DC915B62D1152E600EF1FCD /* DemoMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DemoMacro;
 		};

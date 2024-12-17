@@ -28,11 +28,11 @@ Pod::Spec.new do |s|
 
   s.swift_versions = ['5.0']
 
-  s.source_files = "#{s.name}/src/**/*.{h,m,swift}"
-  s.private_header_files = "#{s.name}/src/Utilities/Loader.h"
+  s.source_files = "Source/XUI/src/**/*.{h,m,swift}"
+  s.private_header_files = "Source/XUI/src/Utilities/Loader.h"
 
   s.resource_bundles = {
-    'XUI_RESOURCE' => ["#{s.name}/resources/*"]
+    'XUI_RESOURCE' => ["Source/XUI/resources/*"]
   }
   
   # https://stackoverflow.com/questions/32609776/uiapplication-sharedapplication-is-unavailable
@@ -40,9 +40,5 @@ Pod::Spec.new do |s|
   
   s.dependency 'XKit'
   s.dependency 'SnapKit'
-  s.dependency 'IGListKit', '5.0.0'
-  s.dependency 'IGListSwiftKit', '5.0.0'
-  s.dependency 'IGListDiffKit', '5.0.0'
-
   
 end

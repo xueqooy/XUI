@@ -8,6 +8,7 @@
 
 import UIKit
 import XUI
+import XList
 import XKit
 import Combine
 
@@ -146,7 +147,7 @@ class AssigneeListDataSource: EntityListDataSource {
         self.assignees = assignees
     }
     
-    func getEntities(withQuery query: String?) async -> [XUI.Entity] {
+    func getEntities(withQuery query: String?) async -> [XList.Entity] {
         if let query, !query.isEmpty {
             try? await Task.sleep(nanoseconds: 500_000_000)
 

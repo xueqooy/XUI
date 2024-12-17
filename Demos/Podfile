@@ -3,11 +3,9 @@ platform :ios, '13.0'
 target 'XUI-Demo' do
   use_frameworks!
   
-    root_path = File.join(__dir__, '../')
-    podspec_path = File.join(root_path, 'XUI.podspec')
-    pod 'XUI', :path => podspec_path.to_s
-    
+    pod 'XList', :path => '../XList.podspec'
     pod 'XKit', :git => 'git@github.com:xueqooy/XKit.git', :branch => 'develop'
+    pod 'XUI', :path => '../XUI.podspec'
     
     pod 'LookinServer', :configurations => ['Debug']
 
