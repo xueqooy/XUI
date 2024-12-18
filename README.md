@@ -94,6 +94,9 @@ XUI is a UI component library for iOS development. It provides a collection of c
 | **MessageActionView**      | A view for actions related to a message (e.g., reply, delete). |
 | **PersonaView**            | A view displaying personal profile summary. |
 
+## Note
+
+This repository does not provide any installation methods like CocoaPods or Swift Package Manager. You are free to copy the codebase and make any custom modifications as per your requirements.
 
 ## License
 
