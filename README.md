@@ -26,7 +26,7 @@ XUI is a UI component library for iOS development. It provides a collection of c
 |**UIView+DockedKeyboardLayoutGuide**|A UIView extension that provides a layout guide that helps in adjusting views when the keyboard is displayed.|
 |**UIView+EndEditingTapGesture**|A UIView extension that adds a gesture recognizer to dismiss the keyboard when the user taps outside the text field or editable area.|
 |**UIView+CustomSpacingAfter**|A UIView extension that allows you to customize the spacing between UI elements in stack.|
-|**UIScrollView+AutomaticAdjustmentBasedOnKeyboardHeightChange**|An extension for UIScrollView that automatically adjusts the content inset when the keyboard appears or disappears.|
+|**UIScrollView+ AutomaticAdjustmentBasedOnKeyboardHeightChange**|An extension for UIScrollView that automatically adjusts the content inset when the keyboard appears or disappears.|
 |**UIViewController+ViewState**|An extension for UIViewController that manages and tracks the view’s state (such as `notLoaded`, `didLoad`, `willAppear`, `isAppearing`, `didAppear`, `willDisappear`, or `didDisappear`|
 
 ### Control
