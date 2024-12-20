@@ -13,28 +13,29 @@ class RandomGradientView: UIView {
     var intrinsicSize: CGSize = .zero {
         didSet {
             guard oldValue != intrinsicSize else { return }
-            
+
             invalidateIntrinsicContentSize()
         }
     }
-    
+
     let gradientLayer = createGradientLayer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-  
+
         layer.addSublayer(gradientLayer)
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         gradientLayer.frame = layer.bounds
     }
-    
+
     override var intrinsicContentSize: CGSize {
         intrinsicSize
     }
@@ -45,14 +46,15 @@ class RandomGradientScrollView: UIScrollView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-                   
+
         layer.addSublayer(gradientLayer)
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         gradientLayer.frame = CGRect(x: 0, y: 0, width: layer.bounds.width, height: contentSize.height)

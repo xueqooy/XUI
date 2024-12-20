@@ -10,30 +10,29 @@ import UIKit
 import XUI
 
 class PersonaDemoController: DemoController {
-    
     private var showsAvatar: Bool = true {
         didSet {
             updatePersonaView()
         }
     }
-    
+
     private var showsTitle: Bool = true {
         didSet {
             updatePersonaView()
         }
     }
-    
+
     private var showsSubtitle: Bool = true {
         didSet {
             updatePersonaView()
         }
     }
-    
+
     private let personaView = PersonaView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+
         addRow(
             createLabelAndSwitchRow(labelText: "Avatar", root: self, keyPath: \.showsAvatar)
         )
@@ -43,14 +42,14 @@ class PersonaDemoController: DemoController {
         addRow(
             createLabelAndSwitchRow(labelText: "Subtitle", root: self, keyPath: \.showsSubtitle)
         )
-        
+
         addSeparator()
-    
+
         addRow(personaView)
-        
+
         updatePersonaView()
     }
-    
+
     private func updatePersonaView() {
         personaView.update { configuration in
             if showsAvatar {
@@ -59,18 +58,18 @@ class PersonaDemoController: DemoController {
             } else {
                 configuration.avatarURLConfiguration = nil
             }
-            
+
             if showsTitle {
-                configuration.title = .random(10..<50)
+                configuration.title = .random(10 ..< 50)
             } else {
                 configuration.clearTitle()
             }
-            
+
             if showsSubtitle {
-                configuration.subtitle = .random(10..<50)
+                configuration.subtitle = .random(10 ..< 50)
             } else {
                 configuration.clearSubtitle()
-            }            
+            }
         }
     }
 }

@@ -6,11 +6,11 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
-import XUI
 import Combine
+import UIKit
+import XUI
 
 class KeyboardManagerDemoController: DemoController {
-    
     private let textField1 = InputField(placeholder: "Text Field")
     private let textField2: InputField = {
         let textField = InputField()
@@ -18,6 +18,7 @@ class KeyboardManagerDemoController: DemoController {
         textField.placeholder = "Number Field"
         return textField
     }()
+
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -26,21 +27,21 @@ class KeyboardManagerDemoController: DemoController {
         label.text = "My position base on the height of the docked keyboard"
         return label
     }()
-    
+
     private let keyboardManager = KeyboardManager()
-        
+
     private var usesNativeKeyboardLayoutGuide: Bool = false {
         didSet {
             guard usesNativeKeyboardLayoutGuide != oldValue else {
                 return
             }
-            
+
             updateLabelConstraints()
-            
+
             followUndockedKeyboardRow.isHidden = !usesNativeKeyboardLayoutGuide
         }
     }
-    
+
     private var followsUndockedKeyboard: Bool = false {
         didSet {
             if #available(iOS 15.0, *) {
@@ -49,17 +50,17 @@ class KeyboardManagerDemoController: DemoController {
             }
         }
     }
-    
+
     private lazy var followUndockedKeyboardRow = createLabelAndSwitchRow(labelText: "Follows undocked keyboard") { [weak self] isOn in
         guard let self = self else {
             return
         }
         self.followsUndockedKeyboard = isOn
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if #available(iOS 15.0, *) {
             addRow(createLabelAndSwitchRow(labelText: "Use native keyboard layout guide (iOS 15)") { [weak self] isOn in
                 guard let self = self else {
@@ -67,31 +68,31 @@ class KeyboardManagerDemoController: DemoController {
                 }
                 self.usesNativeKeyboardLayoutGuide = isOn
             })
-            
+
             if Device.current.isPad {
                 followUndockedKeyboardRow.isHidden = true
                 addRow(followUndockedKeyboardRow)
             }
-            
+
             addSpacer(100)
         }
 
         keyboardManager.didReceiveEventPublisher
-            .sink { [weak self] (event, _) in
+            .sink { [weak self] _, _ in
                 guard let self = self else {
                     return
                 }
-                
+
                 print("distance: \(KeyboardManager.distanceFromMinYToBottom(of: self.view, ignoresUndockedKeyboard: false)),   isFloating: \(KeyboardManager.isKeyboardFloating)")
             }.store(in: &cancellables)
-        
+
         addRow(textField1)
         addRow(textField2)
-    
+
         view.addSubview(label)
         updateLabelConstraints()
     }
-    
+
     private func updateLabelConstraints() {
         label.snp.remakeConstraints { make in
             make.left.right.equalToSuperview().inset(20)

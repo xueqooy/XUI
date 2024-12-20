@@ -12,7 +12,7 @@ import IGListDiffKit
 open class ListSpacer {
     public let identifier: String
     public let spacing: CGFloat
-    
+
     public init(identifier: String = UUID().uuidString, spacing: CGFloat) {
         self.identifier = identifier
         self.spacing = spacing
@@ -23,14 +23,13 @@ extension ListSpacer: ListDiffable {
     public func diffIdentifier() -> NSObjectProtocol {
         identifier as NSObjectProtocol
     }
-    
+
     public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let viewModel = object as? ListSpacer else {
             return false
         }
-        return self.spacing == viewModel.spacing
+        return spacing == viewModel.spacing
     }
 }
 
-extension ListSpacer: ListCellSizeCacheIdentifiable {
-}
+extension ListSpacer: ListCellSizeCacheIdentifiable {}

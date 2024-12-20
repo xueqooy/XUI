@@ -6,16 +6,16 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
+import UIKit
 import XUI
 
 class PopoverDemoController: DemoController {
-    
     private enum ContentType: String, CaseIterable {
         case label = "Label"
         case form = "Form"
         case image = "Image"
         case controller = "Controller"
-        
+
         var dismissMode: Popover.DismissMode {
             switch self {
             case .label, .image:
@@ -27,21 +27,21 @@ class PopoverDemoController: DemoController {
             }
         }
     }
-    
+
     private lazy var popover: Popover = {
         var config = Popover.Configuration()
         return Popover(configuration: config)
     }()
-    
+
     private var contentType: ContentType = .label
     private var showsArrow: Bool = true
     private var limitsToBounds: Bool = true
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = Colors.background1
-        
+
         let items: [SegmentControl.Item] = ContentType.allCases.map { type in
             .text(type.rawValue)
         }
@@ -62,20 +62,19 @@ class PopoverDemoController: DemoController {
             }
         }
         addRow(segmentControl)
-        
-        
+
         addRow(createLabelAndSwitchRow(labelText: "Shows Arrow", isOn: true, switchAction: { [weak self] isOn in
             self?.showsArrow = isOn
         }))
-        
+
         addRow(createLabelAndSwitchRow(labelText: "Limit to bounds", isOn: true, switchAction: { [weak self] isOn in
             self?.limitsToBounds = isOn
         }))
-        
+
         addSpacer(300)
-                
+
         addRow(InputField(placeholder: "Show Keyboard"))
-        
+
         addRow(createButton(title: "Down popover") { [weak self] button in
             guard let self = self else {
                 return
@@ -83,7 +82,7 @@ class PopoverDemoController: DemoController {
 
             self.showPopover(from: button, preferredDirection: .down)
         })
-        
+
         addRow(createButton(title: "Up popover") { [weak self] button in
             guard let self = self else {
                 return
@@ -91,7 +90,7 @@ class PopoverDemoController: DemoController {
 
             self.showPopover(from: button, preferredDirection: .up)
         })
-               
+
         addRow(createButton(title: "From Leading popover") { [weak self] button in
             guard let self = self else {
                 return
@@ -99,7 +98,7 @@ class PopoverDemoController: DemoController {
 
             self.showPopover(from: button, preferredDirection: .fromLeading)
         }, alignment: .leading)
-        
+
         addRow(createButton(title: "From Trailing popover") { [weak self] button in
             guard let self = self else {
                 return
@@ -114,13 +113,13 @@ class PopoverDemoController: DemoController {
     private func showPopover(from anchorView: UIView, preferredDirection: Direction = .down) {
         var contentView: UIView?
         var contentController: UIViewController?
-        
+
         switch contentType {
         case .label:
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "You can show any content on popover, Such as label, form or image"
-            
+
             contentView = label
         case .form:
             let formView = FormView()
@@ -134,16 +133,15 @@ class PopoverDemoController: DemoController {
             let input2 = PasswordInputField()
             input2.label = "Password"
             input2.placeholder = "Input your password"
-            
+
             let input3 = PasswordInputField()
             input3.label = "Confirm Password"
             input3.placeholder = "Confirm your password"
-            
-            
+
             let confirmButton = Button(designStyle: .primary, title: "Confirm") { [weak self] _ in
                 self?.popover.hide()
             }
-            
+
             formView.addItem(FormRow(input1))
             formView.addItem(FormRow(input2))
             formView.addItem(FormRow(input3))
@@ -154,19 +152,18 @@ class PopoverDemoController: DemoController {
             let imageView = UIImageView(image: UIImage(named: "brand"))
             imageView.contentMode = .scaleAspectFit
             contentView = imageView
-        
         case .controller:
             let controller = Demo.Drawer.viewController
             contentController = controller
         }
-        
+
         popover.configuration.preferredDirection = preferredDirection
         popover.configuration.arrowSize = showsArrow ? Popover.Configuration().arrowSize : .zero
         popover.configuration.limitsToBounds = limitsToBounds
         popover.configuration.dismissMode = contentType.dismissMode
-        
+
         if let contentView = contentView {
-            popover.show(contentView, in: self.view, from: anchorView)
+            popover.show(contentView, in: view, from: anchorView)
         } else if contentController != nil {
             let viewController = UIViewController()
             viewController.view.backgroundColor = .red

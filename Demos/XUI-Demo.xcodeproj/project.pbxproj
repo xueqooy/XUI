@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		447049DAB7202F914C10D9E8 /* Pods_XUI_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70224DC43B7879A08F41418 /* Pods_XUI_Demo.framework */; };
 		6D2D86852CEDCCF80066D99B /* DemoMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 6D2D86842CEDCCF80066D99B /* DemoMacro */; };
+		6D3F00922D1527BF0012FE55 /* XList in Frameworks */ = {isa = PBXBuildFile; productRef = 6D3F00912D1527BF0012FE55 /* XList */; };
+		6D3F00942D1527BF0012FE55 /* XUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6D3F00932D1527BF0012FE55 /* XUI */; };
 		6D9D31AB2CA169A800E4D987 /* ColorPickerDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D316C2CA169A700E4D987 /* ColorPickerDemoController.swift */; };
 		6D9D31AC2CA169A800E4D987 /* CoachmarkDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D316D2CA169A700E4D987 /* CoachmarkDemoController.swift */; };
 		6D9D31AD2CA169A800E4D987 /* PopoverDemoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D316E2CA169A700E4D987 /* PopoverDemoController.swift */; };
@@ -77,7 +78,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1796DE0D7979F9AA9E77D746 /* Pods-llp_ui_iOS-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llp_ui_iOS-Demo.release.xcconfig"; path = "Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		6D9D316C2CA169A700E4D987 /* ColorPickerDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerDemoController.swift; sourceTree = "<group>"; };
 		6D9D316D2CA169A700E4D987 /* CoachmarkDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoachmarkDemoController.swift; sourceTree = "<group>"; };
 		6D9D316E2CA169A700E4D987 /* PopoverDemoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverDemoController.swift; sourceTree = "<group>"; };
@@ -139,10 +139,6 @@
 		6D9D31A92CA169A800E4D987 /* RandomGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomGradientView.swift; sourceTree = "<group>"; };
 		6D9D31AA2CA169A800E4D987 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F11A3DBE97DBA6915FD86C5 /* XUI-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XUI-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AAEFD997E16F7584FA5BBF6 /* Pods-XUI-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XUI-Demo.release.xcconfig"; path = "Target Support Files/Pods-XUI-Demo/Pods-XUI-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		95AA19A0FBA14C6425561B12 /* Pods-XUI-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XUI-Demo.debug.xcconfig"; path = "Target Support Files/Pods-XUI-Demo/Pods-XUI-Demo.debug.xcconfig"; sourceTree = "<group>"; };
-		B74E2C89464C11555522C57C /* Pods-llp_ui_iOS-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llp_ui_iOS-Demo.debug.xcconfig"; path = "Target Support Files/Pods-llp_ui_iOS-Demo/Pods-llp_ui_iOS-Demo.debug.xcconfig"; sourceTree = "<group>"; };
-		E70224DC43B7879A08F41418 /* Pods_XUI_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XUI_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,13 +147,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DC915B72D1152E600EF1FCD /* DemoMacro in Frameworks */,
+				6D3F00942D1527BF0012FE55 /* XUI in Frameworks */,
 				6D2D86852CEDCCF80066D99B /* DemoMacro in Frameworks */,
 				6DD80F8F2CEDCE4900B30FE4 /* DemoMacro in Frameworks */,
 				6DD80F922CEDCEAE00B30FE4 /* DemoMacro in Frameworks */,
 				6DD80F952CEDCF2A00B30FE4 /* DemoMacro in Frameworks */,
 				6DCD0D832CA16F9300538569 /* DemoMacro in Frameworks */,
+				6D3F00922D1527BF0012FE55 /* XList in Frameworks */,
 				6DCD0D882CA1716800538569 /* DemoMacro in Frameworks */,
-				447049DAB7202F914C10D9E8 /* Pods_XUI_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +166,6 @@
 			children = (
 				46518AEA95CF5217152B8555 /* XUI-Demo */,
 				DB3003190B767EE89FA6ABC1 /* Products */,
-				558BBE7EEB359FACCAFEA6C1 /* Pods */,
 				A8A82629E8C72F205D5EAAF2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -190,17 +186,6 @@
 				6D9D31A62CA169A800E4D987 /* Utils */,
 			);
 			path = "XUI-Demo";
-			sourceTree = "<group>";
-		};
-		558BBE7EEB359FACCAFEA6C1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B74E2C89464C11555522C57C /* Pods-llp_ui_iOS-Demo.debug.xcconfig */,
-				1796DE0D7979F9AA9E77D746 /* Pods-llp_ui_iOS-Demo.release.xcconfig */,
-				95AA19A0FBA14C6425561B12 /* Pods-XUI-Demo.debug.xcconfig */,
-				8AAEFD997E16F7584FA5BBF6 /* Pods-XUI-Demo.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		6D9D316B2CA169A700E4D987 /* Demos */ = {
@@ -287,7 +272,6 @@
 		A8A82629E8C72F205D5EAAF2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E70224DC43B7879A08F41418 /* Pods_XUI_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -307,11 +291,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2488CB4534637D250A5F76D /* Build configuration list for PBXNativeTarget "XUI-Demo" */;
 			buildPhases = (
-				EFAB1A6D3FD18F1C17DCAA94 /* [CP] Check Pods Manifest.lock */,
 				6364026FFC54E55B96C9C8D2 /* Sources */,
 				35E5301655C98ECFC4F1098A /* Resources */,
 				98C6CCFA3ADEF1C7813CBF81 /* Frameworks */,
-				971F9F94B1336AA8CD9B26F0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -326,6 +308,8 @@
 				6DD80F912CEDCEAE00B30FE4 /* DemoMacro */,
 				6DD80F942CEDCF2A00B30FE4 /* DemoMacro */,
 				6DC915B62D1152E600EF1FCD /* DemoMacro */,
+				6D3F00912D1527BF0012FE55 /* XList */,
+				6D3F00932D1527BF0012FE55 /* XUI */,
 			);
 			productName = "llp_ui_iOS-Demo";
 			productReference = 7F11A3DBE97DBA6915FD86C5 /* XUI-Demo.app */;
@@ -356,6 +340,7 @@
 			mainGroup = 1D391A364DBC91650B7DF655;
 			packageReferences = (
 				6DC915B52D1152E600EF1FCD /* XCLocalSwiftPackageReference "DemoMacro" */,
+				6D3F00902D1527BF0012FE55 /* XCLocalSwiftPackageReference "../../XUI" */,
 			);
 			productRefGroup = DB3003190B767EE89FA6ABC1 /* Products */;
 			projectDirPath = "";
@@ -377,48 +362,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		971F9F94B1336AA8CD9B26F0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XUI-Demo/Pods-XUI-Demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XUI-Demo/Pods-XUI-Demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XUI-Demo/Pods-XUI-Demo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EFAB1A6D3FD18F1C17DCAA94 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-XUI-Demo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6364026FFC54E55B96C9C8D2 /* Sources */ = {
@@ -490,7 +433,6 @@
 /* Begin XCBuildConfiguration section */
 		49E019696C7427F5FD3B0D4F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AAEFD997E16F7584FA5BBF6 /* Pods-XUI-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -637,7 +579,6 @@
 		};
 		CF5F155D8E7E6A2A733156C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95AA19A0FBA14C6425561B12 /* Pods-XUI-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -686,6 +627,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		6D3F00902D1527BF0012FE55 /* XCLocalSwiftPackageReference "../../XUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../XUI;
+		};
 		6DC915B52D1152E600EF1FCD /* XCLocalSwiftPackageReference "DemoMacro" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DemoMacro;
@@ -696,6 +641,14 @@
 		6D2D86842CEDCCF80066D99B /* DemoMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DemoMacro;
+		};
+		6D3F00912D1527BF0012FE55 /* XList */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XList;
+		};
+		6D3F00932D1527BF0012FE55 /* XUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = XUI;
 		};
 		6DC915B62D1152E600EF1FCD /* DemoMacro */ = {
 			isa = XCSwiftPackageProductDependency;

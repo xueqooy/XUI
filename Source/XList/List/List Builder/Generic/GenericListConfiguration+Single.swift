@@ -5,11 +5,10 @@
 //  Created by xueqooy on 2024/1/26.
 //
 
-import UIKit
 import IGListDiffKit
+import UIKit
 
 public extension GenericListBuilder.Configuration {
-    
     static func single<Cell: ListBuilder.Cell>(
         of _: Cell.Type,
         scrollDirection: UICollectionView.ScrollDirection = .vertical,
@@ -17,26 +16,25 @@ public extension GenericListBuilder.Configuration {
         cellSizeProvider: ((_ sectionContext: ListSectionContext) -> CGSize)? = nil,
         sectionStyleProvider: ListBuilder.SectionStyleProvider? = nil,
         itemDidSelectHandler: ((_ sectionContext: ListSectionContext) -> Void)? = nil,
-        itemDidDeselectHandler: ((_ sectionContext: ListSectionContext) -> Void)? = nil) -> Self {
-            
-        .init(scrollDirection: scrollDirection, cellTypeProvider: { index, sectionContext in
+        itemDidDeselectHandler: ((_ sectionContext: ListSectionContext) -> Void)? = nil
+    ) -> Self {
+        .init(scrollDirection: scrollDirection, cellTypeProvider: { _, _ in
             Cell.self
-            
-        }, cellConfigurator: { cell, index, sectionContext in
+
+        }, cellConfigurator: { cell, _, sectionContext in
             cellConfigurator(cell as! Cell, sectionContext)
-            
-        }, itemCountProvider: { sectionContext in
+
+        }, itemCountProvider: { _ in
             1
-            
-        }, cellSizeProvider: { index, sectionContext in
+
+        }, cellSizeProvider: { _, sectionContext in
             cellSizeProvider?(sectionContext) ?? .XUI.automaticDimension
-            
-        }, sectionStyleProvider: sectionStyleProvider, itemDidSelectHandler: { index, sectionContext in
+
+        }, sectionStyleProvider: sectionStyleProvider, itemDidSelectHandler: { _, sectionContext in
             itemDidSelectHandler?(sectionContext)
-            
-        }, itemDidDeselectHandler: { index, sectionContext in
+
+        }, itemDidDeselectHandler: { _, sectionContext in
             itemDidDeselectHandler?(sectionContext)
         })
     }
-    
 }

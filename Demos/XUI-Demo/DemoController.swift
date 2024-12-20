@@ -6,23 +6,22 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
-import UIKit
-import XUI
 import Combine
+import UIKit
 import XKit
+import XUI
 
 class DemoController: UIViewController {
-    
     typealias RowVerticalAlignment = FormRow.VerticalAlignment
     typealias RowAlignment = FormRow.Alignment
     typealias RowDistribution = FormRow.Distribution
-        
+
     private(set) lazy var formView: FormView = {
         let formView = FormView()
         formView.itemSpacing = 20
         return formView
     }()
-    
+
     var contentInset: Insets {
         set {
             formView.contentInset = newValue
@@ -31,35 +30,35 @@ class DemoController: UIViewController {
             formView.contentInset
         }
     }
-    
+
     var cancellables = Set<AnyCancellable>()
-    
+
     deinit {
         print("DemoController \(title ?? "") deinit")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
-        
+
         // Child scroll views interfere with largeTitleDisplayMode, so let's
         // disable it for all DemoController subclasses.
         navigationItem.largeTitleDisplayMode = .never
-        
+
         view.addSubview(formView)
         formView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
-    func createButton(image: UIImage? = nil, title: String? = nil, style: DesignedButtonConfigurationTransformer.Style = .primary, action: @escaping (Button) -> ()) -> Button {
+    func createButton(image: UIImage? = nil, title: String? = nil, style: DesignedButtonConfigurationTransformer.Style = .primary, action: @escaping (Button) -> Void) -> Button {
         let button = Button(designStyle: style, touchUpInsideAction: action)
         button.configuration.title = title
         button.configuration.image = image
         return button
     }
-    
+
     func createLabelAndSwitchRow(labelText: String, isOn: Bool = false, switchAction: @escaping (Bool) -> Void) -> UIView {
         let stackView = UIStackView(frame: .zero)
         stackView.axis = .horizontal
@@ -71,18 +70,18 @@ class DemoController: UIViewController {
         label.font = Fonts.body2Bold
         label.textColor = Colors.title
         label.text = labelText
-        
+
         let switchView = Switch()
         switchView.isOn = isOn
         switchView.actionBlock = switchAction
         switchView.addTarget(self, action: #selector(Self.switchValueChanged(_:)), for: .valueChanged)
-        
+
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(switchView)
-     
+
         return stackView
     }
-    
+
     func createLabelAndSwitchRow<Root: AnyObject>(labelText: String, root: Root, keyPath: WritableKeyPath<Root, Bool>) -> UIView {
         return createLabelAndSwitchRow(labelText: labelText, isOn: root[keyPath: keyPath]) { [weak root] isOn in
             guard var root = root else { return }
@@ -90,33 +89,33 @@ class DemoController: UIViewController {
         }
     }
 
-    func createLableAndInputFieldAndButtonRow(labelText: String, placehoder: String = "", fieldWidth: CGFloat = 100, keyboardType: UIKeyboardType = .default, buttonTitle: String, buttonAction: @escaping (String) -> Void) -> UIStackView {
+    func createLableAndInputFieldAndButtonRow(labelText: String, placehoder: String = "", fieldWidth _: CGFloat = 100, keyboardType: UIKeyboardType = .default, buttonTitle: String, buttonAction: @escaping (String) -> Void) -> UIStackView {
         let stackView = UIStackView(frame: .zero)
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 10
-        
+
         let label = UILabel()
         label.font = Fonts.body2Bold
         label.textColor = Colors.title
         label.text = labelText
         stackView.addArrangedSubview(label)
-        
+
         let inputField = InputField()
         inputField.placeholder = placehoder
         inputField.keyboardType = keyboardType
-        
+
         let button = createButton(title: buttonTitle, style: .borderless) { [weak self] _ in
             self?.hideKeyboard()
             buttonAction(inputField.text ?? "")
         }
-        
+
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(inputField)
         stackView.addArrangedSubview(button)
-        
+
         inputField.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
+
         return stackView
     }
 
@@ -148,24 +147,24 @@ class DemoController: UIViewController {
             formView.addItem(FormSpacer())
         }
     }
-    
+
     func addSeparator() {
         formView.addItem(FormSeparator())
     }
-    
+
     func addItem(_ item: FormItem) {
         formView.addItem(item)
     }
-    
+
     @discardableResult
     func addRow(_ view: UIView, height: CGFloat? = nil, alignment: RowAlignment = .center) -> FormRow {
         let row = FormRow(view, height: height, alignment: alignment)
         formView.addItem(row)
         return row
     }
-    
+
     @discardableResult
-    func addRow(_ views: [UIView], height: CGFloat? = nil, itemSpacing: CGFloat = 0, verticalAlignment: RowVerticalAlignment = .fill, alignment: RowAlignment = .fill, distribution: RowDistribution = .fill) -> FormRow {
+    func addRow(_ views: [UIView], height _: CGFloat? = nil, itemSpacing: CGFloat = 0, verticalAlignment: RowVerticalAlignment = .fill, alignment: RowAlignment = .fill, distribution: RowDistribution = .fill) -> FormRow {
         let row = FormRow(views, spacing: itemSpacing, distribution: distribution, verticalAlignment: verticalAlignment, alignment: alignment)
         formView.addItem(row)
         return row
@@ -188,27 +187,26 @@ class DemoController: UIViewController {
             alert.addAction(cancelAction)
         }
     }
-    
+
     @objc private func switchValueChanged(_ sender: UISwitch) {
         sender.actionBlock?(sender.isOn)
     }
-    
+
     @objc func hideKeyboard() {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
-    
 }
 
 extension DemoController: UIPopoverPresentationControllerDelegate {
     /// Overridden to allow for popover-style modal presentation on compact (e.g. iPhone) devices.
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for _: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
 }
 
 private let actionBlockAssociation = Association<(Bool) -> Void>(wrap: .retain)
 extension UISwitch {
-    struct AssociatedKey {
+    enum AssociatedKey {
         static var actionBlock = "actionBlock"
     }
 

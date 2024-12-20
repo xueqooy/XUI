@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "combinecocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CombineCommunity/CombineCocoa",
+      "state" : {
+        "revision" : "7300c75ff9e072aa7fd0fccefcc88f74aae9bf56",
+        "version" : "0.4.1"
+      }
+    },
+    {
+      "identity" : "iglistkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Instagram/IGListKit",
+      "state" : {
+        "revision" : "baf38ea4d438ef3cc6c6deb8615e1910e03f02bb",
+        "version" : "5.0.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+        "version" : "5.7.1"
+      }
+    },
+    {
+      "identity" : "xkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/xueqooy/XKit",
+      "state" : {
+        "revision" : "34573d34ab80306b5a4f219d0ae2ed14e37a9a62",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

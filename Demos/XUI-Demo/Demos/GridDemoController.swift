@@ -10,25 +10,24 @@ import UIKit
 import XUI
 
 class GridDemoController: DemoController {
-    
     var gridView: GridView!
-    
+
     var columnCount: Int = 4 {
         didSet {
             gridView.columnCount = columnCount
         }
     }
-    
+
     var spacing: CGFloat = 10 {
         didSet {
             gridView.spacing = spacing
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let subviews = (0..<10).map { _ in
+
+        let subviews = (0 ..< 10).map { _ in
             createSubview()
         }
 
@@ -51,7 +50,7 @@ class GridDemoController: DemoController {
 
         addRow(gridView, height: 500, alignment: .fill)
     }
-    
+
     private func createSubview() -> UIView {
         let view = UIView()
         view.backgroundColor = .randomColor()

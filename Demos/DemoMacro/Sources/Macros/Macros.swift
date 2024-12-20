@@ -4,23 +4,22 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 enum CustomError: Error, CustomStringConvertible {
-  case message(String)
+    case message(String)
 
-  var description: String {
-    switch self {
-    case .message(let text):
-      return text
+    var description: String {
+        switch self {
+        case let .message(text):
+            return text
+        }
     }
-  }
 }
 
 public struct DemoEnumMacro: MemberMacro {
-    public static func expansion(of node: SwiftSyntax.AttributeSyntax, providingMembersOf declaration: some SwiftSyntax.DeclGroupSyntax, in context: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
-       
+    public static func expansion(of _: SwiftSyntax.AttributeSyntax, providingMembersOf declaration: some SwiftSyntax.DeclGroupSyntax, in _: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
         guard let elements = declaration.as(EnumDeclSyntax.self)?.memberBlock.members.compactMap({ $0.decl.as(EnumCaseDeclSyntax.self)?.elements.first }) else {
             throw CustomError.message("@DemoEnumMacro only works on enum that have associated value case")
         }
-        
+
         let titleLiteral = """
         var title: String {
             var result = ""
@@ -34,17 +33,16 @@ public struct DemoEnumMacro: MemberMacro {
         }
         """
         let titleDecl: VariableDeclSyntax = try .init(SyntaxNodeString(stringLiteral: titleLiteral))
-        
 
         let casesLiteral: String = elements.reduce(into: "") { partialResult, element in
             let name = element.name.text
             partialResult +=
-            """
-            case .\(name):
-                viewController = \(name)DemoController()
-            """
+                """
+                case .\(name):
+                    viewController = \(name)DemoController()
+                """
         }
-        
+
         let viewControllerLiteral = """
         var viewController: DemoController {
             let viewController: DemoController
@@ -56,17 +54,15 @@ public struct DemoEnumMacro: MemberMacro {
         }
         """
         let viewControllerDecl: VariableDeclSyntax = try .init(SyntaxNodeString(stringLiteral: viewControllerLiteral))
-        
+
         var result = [DeclSyntax(titleDecl), DeclSyntax(viewControllerDecl)]
         return result
     }
-    
-    
 }
 
 @main
 struct DemoMacroPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        DemoEnumMacro.self
+        DemoEnumMacro.self,
     ]
 }

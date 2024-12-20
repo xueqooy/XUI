@@ -9,7 +9,7 @@
 import Foundation
 
 extension URL {
-    static func randomImageURL(width: Int = .random(in: 100...200), height: Int = .random(in: 100...200)) -> URL {
+    static func randomImageURL(width: Int = .random(in: 100 ... 200), height: Int = .random(in: 100 ... 200)) -> URL {
         URL(string: "https://picsum.photos/\(width)/\(height)")!
     }
 }

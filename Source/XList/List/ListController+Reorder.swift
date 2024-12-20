@@ -9,17 +9,17 @@ import UIKit
 import XKit
 
 public extension ListController {
-    private struct Associations {
+    private enum Associations {
         static let isReorderGestrueEnabled = Association<Bool>()
         static var reorderLongPresssGestureRecognizer = Association<UILongPressGestureRecognizer>()
     }
-    
+
     var isReorderGestrueEnabled: Bool {
         set {
             guard isReorderGestrueEnabled != newValue else {
                 return
             }
-            
+
             if newValue {
                 listView.addGestureRecognizer(reorderLongPresssGestureRecognizer)
             } else {
@@ -30,7 +30,7 @@ public extension ListController {
             Associations.isReorderGestrueEnabled[self] ?? false
         }
     }
-    
+
     private var reorderLongPresssGestureRecognizer: UILongPressGestureRecognizer {
         var gestureRecognizer = Associations.reorderLongPresssGestureRecognizer[self]
         if gestureRecognizer == nil {
@@ -39,7 +39,6 @@ public extension ListController {
         }
         return gestureRecognizer!
     }
-    
 
     @objc private func handleReorderLongGesture(gesture: UILongPressGestureRecognizer) {
         switch gesture.state {

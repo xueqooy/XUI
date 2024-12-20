@@ -6,35 +6,34 @@
 //  Copyright © 2023 CocoaPods. All rights reserved.
 //
 
+import Combine
 import UIKit
 import XKit
-import XUI
 import XList
-import Combine
+import XUI
 
 class InputFieldDemoController: DemoController {
-        
     private var isValidationEnabled: Bool = false {
         didSet {
-            fields.forEach { field in
+            for field in fields {
                 updateValidationState(for: field)
             }
         }
     }
-    
+
     let searchField = SearchInputField(label: "Search", placeholder: "Search")
-    
+
     let largeSearchField = SearchInputField(style: .large, placeholder: "Search")
 
     private var fields = [Field]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-                        
+
         view.backgroundColor = Colors.background1
-        
+
         let nameField = InputField(label: "Username", placeholder: "Input your username")
-      
+
         let passwordField = PasswordInputField(label: "Password", placeholder: "Input your password")
         passwordField.textContentType = .newPassword
         passwordField.isStrengthIndicatorEnabled = true
@@ -43,9 +42,9 @@ class InputFieldDemoController: DemoController {
                 guard let field = passwordField else {
                     return
                 }
-                
+
                 let text = text ?? ""
-                
+
                 if text.count < 5 {
                     field.strengthLevel = .weak
                 } else if text.count < 10 {
@@ -55,38 +54,38 @@ class InputFieldDemoController: DemoController {
                 }
             }
             .store(in: &cancellables)
-        
-        let codeTextSelector = MenuTextSelector((0...1000).map { "+" + String($0) })
+
+        let codeTextSelector = MenuTextSelector((0 ... 1000).map { "+" + String($0) })
         let mobileField = MobileNumberInputField(codeSelector: codeTextSelector, label: "Mobile", placeholder: "Input your mobile number")
-        
+
         let dateDrawerTextSelector = DateTextSelector(presentationStyle: .drawer)
         let dateDrawerField = SelectInputField(selector: dateDrawerTextSelector, label: "Date (Drawer)", placeholder: "Pick a date", image: Icons.calendar)
-        
+
         let datePopoverTextSelector = DateTextSelector(presentationStyle: .popover)
         let datePopoverField = SelectInputField(selector: datePopoverTextSelector, label: "Date (Popover)", placeholder: "Pick a date", image: Icons.calendar)
-                
-        let yearTextSelector = MenuTextSelector((1999...2050).map { String($0) })
+
+        let yearTextSelector = MenuTextSelector((1999 ... 2050).map { String($0) })
         let yearField = SelectInputField(selector: yearTextSelector, label: "Year", placeholder: "Pick a year", image: Icons.dropdown)
         yearField.text = "2024"
 
         let addresssField = InputField(label: "Address", placeholder: "Input your address")
         addresssField.text = "中国福建省福州市鼓楼区"
-        
+
         let lengthLimitField = InputField(label: "7-digit code", placeholder: "Allow up to 7 characters in length")
         lengthLimitField.maximumTextLength = 7
-     
+
         let descriptionField = MultilineInputField(label: "Description", placeholder: "Input description")
-      
+
         let lengthLimitMulilineField = MultilineInputField(label: "100 characters", placeholder: "Allow up to 100 characters")
         lengthLimitMulilineField.shouldDisplayTextLengthLimitPrompt = true
         lengthLimitMulilineField.maximumTextLength = 100
-        
+
         let messageField = MessageInputField(label: "Comment", placeholder: "Write a comment...")
 
         let customField = CustomField()
         customField.label = "Custom Field"
         customField.contentInset = .directional(uniformValue: .XUI.spacing4)
-        
+
         fields.append(largeSearchField)
         fields.append(searchField)
         fields.append(nameField)
@@ -101,7 +100,7 @@ class InputFieldDemoController: DemoController {
         fields.append(lengthLimitMulilineField)
         fields.append(messageField)
         fields.append(customField)
-        
+
         addRow(createLabelAndSwitchRow(labelText: "Validation Enabled", switchAction: { [weak self] isOn in
             self?.isValidationEnabled = isOn
         }))
@@ -114,21 +113,20 @@ class InputFieldDemoController: DemoController {
             }
         }))
 
-        fields.forEach { field in
+        for field in fields {
             if let field = field as? InputField {
                 field.addTarget(self, action: #selector(Self.textChanged(sender:)), for: .editingChanged)
             }
             addRow(field, alignment: .fill)
-        }        
-            
+        }
     }
-    
+
     @objc private func textChanged(sender: InputField) {
         print(sender.text ?? "")
-                
+
         updateValidationState(for: sender)
     }
-    
+
     private func updateValidationState(for field: Field) {
         if isValidationEnabled {
             if let field = field as? InputField {
@@ -153,12 +151,9 @@ extension InputFieldDemoController: Editable {
         largeSearchField
     }
 }
-    
 
 class CustomField: Field {
-
     override func makeContentView() -> UIView {
         ToastView(style: .note, message: "This is a custom field")
     }
-    
 }

@@ -7,34 +7,33 @@
 //
 
 import UIKit
-import XUI
 import XKit
+import XUI
 
 class CoachmarkDemoController: DemoController {
-    
     let titleView = UILabel(text: "Coachmark", textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center)
-    
+
     let avatarView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     let nameLabel = UILabel(text: "Xueqooy", textColor: Colors.title, font: Fonts.h6, textAlignment: .center)
-    
+
     let descriptionField = MultilineInputField(label: "Description", placeholder: "Input description")
-    
+
     let coachmarkController = CoachmarkController()
-    
+
     private lazy var myTabBarController = MyTabBarController()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.titleView = titleView
-        
+
         coachmarkController.dataSource = self
-        
+
         addRow(avatarView)
         addRow(nameLabel)
         addRow(descriptionField, alignment: .fill)
@@ -44,15 +43,15 @@ class CoachmarkDemoController: DemoController {
             }
             self.coachmarkController.start()
         }))
-        
+
         avatarView.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 80, height: 80))
         }
     }
-    
+
     private func showCoachmark(for viewOrBarItemOrNil: Any?, index: Int, instruction: String, cornerStyle: CornerStyle = .fixed(.XUI.smallCornerRadius), insets: UIEdgeInsets = .init(uniformValue: -10), delay: TimeInterval = 0, completionHandler: @escaping (Coachmark?) -> Void) {
-        let contentView = CoachmarkGenericContentView(currentStep: index, totalSteps: 7, instruction: instruction, controller: self.coachmarkController)
-        
+        let contentView = CoachmarkGenericContentView(currentStep: index, totalSteps: 7, instruction: instruction, controller: coachmarkController)
+
         let rect: CGRect
         if let anchorView = viewOrBarItemOrNil as? UIView {
             rect = coachmarkController.coachmarkRect(for: anchorView, insets: insets)
@@ -63,9 +62,9 @@ class CoachmarkDemoController: DemoController {
         } else {
             rect = .zero
         }
-        
+
         let coachmark = Coachmark(rect: rect, cutoutCornerStyle: cornerStyle, contentView: contentView)
-        
+
         if delay == 0 {
             completionHandler(coachmark)
         } else {
@@ -77,7 +76,7 @@ class CoachmarkDemoController: DemoController {
 }
 
 extension CoachmarkDemoController: CoachmarkControllerDataSource {
-    func coachmarkController(_ controller: CoachmarkController, requestCoachmarkAt index: Int, completionHandler: @escaping (Coachmark?) -> Void) {
+    func coachmarkController(_: CoachmarkController, requestCoachmarkAt index: Int, completionHandler: @escaping (Coachmark?) -> Void) {
         switch index {
         case 0:
             showCoachmark(for: titleView, index: index, instruction: "Create walkthroughs and guided coach marks in a simple way.", completionHandler: completionHandler)
@@ -88,53 +87,48 @@ extension CoachmarkDemoController: CoachmarkControllerDataSource {
         case 3:
             showCoachmark(for: descriptionField, index: index, instruction: "You can enter any description about yourself, such as interests and hobbies", completionHandler: completionHandler)
         case 4:
-            if let _ = self.myTabBarController.navigationController {
-                self.showCoachmark(for: self.myTabBarController.tabBarItems.first, index: index, instruction: "Show your location here", insets: .init(top: -10, left: 30, bottom: -10, right: 30), completionHandler: completionHandler)
+            if let _ = myTabBarController.navigationController {
+                showCoachmark(for: myTabBarController.tabBarItems.first, index: index, instruction: "Show your location here", insets: .init(top: -10, left: 30, bottom: -10, right: 30), completionHandler: completionHandler)
             } else {
                 let navigationController = UINavigationController(rootViewController: myTabBarController)
                 present(navigationController, animated: true) {
                     self.showCoachmark(for: self.myTabBarController.tabBarItems.first, index: index, instruction: "Show your location here", insets: .init(top: -10, left: 30, bottom: -10, right: 30), completionHandler: completionHandler)
                 }
             }
-           
         case 5:
-            self.showCoachmark(for: self.myTabBarController.tabBarItems[1], index: index, instruction: "Show today's weather situation here", insets: .init(top: -10, left: 30, bottom: -10, right: 30), completionHandler: completionHandler)
+            showCoachmark(for: myTabBarController.tabBarItems[1], index: index, instruction: "Show today's weather situation here", insets: .init(top: -10, left: 30, bottom: -10, right: 30), completionHandler: completionHandler)
         case 6:
-            self.showCoachmark(for: self.myTabBarController.closeItem, index: index, instruction: "Click the close button to close", insets: .init(top: 0, left: -8, bottom: 0, right: 0), completionHandler: completionHandler)
+            showCoachmark(for: myTabBarController.closeItem, index: index, instruction: "Click the close button to close", insets: .init(top: 0, left: -8, bottom: 0, right: 0), completionHandler: completionHandler)
         default:
             completionHandler(nil)
-            break
         }
     }
 }
 
-
 private class MyTabBarController: UITabBarController {
     lazy var closeItem: UIBarButtonItem = .init(title: "Close", style: .plain, target: self, action: #selector(closeAction))
-    
-    let tabBarItems: [UITabBarItem] = {
-        [
-            .init(title: "Location", image: UIImage(systemName: "map.fill"), tag: 0),
-            .init(title: "Weather", image: UIImage(systemName: "sun.min.fill"), tag: 1)
-        ]
-    }()
-    
+
+    let tabBarItems: [UITabBarItem] = [
+        .init(title: "Location", image: UIImage(systemName: "map.fill"), tag: 0),
+        .init(title: "Weather", image: UIImage(systemName: "sun.min.fill"), tag: 1),
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
-        
+
         let locationViewControlelr = UIViewController()
         locationViewControlelr.tabBarItem = tabBarItems[0]
-        
+
         let weatherViewController = UIViewController()
         weatherViewController.tabBarItem = tabBarItems[1]
-        
+
         setViewControllers([locationViewControlelr, weatherViewController], animated: false)
-                
+
         navigationItem.rightBarButtonItem = closeItem
     }
-    
+
     @objc func closeAction() {
         navigationController?.dismiss(animated: true)
     }

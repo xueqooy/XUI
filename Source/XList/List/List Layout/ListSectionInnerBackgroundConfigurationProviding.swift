@@ -17,6 +17,6 @@ public protocol ListSectionInnerBackgroundConfigurationProviding {
 
 public extension ListSectionInnerBackgroundConfigurationProviding {
     var sectionInnerBackgroundItems: Set<Int>? { nil }
-    func sectionInnerBackgroundConfiguration(for range: Range<Int>) -> BackgroundConfiguration? { nil }
-    func sectionInnerBackgroundInset(for range: Range<Int>) -> Insets { .nondirectionalZero }
+    func sectionInnerBackgroundConfiguration(for _: Range<Int>) -> BackgroundConfiguration? { nil }
+    func sectionInnerBackgroundInset(for _: Range<Int>) -> Insets { .nondirectionalZero }
 }

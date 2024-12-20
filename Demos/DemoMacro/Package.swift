@@ -1,8 +1,8 @@
 // swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import PackageDescription
 import CompilerPluginSupport
+import PackageDescription
 
 let package = Package(
     name: "DemoMacro",
@@ -12,7 +12,7 @@ let package = Package(
         .library(
             name: "DemoMacro",
             targets: ["DemoMacro"]
-        )
+        ),
     ],
     dependencies: [
         // Depend on the Swift 5.9 release of SwiftSyntax
@@ -26,7 +26,7 @@ let package = Package(
             name: "Macros",
             dependencies: [
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ]
         ),
 

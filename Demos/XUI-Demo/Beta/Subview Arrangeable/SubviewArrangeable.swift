@@ -8,9 +8,8 @@
 import UIKit
 
 public protocol SubviewArrangeable: UIView {
-    
     var arrangedSubviews: [UIView] { get }
-    
+
     func setArrangedSubviews(_ views: [UIView])
     func addArrangedSubview(_ view: UIView)
     func removeArrangedSubview(_ view: UIView)
@@ -20,7 +19,7 @@ public protocol SubviewArrangeable: UIView {
 extension UIStackView: SubviewArrangeable {
     public func setArrangedSubviews(_ views: [UIView]) {
         removeAllSubviews()
-        
+
         for subview in views {
             addArrangedSubview(subview)
         }

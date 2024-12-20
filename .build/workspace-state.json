@@ -1,0 +1,61 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "iglistkit",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/Instagram/IGListKit",
+          "name" : "IGListKit"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "baf38ea4d438ef3cc6c6deb8615e1910e03f02bb",
+            "version" : "5.0.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "IGListKit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "snapkit",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/SnapKit/SnapKit.git",
+          "name" : "SnapKit"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+            "version" : "5.7.1"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "SnapKit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "xkit",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/xueqooy/XKit",
+          "name" : "XKit"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "34573d34ab80306b5a4f219d0ae2ed14e37a9a62",
+            "version" : "1.0.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "XKit"
+      }
+    ]
+  },
+  "version" : 6
+}

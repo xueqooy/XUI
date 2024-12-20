@@ -6,21 +6,21 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
+import UIKit
 import XUI
 
 class TooltipDemoController: DemoController {
-    
     private enum ContentType: String, CaseIterable {
         case normal = "Normal"
         case link = "Link"
         case taggedLink = "Tagged Link"
     }
-    
+
     private var contentType: ContentType = .normal
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let items: [SegmentControl.Item] = ContentType.allCases.map { type in
             .text(type.rawValue)
         }
@@ -39,19 +39,18 @@ class TooltipDemoController: DemoController {
             }
         }
         addRow(segmentControl)
-                
-        [(Direction.down, "Down tooltip", RowAlignment.center), (Direction.up, "Up tooltip", RowAlignment.center), (Direction.fromLeading, "From Leading tooltip", RowAlignment.leading), (Direction.fromTrailing, "From Trailing tooltip", RowAlignment.trailing)]
-            .forEach { directionAndTitleAndDirection in
-                addRow(createButton(title: directionAndTitleAndDirection.1) { [weak self] button in
-                    guard let self = self else {
-                        return
-                    }
-                    
-                    self.presentTooltip(from: button, preferredDirection: directionAndTitleAndDirection.0)
-                }, alignment: directionAndTitleAndDirection.2)
-            }
+
+        for directionAndTitleAndDirection in [(Direction.down, "Down tooltip", RowAlignment.center), (Direction.up, "Up tooltip", RowAlignment.center), (Direction.fromLeading, "From Leading tooltip", RowAlignment.leading), (Direction.fromTrailing, "From Trailing tooltip", RowAlignment.trailing)] {
+            addRow(createButton(title: directionAndTitleAndDirection.1) { [weak self] button in
+                guard let self = self else {
+                    return
+                }
+
+                self.presentTooltip(from: button, preferredDirection: directionAndTitleAndDirection.0)
+            }, alignment: directionAndTitleAndDirection.2)
+        }
     }
-    
+
     let tooltip = Tooltip()
 
     private func presentTooltip(from anchorView: UIView, preferredDirection: Direction = .down) {
@@ -64,10 +63,9 @@ class TooltipDemoController: DemoController {
                 self?.showMessage(link)
             }
         case .taggedLink:
-            tooltip.show("This a tooltip with ##tagged link## message", linkTags: ["##"], from: anchorView) { [weak self] (link, tag) in
+            tooltip.show("This a tooltip with ##tagged link## message", linkTags: ["##"], from: anchorView) { [weak self] link, tag in
                 self?.showMessage("\(link), tag: \(tag)")
             }
         }
-        
     }
 }

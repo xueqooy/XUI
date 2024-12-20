@@ -13,9 +13,7 @@ public func DMAction(title: String, identifier: String? = nil, state: DropdownMe
 }
 
 public extension DropdownMenu {
-    
     convenience init(preference: Preference = .init(), @ArrayBuilder<Action> actions: () -> [Action]) {
         self.init(preference: preference, actions: actions())
     }
 }
-
