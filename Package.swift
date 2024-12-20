@@ -48,10 +48,7 @@ let package = Package(
         ),
         .target(
             name: "_XUILoader",
-            path: "Source/_XUILoader",
-            linkerSettings: [
-                .linkedFramework("UIKit")
-            ]
+            path: "Source/_XUILoader"
         ),
     ],
     swiftLanguageVersions: [.v5],

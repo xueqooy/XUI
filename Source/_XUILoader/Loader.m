@@ -7,7 +7,7 @@
 
 #import "Loader.h"
 #import <objc/runtime.h>
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @implementation Loader
 
