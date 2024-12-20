@@ -7,7 +7,6 @@
 
 #import "Loader.h"
 #import <objc/runtime.h>
-@import UIKit;
 
 @implementation Loader
 
@@ -26,7 +25,7 @@
     SEL sel = @selector(XUI_load_uiviewController_viewstate);
     #pragma clang diagnostic pop
     
-    Class cls = UIViewController.class;
+    Class cls = NSClassFromString(@"UIViewController");
     Method method = class_getClassMethod(cls, sel);
     if (method != NULL) {
         IMP imp = method_getImplementation(method);
@@ -41,7 +40,7 @@
     SEL sel = @selector(XUI_load_uiviewController_viewsizetransition);
     #pragma clang diagnostic pop
     
-    Class cls = UIViewController.class;
+    Class cls = NSClassFromString(@"UIViewController");
     Method method = class_getClassMethod(cls, sel);
     if (method != NULL) {
         IMP imp = method_getImplementation(method);
@@ -57,7 +56,7 @@
     SEL sel = @selector(XUI_load_uicontrol_selectable);
     #pragma clang diagnostic pop
 
-    Class cls = UIControl.class;
+    Class cls = NSClassFromString(@"UIControl");
     Method method = class_getClassMethod(cls, sel);
     if (method != NULL) {
         IMP imp = method_getImplementation(method);
@@ -72,7 +71,7 @@
     SEL sel = @selector(XUI_load_uibaritem_viewhook);
     #pragma clang diagnostic pop
 
-    Class cls = UIBarItem.class;
+    Class cls = NSClassFromString(@"UIBarItem");
     Method method = class_getClassMethod(cls, sel);
     if (method != NULL) {
         IMP imp = method_getImplementation(method);
@@ -87,7 +86,7 @@
     SEL sel = @selector(XUI_load_uiview_safeareainsetspublisher);
     #pragma clang diagnostic pop
 
-    Class cls = UIView.class;
+    Class cls = NSClassFromString(@"UIView");
     Method method = class_getClassMethod(cls, sel);
     if (method != NULL) {
         IMP imp = method_getImplementation(method);
