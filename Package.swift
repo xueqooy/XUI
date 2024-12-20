@@ -49,9 +49,8 @@ let package = Package(
         .target(
             name: "_XUILoader",
             path: "Source/_XUILoader",
-            cSettings: [
-                .headerSearchPath("Source/_XUILoader"),
-                .define("SWIFT_PACKAGE")
+            linkerSettings: [
+                .linkedLibrary("UIKit")
             ]
         ),
     ],
