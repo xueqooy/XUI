@@ -48,9 +48,12 @@ let package = Package(
         ),
         .target(
             name: "_XUILoader",
-            path: "Source/_XUILoader"
+            path: "Source/_XUILoader",
+            cSettings: [
+                .headerSearchPath("Source/_XUILoader"),
+                .define("SWIFT_PACKAGE")
+            ]
         ),
     ],
-    swiftLanguageVersions: [.v5],
-    cLanguageStandard: .c11
+    swiftLanguageVersions: [.v5]
 )
