@@ -49,10 +49,11 @@ let package = Package(
         .target(
             name: "_XUILoader",
             path: "Source/_XUILoader",
-            linkerSettings: [
-                .linkedLibrary("UIKit")
+            cSettings: [
+                .headerSearchPath("Source/_XUILoader"),
+                .define("ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", to: "YES")
             ]
-        ),
+        )
     ],
     swiftLanguageVersions: [.v5]
 )
