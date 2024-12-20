@@ -16,6 +16,10 @@ let package = Package(
             name: "XList",
             targets: ["XList"]
         ),
+        .library(
+            name: "_XUILoader",
+            targets: ["_XUILoader"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit.git", from: "5.7.0"),
@@ -44,7 +48,10 @@ let package = Package(
         ),
         .target(
             name: "_XUILoader",
-            path: "Source/_XUILoader"
+            path: "Source/_XUILoader",
+            linkerSettings: [
+                .linkedFramework("UIKit")
+            ]
         ),
     ],
     swiftLanguageVersions: [.v5],
