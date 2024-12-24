@@ -30,7 +30,7 @@ class SketchDemoController: DemoController {
 
     var brushColorWell: UIView?
 
-    private lazy var sketchViewItem = FormRow(sketchView, height: 400, alignment: .fill)
+    private lazy var sketchViewItem = FormRow(sketchView, heightMode: .fixed(400), alignment: .fill)
 
     private var ob: Any?
 
@@ -218,11 +218,11 @@ class SketchDemoController: DemoController {
 
     func updateForm() {
         if Device.current.orientation == .landscape {
-            sketchViewItem.height = view.bounds.height - formView.contentInset.vertical - view.safeAreaInsets.vertical
+            sketchViewItem.heightMode = .fixed(view.bounds.height - formView.contentInset.vertical - view.safeAreaInsets.vertical)
             formView.scrollingContainer.makeSubviewVisible(sketchView)
             formView.scrollingContainer.isScrollEnabled = false
         } else {
-            sketchViewItem.height = view.bounds.width - formView.contentInset.horizontal
+            sketchViewItem.heightMode = .fixed(view.bounds.width - formView.contentInset.horizontal)
             formView.scrollingContainer.isScrollEnabled = true
         }
     }

@@ -78,7 +78,7 @@ public class ActionSheet {
                                 }
                             }
                         ).then { $0.contentHorizontalAlignment = .leading },
-                        height: 44,
+                        heightMode: .fixed(44),
                         alignment: .fill
                     )
 
@@ -98,7 +98,7 @@ public class ActionSheet {
                         .settingCustomSpacingAfter(.XUI.spacing7)
 
                 case let .customView(view, height, alignment, insets):
-                    FormRow(view, height: height, alignment: alignment, insets: insets)
+                    FormRow(view, heightMode: height != nil ? .fixed(height!) : .automatic, alignment: alignment, insets: insets)
                 }
             }
         }

@@ -158,7 +158,7 @@ class DemoController: UIViewController {
 
     @discardableResult
     func addRow(_ view: UIView, height: CGFloat? = nil, alignment: RowAlignment = .center) -> FormRow {
-        let row = FormRow(view, height: height, alignment: alignment)
+        let row = FormRow(view, heightMode: height != nil ? .fixed(height!) : .automatic, alignment: alignment)
         formView.addItem(row)
         return row
     }

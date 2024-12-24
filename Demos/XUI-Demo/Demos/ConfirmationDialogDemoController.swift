@@ -59,11 +59,11 @@ class ConfirmationDialogDemoController: DemoController {
         let nameSubject = CurrentValueSubject<String, Never>("")
         let descSubject = CurrentValueSubject<String, Never>("")
 
-        let buttonEnabler = nameSubject
-            .map {
-                !$0.isEmpty
-            }
-            .eraseToAnyPublisher()
+//        let buttonEnabler = nameSubject
+//            .map {
+//                !$0.isEmpty
+//            }
+//            .eraseToAnyPublisher()
 
         nameSubject
             .merge(with: descSubject)

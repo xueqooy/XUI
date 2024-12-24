@@ -240,13 +240,13 @@ public class ConfirmationDialog {
                             createButton(for: element, popupController: popupController, cancellables: &cancellables),
                             layoutMargins: .init(top: 0, left: .XUI.spacing5, bottom: 0, right: .XUI.spacing5)
                         ),
-                        height: 48,
+                        heightMode: .fixed(48),
                         alignment: .fill
                     )
                     .settingCustomSpacingAfter(.XUI.spacing3)
 
                 case let .customView(view, height, alignment, insets):
-                    FormRow(view, height: height, alignment: alignment, insets: insets)
+                    FormRow(view, heightMode: height != nil ? .fixed(height!) : .automatic, alignment: alignment, insets: insets)
                         .settingCustomSpacingAfter(.XUI.spacing5)
 
                 default:
@@ -268,7 +268,7 @@ public class ConfirmationDialog {
 
     private func addButtonsVertically(for formView: FormView, popupController: PopupController, cancellables: inout Set<AnyCancellable>) {
         formView.populate(keepPreviousItems: true) {
-            FormRow(spacing: .XUI.spacing4, height: 48, distribution: .fillEqually) {
+            FormRow(spacing: .XUI.spacing4, heightMode: .fixed(48), distribution: .fillEqually) {
                 for buttonElement in buttonElements {
                     createButton(for: buttonElement, popupController: popupController, cancellables: &cancellables)
                 }

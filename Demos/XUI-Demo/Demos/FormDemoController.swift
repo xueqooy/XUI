@@ -27,9 +27,9 @@ class FormDemoController: DemoController {
         let heightAdjustRow = createLableAndInputFieldAndButtonRow(labelText: "Form Height", keyboardType: .numberPad, buttonTitle: "Confirm") { text in
             UIView.animate(withDuration: 0.3) {
                 if let height = NumberFormatter().number(from: text)?.floatValue, height > 0 {
-                    embeddedFormRowItem.height = CGFloat(height)
+                    embeddedFormRowItem.heightMode = .fixed(CGFloat(height))
                 } else {
-                    embeddedFormRowItem.height = nil
+                    embeddedFormRowItem.heightMode = .automatic
                 }
                 self.view.layoutIfNeeded()
             }

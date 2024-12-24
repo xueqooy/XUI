@@ -28,6 +28,12 @@ public class FormRow: FormItem {
     public enum Distribution: Int {
         case fill, fillEqually, fillProportionally, equalSpacing, equalCentering
     }
+    
+    public enum HeightMode: Equatable {
+        case automatic // based on intrinsic content height
+        case fixed(CGFloat)
+        case aspectRatio(CGFloat)
+    }
 
     private enum Style {
         case singleView(UIView, insets: UIEdgeInsets?)
@@ -35,9 +41,9 @@ public class FormRow: FormItem {
     }
 
     private let style: Style
-
+    
     @EquatableState
-    public var height: CGFloat? {
+    public var heightMode: HeightMode {
         didSet {
             (loadedView as? FormRowView)?.height = height
         }
@@ -50,25 +56,24 @@ public class FormRow: FormItem {
         }
     }
 
-    public init(_ view: UIView, height: CGFloat? = nil, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets? = nil) {
+    public init(_ view: UIView, heightMode: HeightMode = .automatic, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets? = nil) {
         style = .singleView(view, insets: insets)
-        self.height = height
+        self.heightMode = heightMode
         self.alignment = alignment
 
         super.init()
     }
-
-    public init(_ views: [UIView], spacing: CGFloat = Constants.defaultSpacing, height: CGFloat? = nil, distribution: Distribution = Constants.defaultDistribution, verticalAlignment: VerticalAlignment = Constants.defaultVerticalAlignment, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets? = nil) {
+    
+    public init(_ views: [UIView], spacing: CGFloat = Constants.defaultSpacing, heightMode: HeightMode = .automatic, distribution: Distribution = Constants.defaultDistribution, verticalAlignment: VerticalAlignment = Constants.defaultVerticalAlignment, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets? = nil) {
         style = .multipleViews(views, spacing: spacing, distribution: distribution, verticalAlignment: verticalAlignment, insets: insets)
-        self.height = height
+        self.heightMode = heightMode
         self.alignment = alignment
 
         super.init()
     }
-
-    /// DSL initializer for multiple views
-    public convenience init(spacing: CGFloat = Constants.defaultSpacing, height: CGFloat? = nil, distribution: Distribution = Constants.defaultDistribution, verticalAlignment: VerticalAlignment = Constants.defaultVerticalAlignment, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets = .zero, @ArrayBuilder<UIView> views: () -> [UIView]) {
-        self.init(views(), spacing: spacing, height: height, distribution: distribution, verticalAlignment: verticalAlignment, alignment: alignment, insets: insets)
+    
+    public convenience init(spacing: CGFloat = Constants.defaultSpacing, heightMode: HeightMode = .automatic, distribution: Distribution = Constants.defaultDistribution, verticalAlignment: VerticalAlignment = Constants.defaultVerticalAlignment, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets = .zero, @ArrayBuilder<UIView> views: () -> [UIView]) {
+        self.init(views(), spacing: spacing, heightMode: heightMode, distribution: distribution, verticalAlignment: verticalAlignment, alignment: alignment, insets: insets)
     }
 
     /// Get a certain view that force casting to the type
@@ -86,10 +91,10 @@ public class FormRow: FormItem {
         switch style {
         case let .singleView(view, insets):
             if let insets {
-                return FormRowView(WrapperView(view, layoutMargins: insets), height: height, alignment: alignment)
+                return FormRowView(WrapperView(view, layoutMargins: insets), heightMode: heightMode, alignment: alignment)
 
             } else {
-                return FormRowView(view, height: height, alignment: alignment)
+                return FormRowView(view, heightMode: heightMode, alignment: alignment)
             }
 
         case let .multipleViews(views, spacing, distribution, verticalAlignment, insets):
@@ -112,21 +117,54 @@ public class FormRow: FormItem {
             return FormRowView(hStack, height: height, alignment: alignment)
         }
     }
+    
+    // MARK: - Deprecated
+    
+    @available(*, deprecated, message: "Use heightMode instead")
+    @EquatableState
+    public var height: CGFloat? {
+        didSet {
+            (loadedView as? FormRowView)?.height = height
+        }
+    }
+    
+    @available(*, deprecated, message: "Use heightMode instead")
+    public init(_ view: UIView, height: CGFloat?, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets? = nil) {
+        style = .singleView(view, insets: insets)
+        self.heightMode = height != nil ? .fixed(height!) : .automatic
+        self.alignment = alignment
+
+        super.init()
+    }
+    
+    @available(*, deprecated, message: "Use heightMode instead")
+    public init(_ views: [UIView], spacing: CGFloat = Constants.defaultSpacing, height: CGFloat?, distribution: Distribution = Constants.defaultDistribution, verticalAlignment: VerticalAlignment = Constants.defaultVerticalAlignment, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets? = nil) {
+        style = .multipleViews(views, spacing: spacing, distribution: distribution, verticalAlignment: verticalAlignment, insets: insets)
+        self.heightMode = height != nil ? .fixed(height!) : .automatic
+        self.alignment = alignment
+
+        super.init()
+    }
+    
+    @available(*, deprecated, message: "Use heightMode instead")
+    public convenience init(spacing: CGFloat = Constants.defaultSpacing, height: CGFloat?, distribution: Distribution = Constants.defaultDistribution, verticalAlignment: VerticalAlignment = Constants.defaultVerticalAlignment, alignment: Alignment = Constants.defaultAlignment, insets: UIEdgeInsets = .zero, @ArrayBuilder<UIView> views: () -> [UIView]) {
+        self.init(views(), spacing: spacing, height: height, distribution: distribution, verticalAlignment: verticalAlignment, alignment: alignment, insets: insets)
+    }
 }
 
 class FormRowView: UIView {
     weak var view: UIView?
 
-    var height: CGFloat? {
+    var heightMode: FormRow.HeightMode {
         didSet {
-            if height == oldValue {
+            if heightMode == oldValue {
                 return
             }
 
             updateViewConstrants()
         }
     }
-
+    
     var alignment: FormRow.Alignment {
         didSet {
             if alignment == oldValue {
@@ -136,9 +174,9 @@ class FormRowView: UIView {
             updateViewConstrants()
         }
     }
-
-    init(_ view: UIView, height: CGFloat?, alignment: FormRow.Alignment) {
-        self.height = height
+    
+    init(_ view: UIView, heightMode: FormRow.HeightMode, alignment: FormRow.Alignment) {
+        self.heightMode = heightMode
         self.alignment = alignment
 
         super.init(frame: .zero)
@@ -154,9 +192,16 @@ class FormRowView: UIView {
             return
         }
         view.snp.remakeConstraints { make in
-            if let height = height {
+            switch heightMode {
+            case .automatic:
+                break
+            case .fixed(let height):
                 make.height.equalTo(height)
+            case .aspectRatio(let ratio):
+                make.height.equalTo(view.snp.width).multipliedBy(ratio)
             }
+
+            
             make.top.bottom.equalToSuperview()
             switch alignment {
             case .fill:
@@ -180,5 +225,31 @@ class FormRowView: UIView {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: - Deprecated
+    @available(*, deprecated, message: "Use heightMode instead")
+    var height: CGFloat? {
+        didSet {
+            if height == oldValue {
+                return
+            }
+
+            heightMode = height != nil ? .fixed(height!) : .automatic
+        }
+    }
+    
+    @available(*, deprecated, message: "Use heightMode instead")
+    init(_ view: UIView, height: CGFloat?, alignment: FormRow.Alignment) {
+        self.heightMode = height != nil ? .fixed(height!) : .automatic
+        self.alignment = alignment
+
+        super.init(frame: .zero)
+
+        self.view = view
+
+        addSubview(view)
+        updateViewConstrants()
     }
 }

@@ -82,8 +82,8 @@ class EmptyDemoController: DemoController {
     @objc private func sliderValueChanged(_ sender: UISlider) {
         let value = sender.value
 
-        emptyViewRow.height = CGFloat(value)
-        emptyViewWithDetailTextRow.height = CGFloat(value)
-        embbededFormRow.height = CGFloat(value)
+        emptyViewRow.heightMode = .fixed(CGFloat(value))
+        emptyViewWithDetailTextRow.heightMode = .fixed(CGFloat(value))
+        embbededFormRow.heightMode = .fixed(CGFloat(value))
     }
 }

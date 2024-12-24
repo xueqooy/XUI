@@ -160,7 +160,7 @@ private class HeaderView: UIView, NestedScrollingHeader {
             guard let self = self else {
                 return
             }
-            var bounceTarget = NestedBounceTarget.allCases[control.selectedSegmentIndex]
+            let bounceTarget = NestedBounceTarget.allCases[control.selectedSegmentIndex]
             self.bounceTargetChanged?(bounceTarget)
         }
 

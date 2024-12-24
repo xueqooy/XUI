@@ -53,7 +53,7 @@ class PopupDemoController: DemoController {
         let iconImageView = UIImageView(image: .init(named: "rubbish"))
         iconImageView.contentMode = .scaleAspectFit
 
-        let titleLabel = UILabel(text: "Are you sure", textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center)
+//        let titleLabel = UILabel(text: "Are you sure", textColor: Colors.title, font: Fonts.body1Bold, textAlignment: .center)
 
         let messageLabel = UILabel(text: "Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.Deleting an item permanently removes it and its contents.", textColor: Colors.bodyText1, font: Fonts.body2, numberOfLines: 0)
 

@@ -46,10 +46,7 @@ class ButtonDemoController: DemoController {
             var configuration = ButtonConfiguration()
             configuration.title = "Button"
 
-            let button = Button(designStyle: style, title: "Button") { [weak self] _ in
-//                self?.showMessage("\(style.description) button has Tapped.")
-//                button.configuration.showsActivityIndicator.toggle()
-            }
+            let button = Button(designStyle: style, title: "Button") 
 
             let disabledButton = Button(configuration: configuration, configurationTransformer: DesignedButtonConfigurationTransformer(style: style))
             disabledButton.isEnabled = false

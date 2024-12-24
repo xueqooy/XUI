@@ -192,7 +192,7 @@ private class HeaderView: UIView, NestedScrollingHeader {
             FormRow(canRefreshSwitch)
             FormRow(canLoadMoreSwitch)
             FormRow(reorderGestureEnabledSwitch)
-            FormRow([refreshButton, loadMoreButton], spacing: 20, height: 29, distribution: .fillEqually)
+            FormRow([refreshButton, loadMoreButton], spacing: 20, heightMode: .fixed(29), distribution: .fillEqually)
         }
     }
 
