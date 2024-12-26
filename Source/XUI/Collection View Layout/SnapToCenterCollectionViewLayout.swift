@@ -1,6 +1,6 @@
 //
 //  SnapToCenterCollectionViewLayout.swift
-//  Pods
+//  XUI
 //
 //  Created by xueqooy on 2023/8/21.
 //

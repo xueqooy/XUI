@@ -1,6 +1,6 @@
 //
 //  SegmentedPageViewModel.swift
-//  Pods
+//  XUI
 //
 //  Created by xueqooy on 2024/11/20.
 //
