@@ -347,7 +347,7 @@ extension SegmentControl.Style {
         case .tab:
             return Fonts.body4Bold
         case .toggle:
-            return Fonts.body1
+            return Fonts.body4Bold
         }
     }
 
@@ -369,7 +369,7 @@ extension SegmentControl.Style {
         case .tab:
             return .init(top: 12, left: 14, bottom: 12, right: 14)
         case .toggle:
-            return .init(top: 9.5, left: 25, bottom: 9.5, right: 25)
+            return .init(top: 10.75, left: 25, bottom: 10.75, right: 25)
         }
     }
 
